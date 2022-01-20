@@ -22,7 +22,7 @@ camgui.add(tGroup, 'visible').name('tGroup')
 }
 
 
-},20000)
+},5000)
 
 
 

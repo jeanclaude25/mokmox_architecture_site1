@@ -16,13 +16,17 @@ scene.add(camera)
 
 
 /**FOR DEBUG */
-if(window.location.href.includes(config.debug.commandLine))
-{ const gui = require('./a_gui')
+if(window.location.href.includes(config.debug.commandLine)){
+
 /**
  * gui.gui
  */
-const camgui = gui.gui.addFolder('Camera Position')
-camgui.add(camera.position, 'x').min(-150).max(150).step(0.001)
-camgui.add(camera.position, 'y').min(-150).max(150).step(0.001)
-camgui.add(camera.position, 'z').min(-150).max(150).step(0.001)
+const camgui = require('./a_gui').camgui
+camgui.add(camera, 'fov').min(1).max(180).step(1)
+
+const posCamGui = camgui.addFolder('position')
+posCamGui.add(camera.position, 'x').min(-150).max(150).step(0.001)
+posCamGui.add(camera.position, 'y').min(-150).max(150).step(0.001)
+posCamGui.add(camera.position, 'z').min(-150).max(150).step(0.001)
+
 }

@@ -1,4 +1,6 @@
+import * as THREE from 'three'
 import { config } from "./a_config";
+import { canvas, container } from "./c_scene";
 import { renderer } from "./d_renderer";
 import { camera } from "./e_camera";
 
@@ -12,8 +14,8 @@ import { camera } from "./e_camera";
 
     export const events = () => {
         console.log("je suis dans les events")
-        window.addEventListener('resize', onWindowResize, false);
-        canvas.addEventListener('mousemove', onDocumentMouseMove, false);
+        // window.addEventListener('resize', onWindowResize, false);
+        // canvas.addEventListener('mousemove', onDocumentMouseMove, false); // old raycaster
 
         window.addEventListener('resize', () =>
         {

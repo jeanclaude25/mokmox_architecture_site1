@@ -7,6 +7,7 @@ import {  tweenTriangle, callNextFunction } from './m_tween'
 import * as TWEEN from '@tweenjs/tween.js'
 import { tList, t5, t1, outlines } from './l_objects'
 import './n_group_debug'
+import { events } from './k_events'
 
 
 window.onload = () => {
@@ -86,14 +87,6 @@ window.onload = () => {
         }
 
         otherGroup.rotation.z = Math.PI / 4
-
-
-       
-
-
-        
-
-        
 
         
         let group, group2;
@@ -282,6 +275,7 @@ window.onload = () => {
         
         render();
         callNextFunction()
+        events()
     }, 100);
 
 
