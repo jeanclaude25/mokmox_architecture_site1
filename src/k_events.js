@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { config } from "./a_config";
-import { canvas, container } from "./c_scene";
+import { canvas, container, refreshSizes } from "./c_scene";
 import { renderer } from "./d_renderer";
 import { camera } from "./e_camera";
 
@@ -19,7 +19,7 @@ import { camera } from "./e_camera";
 
         window.addEventListener('resize', () =>
         {
-
+            refreshSizes()
             // const hFOV = 2 * Math.atan(Math.tan(camera.fov * Math.PI / 180 / 2) * camera.aspect) * 180 / Math.PI; // degrees
 
             

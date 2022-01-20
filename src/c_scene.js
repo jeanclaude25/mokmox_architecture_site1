@@ -7,11 +7,15 @@ export const container = document.getElementById('container')
 
 //Html canvas size
 export const sizes = {
-            width: container.clientWidth ,
-            height: container.clientHeight > 10 ? container.clientHeight : window.innerHeight
+            width: null ,
+            height: null
 }
-
-if (container.clientHeight == 1) container.style.height = window.innerHeight.toString() + 'px'
+export const refreshSizes = () => {
+    sizes.width = container.clientWidth
+    sizes.height = container.clientHeight > 10 ? container.clientHeight : window.innerHeight
+    if (container.clientHeight == 1) container.style.height = window.innerHeight.toString() + 'px'
+}
+refreshSizes()
 
 
 // Scene
