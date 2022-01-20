@@ -29,6 +29,7 @@ export const makeTriangle = (args) => {
 }
 
 export const customClone = (mesh) => {
+    console.log("I am cloning it")
     const newMaterial = mesh.material.clone()
     const newGeometry = mesh.geometry.clone()
     const newMesh = new THREE.Mesh(newGeometry, newMaterial)

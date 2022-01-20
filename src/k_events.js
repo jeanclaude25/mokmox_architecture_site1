@@ -11,6 +11,7 @@ import { camera } from "./e_camera";
     }
 
     export const events = () => {
+        console.log("je suis dans les events")
         window.addEventListener('resize', onWindowResize, false);
         canvas.addEventListener('mousemove', onDocumentMouseMove, false);
 

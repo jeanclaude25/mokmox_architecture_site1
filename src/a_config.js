@@ -14,6 +14,9 @@ export const config = {
         enableChangeColor: !false,
         defaultColor:'grey',
         hoverColor:'red'
+    },
+    debug:{
+        commandLine:'?debug'
     }
 
 }

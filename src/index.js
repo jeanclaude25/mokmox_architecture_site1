@@ -1,12 +1,12 @@
 import './style.scss'
 import * as THREE from 'three'
-import { myScene, myScene2, otherGroup, pyramidGroup, tGroup } from './c_scene'
-import { pointLight } from './h_lights'
+import { myScene, otherGroup, pyramidGroup, tGroup } from './c_scene'
+import { pointLight } from './h_lights' //keep it to load light
 import { render } from './i_draw'
 import {  tweenTriangle, callNextFunction } from './m_tween'
 import * as TWEEN from '@tweenjs/tween.js'
-import { tList, t5, t1, outlines, objPos, objRot } from './l_objects'
-
+import { tList, t5, t1, outlines } from './l_objects'
+import './n_group_debug'
 
 
 window.onload = () => {
