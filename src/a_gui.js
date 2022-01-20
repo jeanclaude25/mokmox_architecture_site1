@@ -12,3 +12,4 @@ export const gui = new dat.GUI({
 })
 
 export const camgui = gui.addFolder('Camera')
+export const scateredObjects = gui.addFolder('scateredTriangles')

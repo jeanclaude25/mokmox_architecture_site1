@@ -10,6 +10,19 @@ import { controls } from './i_controls'
 export let trianglesFloat = false
 export const scatteredTriangles = []
 
+const finalTrianglePositionMobile = {
+    x:[0.5, 3.5, 8.5, 9.5, -6.5, -3.5, -0.5, 0.5],
+    y:[6.5, 5.5, 4.5, 3.5, -1.5, -2.5, -3.5, -4.5],
+    z:0
+}
+const finalTrianglePositionDesktop = {
+    x:[10, 5, 11, 21.5, 13, 16, 19, 9.5],
+    y:[-2.5, -0.5, -4.5, -0.5, 1.5, 5.5, -0.7, 3],
+    z:0
+}
+const finalAngle = [-1.3, 0.1, -0.78, -0.78, -0.29, 0.82, 1.04, 0.9]
+const addScale = [0.2, 0.6, 0.8, 0.2, 0.5, 0.1, 0, 0.5]
+
 export const triangleAnimation = (time) => {
     if(raycastDetect.length!=9){//Add ZeroHover to the Raycast
         Array.prototype.push.apply(raycastDetect, scatteredTriangles)
@@ -64,97 +77,20 @@ const thisObjectNeedAnHoverAnim = (object) =>{
     
 }
 
-const restoreValue = () => {
-
-}
 
 export let obj3;
 export const scatterTriangles = (array) => {
     console.log(array);
     for (let i = 0; i < array.length; i++) {
         const position = array[i].position
-
-
-        let obj = { x: 0, y: 0, z: 0 }
-        if (i == 0 || i == 1 || i == 2 || i == 3) {
-            obj = { x: 2.5 + i * 3, y: i % 2 * 2 - 2.5, z: -2 }
-        } else {
-            obj = { x: 1 + i * 3, y: 2.5 + i % 2 * 2 - 0.5, z: 15 }
-        }
-
-
-
-
-
-
         const rotation = array[i].rotation
+
         let obj2 = {
             x: 0, y: 0, z: i % 2 == 0 ? Math.PI : 0,
         }
         const oldRotation = array[i].rotation
-        let angle = 0
-        let scale2 = 0.5
-        if (i == 0) {
-            scale2 = 0.2
-            angle = -5 * Math.PI / 12
-            obj.x = 10
-            obj.z += 7
-        } else if (i == 1) {
-            angle = Math.PI / 30
-            scale2 = 0.6
-            obj.x = 5
 
-        }
-        else if (i == 2) {
-            scale2 = 0.8
-            obj.x = 11
-            obj.z += 2
-            obj.y -= 2
-
-
-            angle = - Math.PI / 4
-        } else if (i == 3) {
-            obj.x = 21.5
-            obj.z += 8
-
-            scale2 = 0.2
-
-            angle = - Math.PI / 4
-        }
-        else if (i == 4) {
-            obj.z = 14.5
-            obj.y -= 0.5
-
-            scale2 = 0.5
-
-
-
-            angle = - Math.PI / 10.5
-        }
-        else if (i == 5) {
-            obj.y += 1.5
-            obj.z -= 0.5
-
-            scale2 = 0.1
-
-            angle = Math.PI / 3.8
-        }
-        else if (i == 6) {
-            obj.y -= 2.7
-            obj.z = 15
-
-            scale2 = 0
-
-            angle = Math.PI / 3
-        } else if (i == 7) {
-            angle = Math.PI / 3.5
-            obj.y -= 1
-            obj.z -= 6
-            obj.x -= 12.5
-        }
-
-
-        array[i].rotateOnWorldAxis(new THREE.Vector3(1, 0, 0.8).normalize(), angle)
+        array[i].rotateOnWorldAxis(new THREE.Vector3(1, 0, 0.8).normalize(), finalAngle[i])
         const rotationZ = new THREE.Vector3()
         rotationZ.copy(array[i].rotation)
         array[i].rotation.set(oldRotation.x, oldRotation.y, oldRotation.z)
@@ -164,31 +100,12 @@ export const scatterTriangles = (array) => {
             z: rotationZ.z + Math.PI * 2,
         }
 
-
-
-
-
-
         const scale = array[i].scale
 
         obj3 = {
-            x: array[i].scale.x + scale2,
-            y: array[i].scale.y + scale2,
-            z: array[i].scale.z + scale2,
-        }
-
-        if (isMobile()) {
-            obj = {
-                x: i - 2.5 + (i < 4 ? 7 : -6) + i * 2 - (i < 4 ? 4 : 10),
-                y: i - 2.5 + (i < 4 ? 3 : -1) - i * 2 + 6,
-                z: 0,
-            }
-            if (i == 2) {
-                obj.x += 2
-            }
-            if (i == 7) {
-                obj.x -= 2
-            }
+            x: array[i].scale.x + addScale[i],
+            y: array[i].scale.y + addScale[i],
+            z: array[i].scale.z + addScale[i],
         }
 
         new TWEEN.Tween(rotation).to(obj2, 2000).easing(TWEEN.Easing.Quartic.InOut).onComplete( () => {
@@ -203,7 +120,16 @@ export const scatterTriangles = (array) => {
             }
         }).start(mouse.logDelta)
 
-        new TWEEN.Tween(position).to(obj, 2000).easing(TWEEN.Easing.Quadratic.InOut).start(mouse.logDelta)
+        let finalPosition = {x:null,y:null,z:0}
+        if (isMobile()){
+            finalPosition.x = finalTrianglePositionMobile.x[i]
+            finalPosition.y = finalTrianglePositionMobile.y[i]
+        }else{
+            finalPosition.x = finalTrianglePositionDesktop.x[i]
+            finalPosition.y = finalTrianglePositionDesktop.y[i]
+        }
+        
+        new TWEEN.Tween(position).to(finalPosition, 2000).easing(TWEEN.Easing.Quadratic.InOut).start(mouse.logDelta)
 
         new TWEEN.Tween(scale).to(obj3, 2000).easing(TWEEN.Easing.Quadratic.InOut).start(mouse.logDelta)
 

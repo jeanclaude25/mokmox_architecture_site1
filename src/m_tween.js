@@ -3,6 +3,7 @@ import { scene } from './c_scene';
 import { t1, t2, t3, t5, t6, t7, t8, t9, t10, t11, t12, t13, showOutlines } from './l_objects';
 import { scatteredTriangles, scatterTriangles } from './j_animation'
 import { mouse } from './k_events';
+import { config } from './a_config';
 
     export let tween
 
@@ -187,6 +188,36 @@ import { mouse } from './k_events';
                         if (child.userData.name == 'scatter') {
                             console.log('scattering triangle');
                             scatteredTriangles.push(child)
+
+
+                            /**FOR DEBUG */
+if(window.location.href.includes(config.debug.commandLine)){
+
+    /**
+     * gui.gui
+     */
+    const camgui = require('./a_gui').scateredObjects
+    const triangleGui = camgui.addFolder('Triangle '+ child.name)
+
+    const posTriangleGui = triangleGui.addFolder('Position')
+    posTriangleGui.add(child.position, 'x').min(-150).max(150).step(0.001)
+    posTriangleGui.add(child.position, 'y').min(-150).max(150).step(0.001)
+    posTriangleGui.add(child.position, 'z').min(-150).max(150).step(0.001)
+
+    const rotTriangleGui = triangleGui.addFolder('Rotation')
+    rotTriangleGui.add(child.rotation, 'x').min(-Math.PI).max(Math.PI).step(0.001)
+    rotTriangleGui.add(child.rotation, 'y').min(-Math.PI).max(Math.PI).step(0.001)
+    rotTriangleGui.add(child.rotation, 'z').min(-Math.PI).max(Math.PI).step(0.001)
+
+    const scTriangleGui = triangleGui.addFolder('Scale')
+    scTriangleGui.add(child.scale, 'x').min(-5).max(5).step(0.001)
+    scTriangleGui.add(child.scale, 'y').min(-5).max(5).step(0.001)
+    scTriangleGui.add(child.scale, 'z').min(-5).max(5).step(0.001)
+
+    
+    }
+
+
 
                         }
                     })

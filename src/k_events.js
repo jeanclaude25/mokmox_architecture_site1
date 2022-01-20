@@ -20,15 +20,15 @@ import { camera } from "./e_camera";
         window.addEventListener('resize', () =>
         {
 
-            const hFOV = 2 * Math.atan(Math.tan(camera.fov * Math.PI / 180 / 2) * camera.aspect) * 180 / Math.PI; // degrees
+            // const hFOV = 2 * Math.atan(Math.tan(camera.fov * Math.PI / 180 / 2) * camera.aspect) * 180 / Math.PI; // degrees
 
             
             camera.aspect = container.clientWidth / container.clientHeight;
-            const cameraHeight = Math.tan(THREE.MathUtils.degToRad(hFOV / 2));
-            const ratio = camera.aspect / 1;
-            const newCameraHeight = cameraHeight / ratio;
+            // const cameraHeight = Math.tan(THREE.MathUtils.degToRad(hFOV / 2));
+            // const ratio = camera.aspect / 1;
+            // const newCameraHeight = cameraHeight / ratio;
 
-            camera.fov = THREE.MathUtils.radToDeg(Math.atan(newCameraHeight)) * 2;
+            // camera.fov = THREE.MathUtils.radToDeg(Math.atan(newCameraHeight)) * 2;
             camera.updateProjectionMatrix();
 
             renderer.setSize(container.clientWidth, container.clientHeight);

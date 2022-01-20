@@ -32,7 +32,7 @@ const createPlane = (object) => {
 
 export const loadTexts = () => {
 
-    console.log(scatteredTriangles.length);
+    // console.log(scatteredTriangles.length);
     for (let y = 0; y < scatteredTriangles.length; y++) {
         createPlane(scatteredTriangles[y])
         const letterGroup = new THREE.Group()
