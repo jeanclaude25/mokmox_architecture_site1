@@ -3,6 +3,7 @@ import { config } from "./a_config";
 import { canvas, container, refreshSizes } from "./c_scene";
 import { renderer } from "./d_renderer";
 import { camera } from "./e_camera";
+import { responsiveTranslate } from './o_responsive';
 
 
     export const mouse = {
@@ -33,6 +34,8 @@ import { camera } from "./e_camera";
 
             renderer.setSize(container.clientWidth, container.clientHeight);
             renderer.setPixelRatio(config.scene.pixelRatio)
+
+            responsiveTranslate()
         })
 
     

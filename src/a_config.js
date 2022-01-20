@@ -1,3 +1,5 @@
+
+
 export const config = {
     html:{
         canvas:'#container'
@@ -10,6 +12,12 @@ export const config = {
         pixelRatio: 1
 
     },
+    responsive:{
+        resizeTime:1
+    },
+    assets:{
+        texts:['CAREERS', 'CLIENTS', 'BROCHURES', 'CONTACTS', 'ABOUT+US', 'NEWS', 'GALLERY', 'OUR+WORK']
+    },
     onHover:{
         enableChangeColor: !false,
         defaultColor:'grey',
@@ -20,3 +28,5 @@ export const config = {
     }
 
 }
+
+

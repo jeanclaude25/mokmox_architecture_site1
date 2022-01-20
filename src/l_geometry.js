@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import { camera } from './e_camera';
 
 
 
@@ -23,7 +24,7 @@ export const makeTriangle = (args) => {
         flatShading: true
     });
     let triangle = new THREE.Mesh(geometry, mat);
-
+    
 
     return triangle;
 }

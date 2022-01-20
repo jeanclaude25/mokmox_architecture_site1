@@ -10,12 +10,12 @@ import { controls } from './i_controls'
 export let trianglesFloat = false
 export const scatteredTriangles = []
 
-const finalTrianglePositionMobile = {
+export const finalTrianglePositionMobile = {
     x:[0.5, 3.5, 8.5, 9.5, -6.5, -3.5, -0.5, 0.5],
     y:[6.5, 5.5, 4.5, 3.5, -1.5, -2.5, -3.5, -4.5],
     z:[0,0,0,0,0,0,0,0]
 }
-const finalTrianglePositionDesktop = {
+export const finalTrianglePositionDesktop = {
     x:[10, 5, 11, 21.5, 13, 16, 19, 9.5],
     y:[-2.5, -0.5, -4.5, -0.5, 1.5, 5.5, -0.7, 3],
     z:[5, -2, 0, 6, 14.5, 14.5, 15, 9]

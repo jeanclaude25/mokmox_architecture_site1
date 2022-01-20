@@ -1,42 +1,61 @@
 import * as THREE from 'three'
 import { FontLoader } from 'three'
+import { config } from './a_config';
 import { isMobile } from './a_detect_mobile';
-import { scene } from './c_scene';
 import { camera } from './e_camera';
 import { scatteredTriangles } from './j_animation'
+import gsap from 'gsap/all'
 
         const loader = new FontLoader()
         let defaultFont;
         loader.load('./droid-sans.typeface.json', (font) => defaultFont = font )
-        // defaultFont = loader.parse(json)
+        
+
+        const textsConfig = {
+            texts :config.assets.texts ,
+            position:{
+                mobile:{
+                    x:[3.55 , 0.204, -0.026, 1.881, 3.969, 4.062, -4.485, 3.85],
+                    y:[0.436, 0.128, 0.754, 0.012, 0.267, 0.261, -0.061, 0.307],
+                    z:[2.929, -0.321, -0.043, 0.811, 3.069, 2.908, 3.007, -3.212]
+                },
+                desktop:{
+                    x:[3.373, 0.213, 0.024, 1.891, 4.051, 3.956, -4.429, 3.739],
+                    y:[0.486, 0.145, 0.803, -0.025, 0.176, 0.533, -0.146, 0.588],
+                    z:[3.141, -0.309, -0.057, 0.783, 2.953, 3.024, 3.082, -3.294]
+                }
+            },
+            rotate:[0, 2 * Math.PI / 3.05, - Math.PI / 2.85,isMobile()?2 * Math.PI / 3.05:Math.PI/50, 0, Math.PI, 0, - Math.PI / 2.8]
+        }
+
+export const savedText = []
 
 
-const texts = ['CAREERS', 'CLIENTS', 'BROCHURES', 'CONTACTS', 'ABOUT+US', 'NEWS', 'GALLERY', 'OUR+WORK']
+export const updateTextsPosition = () => {
+    if(savedText.length>0){
+        for(let i=0;i<savedText.length;i++){
+            const pos = posText(savedText[i],i)
+            
+            gsap.to(
+                savedText[i].position,{
+                    duration: config.responsive.resizeTime,
+                    x: pos.x,
+                    y: pos.y,
+                    z: pos.z
+                }
+            )
 
-const createPlane = (object) => {
-    const position = new THREE.Vector3()
-    object.getWorldPosition(position)
-    const geometry = new THREE.SphereGeometry( 0.1, 0.1, 12 )
-    const material = new THREE.MeshBasicMaterial( {color: 0xffff00} )
-    const plane = new THREE.Mesh( geometry, material );
-    plane.position.x = position.x
-    plane.position.y = position.y
-    plane.position.z = position.z
-
-    // plane.rotation.x = rotation.x
-    // plane.rotation.y = rotation.z
-    // plane.rotation.z = rotation.y
-
-    scene.add( plane )
+        }
+    }
 }
 
 export const loadTexts = () => {
 
     // console.log(scatteredTriangles.length);
     for (let y = 0; y < scatteredTriangles.length; y++) {
-        createPlane(scatteredTriangles[y])
+
         const letterGroup = new THREE.Group()
-        const words = texts[y]
+        const words = textsConfig.texts[y]
         let lastPosX = 0;
 
         for (let i = 0; i < words.length; i++) {
@@ -73,79 +92,45 @@ export const loadTexts = () => {
             lastPosX = boundingBox.max.x
 
             letterGroup.add(text)
-            letterGroup.name = 'link1'
+            
+            
 
         }
+
+        letterGroup.name = words
+
+        if(window.location.href.includes(config.debug.commandLine)){
+
+            /**
+             * gui.gui
+             */
+            const camgui = require('./a_gui').textGui
+            const posCamGui = camgui.addFolder(words)
+            posCamGui.add(letterGroup.position, 'x').min(-150).max(150).step(0.001)
+            posCamGui.add(letterGroup.position, 'y').min(-150).max(150).step(0.001)
+            posCamGui.add(letterGroup.position, 'z').min(-150).max(150).step(0.001)
+        
+            }
 
 
         scatteredTriangles[y].add(letterGroup)
+        savedText.push(letterGroup)
         letterGroup.lookAt(camera.position)
         scatteredTriangles[y].geometry.computeBoundingBox()
-        const boxy = scatteredTriangles[y].geometry.boundingBox
-        letterGroup.position.y = y % 2 == 1 ? 0.1 : 0.12
-        letterGroup.translateZ(10)
-        letterGroup.rotation.z = 0
-
-        letterGroup.position.x -= 0.5
-
-        if (y == 1) {
-            letterGroup.rotateZ(2 * Math.PI / 3.05)
-            letterGroup.position.set(0, 0, 0)
-            letterGroup.translateY(-0.4)
-        } else if (y == 2) {
-            letterGroup.rotateZ(- Math.PI / 2.85)
-            letterGroup.position.set(0, 0, 0)
-            letterGroup.translateY(0.4)
-            letterGroup.translateX(-0.7)
-            if (isMobile()) {
-                letterGroup.rotateZ(Math.PI / 50)
-                letterGroup.translateY(-0.1)
-            }
-        }
-        else if (y == 3) {
-            letterGroup.rotateZ(2 * Math.PI / 3.05)
-            letterGroup.position.set(0, 0, 0)
-            letterGroup.translateY(-0.4)
-            letterGroup.translateX(-0.12)
-            letterGroup.translateZ(2)
-        }
-        else if (y == 4) {
-            letterGroup.position.set(0, 0, 0)
-            letterGroup.translateX(-0.4)
-            letterGroup.translateY(0.1)
-            letterGroup.translateZ(5)
-        }
-        else if (y == 5) {
-            letterGroup.position.set(0, 0, 0)
-            letterGroup.rotateZ(Math.PI)
-
-            letterGroup.translateY(-0.15)
-            letterGroup.translateX(-0.2)
-            letterGroup.translateZ(5)
-        }
-        else if (y == 7) {
-            letterGroup.position.set(0, 0, 0)
-            letterGroup.rotateZ(- Math.PI / 2.8)
-
-            letterGroup.translateY(-0.4)
-            letterGroup.translateX(-0.15)
-            letterGroup.translateZ(5)
-        }
-        if (y == 5 || y == 1) {
-            letterGroup.translateX(-0.05)
-        } else if (y == 6) {
-            letterGroup.translateZ(-5)
-            letterGroup.translateX(-0.1)
-
-        } else if (y == 0) {
-            letterGroup.translateX(-0.08)
-            letterGroup.translateZ(-5)
-
-        } else if (y == 3) {
-            letterGroup.translateX(-0.06)
-
-        }
-
-
+    
+        const positionText = posText(letterGroup, y)
+        console.log(positionText)
+        letterGroup.position.x = positionText.x
+        letterGroup.position.y = positionText.y
+        letterGroup.position.z = positionText.z
     }
+}
+
+const posText = (object, y) => {
+    object.rotation.z = textsConfig.rotate[y]
+
+    const posObject = isMobile()?textsConfig.position.mobile:textsConfig.position.desktop
+    const pos = {x:posObject.x[y],y:posObject.y[y],z:posObject.z[y]}
+    return pos
+
 }
