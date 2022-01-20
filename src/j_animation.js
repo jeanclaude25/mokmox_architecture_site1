@@ -13,12 +13,12 @@ export const scatteredTriangles = []
 const finalTrianglePositionMobile = {
     x:[0.5, 3.5, 8.5, 9.5, -6.5, -3.5, -0.5, 0.5],
     y:[6.5, 5.5, 4.5, 3.5, -1.5, -2.5, -3.5, -4.5],
-    z:0
+    z:[0,0,0,0,0,0,0,0]
 }
 const finalTrianglePositionDesktop = {
     x:[10, 5, 11, 21.5, 13, 16, 19, 9.5],
     y:[-2.5, -0.5, -4.5, -0.5, 1.5, 5.5, -0.7, 3],
-    z:0
+    z:[5, -2, 0, 6, 14.5, 14.5, 15, 9]
 }
 const finalAngle = [-1.3, 0.1, -0.78, -0.78, -0.29, 0.82, 1.04, 0.9]
 const addScale = [0.2, 0.6, 0.8, 0.2, 0.5, 0.1, 0, 0.5]
@@ -78,23 +78,21 @@ const thisObjectNeedAnHoverAnim = (object) =>{
 }
 
 
-export let obj3;
 export const scatterTriangles = (array) => {
     console.log(array);
     for (let i = 0; i < array.length; i++) {
         const position = array[i].position
         const rotation = array[i].rotation
 
-        let obj2 = {
-            x: 0, y: 0, z: i % 2 == 0 ? Math.PI : 0,
-        }
+        
         const oldRotation = array[i].rotation
 
         array[i].rotateOnWorldAxis(new THREE.Vector3(1, 0, 0.8).normalize(), finalAngle[i])
         const rotationZ = new THREE.Vector3()
         rotationZ.copy(array[i].rotation)
         array[i].rotation.set(oldRotation.x, oldRotation.y, oldRotation.z)
-        obj2 = {
+        
+        const obj2 = {
             x: rotationZ.x + Math.PI * 2,
             y: rotationZ.y + Math.PI * 2,
             z: rotationZ.z + Math.PI * 2,
@@ -102,7 +100,7 @@ export const scatterTriangles = (array) => {
 
         const scale = array[i].scale
 
-        obj3 = {
+        const obj3 = {
             x: array[i].scale.x + addScale[i],
             y: array[i].scale.y + addScale[i],
             z: array[i].scale.z + addScale[i],
@@ -120,13 +118,16 @@ export const scatterTriangles = (array) => {
             }
         }).start(mouse.logDelta)
 
-        let finalPosition = {x:null,y:null,z:0}
+        let finalPosition = {x:null,y:null,z:null}
         if (isMobile()){
             finalPosition.x = finalTrianglePositionMobile.x[i]
             finalPosition.y = finalTrianglePositionMobile.y[i]
+            finalPosition.z = finalTrianglePositionMobile.z[i]
         }else{
             finalPosition.x = finalTrianglePositionDesktop.x[i]
             finalPosition.y = finalTrianglePositionDesktop.y[i]
+            finalPosition.z = finalTrianglePositionDesktop.z[i]
+
         }
         
         new TWEEN.Tween(position).to(finalPosition, 2000).easing(TWEEN.Easing.Quadratic.InOut).start(mouse.logDelta)
