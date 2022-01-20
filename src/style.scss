@@ -1,0 +1,67 @@
+body {
+    margin:0;
+    touch-action: none;
+    background-color: #222222;
+}
+
+canvas {
+    position: absolute;
+}
+
+#container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+
+  
+$colors: #ffffff, #313131, #15066b, #222222, #ffffff;
+  
+  
+.text--line {
+  font-size: .5em;
+  }
+
+svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform: rotate(45deg);
+  pointer-events: none;
+  z-index: 2000;
+  
+  }
+
+$max: 5;
+$stroke-step: 7%; 
+
+.text-copy {
+  font: 16em/1 Arial;
+  fill: rgba($color: #ffffff, $alpha: 0.4);
+  stroke: rgb(255, 255, 255);
+  stroke-dasharray: $stroke-step $stroke-step * ($max - 1);
+  stroke-width: 1px;
+  
+  animation: stroke-offset 30s infinite linear;
+  
+  @for $item from 1 through $max {
+    $stroke-color: nth($colors, $item);
+    
+    &:nth-child(#{$item}) {
+      stroke: $stroke-color;
+      stroke-dashoffset: $stroke-step * $item;
+      filter: drop-shadow(0px 0px 1px #ffffff);
+  filter: drop-shadow(0px 0px 2px #e4ff81);
+  filter: drop-shadow(0px 0px 5px #ff7b00);
+  filter: drop-shadow(0px 0px 10px #ff7b00);
+      }
+    }
+  }
+
+@keyframes stroke-offset {
+  50% {
+    stroke-dashoffset: $stroke-step * $max;  
+    stroke-dasharray: 0 $stroke-step * $max*2.5;
+  }
+}
