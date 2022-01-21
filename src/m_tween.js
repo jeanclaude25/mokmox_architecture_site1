@@ -5,8 +5,8 @@ import { scatteredTriangles, scatterTriangles } from './j_animation'
 import { mouse } from './k_events';
 import { config } from './a_config';
 
-    export let tween
-
+export let tween
+export const loaded_objects = [] //Used for raycast
     const originalElements = []
 
     export const elements = [
@@ -188,7 +188,7 @@ import { config } from './a_config';
                         if (child.userData.name == 'scatter') {
                             console.log('scattering triangle');
                             scatteredTriangles.push(child)
-
+                            loaded_objects.push(child)
 
                             /**FOR DEBUG */
 if(window.location.href.includes(config.debug.commandLine)){

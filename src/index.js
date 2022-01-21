@@ -8,6 +8,7 @@ import * as TWEEN from '@tweenjs/tween.js'
 import { tList, t5, t1, outlines } from './l_objects'
 import './n_group_debug'
 import { events } from './k_events'
+import { test } from './p_test'
 
 
 window.onload = () => {
@@ -20,7 +21,6 @@ window.onload = () => {
                 otherGroup.scale.copy(tGroup.scale)
                 otherGroup.position.copy(tGroup.position)
                 const t1Clone = new THREE.Mesh()
-                console.log(t5.rotation);
                 t1Clone.rotation.copy(tList[j].rotation)
 
                 if (j == 1) {
@@ -276,6 +276,7 @@ window.onload = () => {
         render();
         callNextFunction()
         events()
+        test()
     }, 100);
 
 

@@ -12,6 +12,9 @@ export const config = {
         pixelRatio: 1
 
     },
+    camera:{
+        fov:6
+    },
     responsive:{
         resizeTime:1
     },
@@ -19,9 +22,11 @@ export const config = {
         texts:['CAREERS', 'CLIENTS', 'BROCHURES', 'CONTACTS', 'ABOUT+US', 'NEWS', 'GALLERY', 'OUR+WORK']
     },
     onHover:{
-        enableChangeColor: !false,
+        enable: true,
+        enableChangeColor: true,
         defaultColor:'grey',
-        hoverColor:'red'
+        hoverColor:'red',
+        time:0.5
     },
     debug:{
         commandLine:'?debug'
