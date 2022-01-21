@@ -25,8 +25,21 @@ import gsap from 'gsap/all'
                     z:[3.141, -0.309, -0.057, 0.783, 2.953, 3.024, 3.082, -3.294]
                 }
             },
-            rotate:[0, 2 * Math.PI / 3.05, - Math.PI / 2.85,isMobile()?2 * Math.PI / 3.05:Math.PI/50, 0, Math.PI, 0, - Math.PI / 2.8]
-        }
+            rotation:{
+                mobile:{
+                    x:[-0.094, -0.025, -0.0261, 0.034, -0.047, -0.045, 0.0658, -3.069],
+                    y:[0.943, 0.987, -0.947, 0.948, 0.974, 0.911, -0.914, 0.94],
+                    z:[0, 2.06, -1.1, 2.06, 0, -3.07, 0, -1.121]
+
+                },
+                desktop:{
+                    x:[-0.115, 0.056, -0.112, 0.069, -0.028, -0.126, 0.087, -2.977],
+                    y:[0.901, 0.969, -0.940, 0.961, 1.018, 0.862, -0.884, 0.926],
+                    z:[0, 2.098, -1.06, 2.04, 0, Math.PI, 0, -1.136]
+
+                }
+            }
+             }
 
 export const savedText = []
 
@@ -34,14 +47,22 @@ export const savedText = []
 export const updateTextsPosition = () => {
     if(savedText.length>0){
         for(let i=0;i<savedText.length;i++){
-            const pos = posText(savedText[i],i)
+            const pos = posText(i)
             
             gsap.to(
                 savedText[i].position,{
                     duration: config.responsive.resizeTime,
-                    x: pos.x,
-                    y: pos.y,
-                    z: pos.z
+                    x: pos.pos.x,
+                    y: pos.pos.y,
+                    z: pos.pos.z
+                }
+            )
+            gsap.to(
+                savedText[i].rotation,{
+                    duration: config.responsive.resizeTime,
+                    x: pos.rot.x,
+                    y: pos.rot.y,
+                    z: pos.rot.z
                 }
             )
 
@@ -106,9 +127,16 @@ export const loadTexts = () => {
              */
             const camgui = require('./a_gui').textGui
             const posCamGui = camgui.addFolder(words)
-            posCamGui.add(letterGroup.position, 'x').min(-150).max(150).step(0.001)
-            posCamGui.add(letterGroup.position, 'y').min(-150).max(150).step(0.001)
-            posCamGui.add(letterGroup.position, 'z').min(-150).max(150).step(0.001)
+
+            const pospCamGui = posCamGui.addFolder("position")
+            pospCamGui.add(letterGroup.position, 'x').min(-150).max(150).step(0.001)
+            pospCamGui.add(letterGroup.position, 'y').min(-150).max(150).step(0.001)
+            pospCamGui.add(letterGroup.position, 'z').min(-150).max(150).step(0.001)
+        
+            const posrCamGui = posCamGui.addFolder("rotation")
+            posrCamGui.add(letterGroup.rotation, 'x').min(-Math.PI).max(Math.PI).step(0.001)
+            posrCamGui.add(letterGroup.rotation, 'y').min(-Math.PI).max(Math.PI).step(0.001)
+            posrCamGui.add(letterGroup.rotation, 'z').min(-Math.PI).max(Math.PI).step(0.001)
         
             }
 
@@ -118,19 +146,24 @@ export const loadTexts = () => {
         letterGroup.lookAt(camera.position)
         scatteredTriangles[y].geometry.computeBoundingBox()
     
-        const positionText = posText(letterGroup, y)
-        console.log(positionText)
-        letterGroup.position.x = positionText.x
-        letterGroup.position.y = positionText.y
-        letterGroup.position.z = positionText.z
+        const positionText = posText(y)
+        letterGroup.position.x = positionText.pos.x
+        letterGroup.position.y = positionText.pos.y
+        letterGroup.position.z = positionText.pos.z
+        letterGroup.rotation.x = positionText.rot.x
+        letterGroup.rotation.y = positionText.rot.y
+        letterGroup.rotation.z = positionText.rot.z
     }
 }
 
-const posText = (object, y) => {
-    object.rotation.z = textsConfig.rotate[y]
+const posText = (y) => {
+    const rotation = isMobile()?textsConfig.rotation.mobile:textsConfig.rotation.desktop
 
     const posObject = isMobile()?textsConfig.position.mobile:textsConfig.position.desktop
-    const pos = {x:posObject.x[y],y:posObject.y[y],z:posObject.z[y]}
-    return pos
+    const mat = {
+        rot : {x:rotation.x[y],y:rotation.y[y],z:rotation.z[y]},
+        pos : {x:posObject.x[y],y:posObject.y[y],z:posObject.z[y]}
+    }
+    return mat
 
 }
