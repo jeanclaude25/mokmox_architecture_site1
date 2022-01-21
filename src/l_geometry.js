@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import { BLOOM_SCENE } from './c_scene';
 
 export const getVertexPosition = (obj, index) => {
     const geometry = obj.geometry;
@@ -12,17 +13,19 @@ export const getVertexPosition = (obj, index) => {
 
 
 export const makeDot = () => {
-    const sphereGeo = new THREE.SphereBufferGeometry( 0.1, 1,1 );
+    const sphereGeo = new THREE.SphereBufferGeometry( 0.05, 4, 4 );
 
     const mat = new THREE.MeshPhysicalMaterial({
         side: THREE.FrontSide,
         color: new THREE.Color('blue'),
         emissive: new THREE.Color('blue'),
-        emissiveIntensity: 10,
+        emissiveIntensity: 100,
         depthWrite: false,
         flatShading: true
     });
     const dot = new THREE.Mesh(sphereGeo, mat);
+    dot.layers.enable(BLOOM_SCENE)
+    
     return dot
 }
 

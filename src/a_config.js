@@ -9,11 +9,11 @@ export const config = {
             enable: true
         },
         alpha: true,
-        pixelRatio: 1
+        pixelRatio: 2
 
     },
     camera:{
-        fov:6
+        fov:5
     },
     responsive:{
         resizeTime:1
@@ -37,7 +37,7 @@ export const config = {
         enableChangeColor: true,
         hoverColor:'red',
         time:0.5,
-        timeForLine:0.2
+        timeForLine:0.4
     },
     debug:{
         commandLine:'?debug'

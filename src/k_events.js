@@ -1,7 +1,8 @@
 import * as THREE from 'three'
 import { config } from "./a_config";
 import { mobileAndTabletCheck } from './a_detect_mobile';
-import { canvas, container, refreshSizes, scene } from "./c_scene";
+import { canvas, container, refreshSizes, scene, sizes } from "./c_scene";
+import { effectComposer } from './dd_postProcess';
 import { renderer } from "./d_renderer";
 import { camera } from "./e_camera";
 import { changeMaterialColor } from './g_materials';
@@ -56,10 +57,10 @@ export let Allow_fixing = false
 
             renderer.setSize(container.clientWidth, container.clientHeight);
             renderer.setPixelRatio(config.scene.pixelRatio)
-
+            
+            effectComposer.setSize(sizes.width, sizes.height)
             responsiveTranslate()
         })
-
     
         // canvas.addEventListener('click', (e) => {
         //     if (intersects != undefined && intersects.length > 0 && intersects[0].object.name != 'zeroHover') {

@@ -17,6 +17,10 @@ export const refreshSizes = () => {
 }
 refreshSizes()
 
+/**LAYERS */
+export const BLOOM_SCENE = 1;
+export const bloomLayer = new THREE.Layers();
+bloomLayer.set( BLOOM_SCENE );
 
 // Scene
 export const scene = new THREE.Scene()
@@ -29,6 +33,12 @@ export const myScene2 = new THREE.Group()
 export const tGroup = new THREE.Group()
 export const textGroup = new THREE.Group()
 
+//For line
+export const lineScene = new THREE.Scene()
+export const lineMouseOverGroup = new THREE.Group()
+lineScene.add(lineMouseOverGroup)
+scene.add(lineScene) //maybe this will be enough
+
 //Add both to the main scene
 myScene2.add(myScene)
 
@@ -37,6 +47,7 @@ scene.add(myScene2)
 scene.add(textGroup)
 
 export let pyramidGroup;
+
 
 
 /**FOR DEBUG */
@@ -52,7 +63,7 @@ camgui.add(myScene2, 'visible').name('myScene2')
 camgui.add(otherGroup, 'visible').name('otherGroup')
 camgui.add(tGroup, 'visible').name('tGroup')
 camgui.add(textGroup, 'visible').name('textGroup')
-
+camgui.add(lineMouseOverGroup, 'visible').name('lineMouseOverGroup')
 
 
 }

@@ -9,6 +9,7 @@ import Stats from 'stats.js'
 import { config } from './a_config'
 import { t1 } from './l_objects'
 import { Allow_fixing, hovered_objects } from './k_events'
+import { effectComposer, renderBloom } from './dd_postProcess'
 
 export let actual_anim_state;
 
@@ -49,7 +50,8 @@ export const render = () => {
 
     controls.update()
     camera.updateProjectionMatrix()
-    renderer.render(scene, camera)
+    // renderer.render(scene, camera)
+    effectComposer.render()
     debug?stats.end():''
     requestAnimationFrame(render)
     

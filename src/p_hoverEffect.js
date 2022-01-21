@@ -1,14 +1,15 @@
 import { getVertexPosition, makeDot } from "./l_geometry"
 import gsap from 'gsap/all'
 import * as THREE from 'three'
-import { scene } from "./c_scene"
+import { lineMouseOverGroup, scene } from "./c_scene"
 import { config } from "./a_config"
 import { actual_anim_state } from "./i_draw"
 
 
 
 export const dot = makeDot()
-scene.add(dot)
+lineMouseOverGroup.add(dot)
+
 const offsetCorrect = {
     x:0.38,
     y:0,
@@ -23,6 +24,9 @@ if(window.location.href.includes(config.debug.commandLine)){
     posCamGui.add(offsetCorrect, 'x').min(-5).max(5).step(0.001)
     posCamGui.add(offsetCorrect, 'y').min(-5).max(5).step(0.001)
     posCamGui.add(offsetCorrect, 'z').min(-5).max(5).step(0.001)
+
+    const scCamGui = dotGui.addFolder('scale')
+    scCamGui.add(dot.scale, 'x').min(-5).max(5).step(0.001).onChange(()=>{dot.scale.y =dot.scale.x; dot.scale.z = dot.scale.x})
     
 }
 let anim_state;

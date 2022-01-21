@@ -10,7 +10,8 @@ export const canvas = document.querySelector(config.html.canvasID)
  */
  export const renderer = new THREE.WebGLRenderer({
     antialias: config.scene.antialias.enable,
-    alpha: config.scene.alpha
+    alpha: config.scene.alpha,
+    powerPreference:'high-performance'
 })
 
 renderer.sortObjects = false;
