@@ -2,17 +2,18 @@ import * as THREE from 'three'
 
 export const getVertexPosition = (obj, index) => {
     const geometry = obj.geometry;
-    const positionAttribute = geometry.getAttribute( 'position' );
 
     const vertex = new THREE.Vector3();
+    const positionAttribute = geometry.getAttribute( 'position' );
     vertex.fromBufferAttribute( positionAttribute, index );
 
     return obj.localToWorld( vertex );
 }
 
+
 export const makeDot = () => {
-    const sphereGeo = new THREE.SphereBufferGeometry( 0.2, 3, 3 );
-    // new THREE.MeshPhysicalMaterial
+    const sphereGeo = new THREE.SphereBufferGeometry( 0.1, 1,1 );
+
     const mat = new THREE.MeshPhysicalMaterial({
         side: THREE.FrontSide,
         color: new THREE.Color('blue'),

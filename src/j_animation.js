@@ -1,11 +1,11 @@
 import * as THREE from 'three'
 import { isMobile } from './a_detect_mobile'
-import { raycastDetect } from "./i_raycaster"
 import * as TWEEN from '@tweenjs/tween.js'
-import { mouse } from './k_events'
+import { Allow_fixing, mouse } from './k_events'
 import { loadTexts } from './l_texts'
 import { enableScroll, scrollingLogic } from './k_events_scroll'
 import { controls } from './i_controls'
+import { dot } from './p_hoverEffect'
 
 export let trianglesFloat = false
 export const scatteredTriangles = []
@@ -24,11 +24,18 @@ const finalAngle = [-1.3, 0.1, -0.78, -0.78, -0.29, 0.82, 1.04, 0.9]
 const addScale = [0.2, 0.6, 0.8, 0.2, 0.5, 0.1, 0, 0.5]
 
 export const triangleAnimation = (time) => {
-    if(raycastDetect.length!=9){//Add ZeroHover to the Raycast
-        Array.prototype.push.apply(raycastDetect, scatteredTriangles)
-        console.log(raycastDetect)
-    }
+    // if(raycastDetect.length!=9){//Add ZeroHover to the Raycast
+    //     Array.prototype.push.apply(raycastDetect, scatteredTriangles)
+    //     console.log(raycastDetect)
+    // }
+
+    // if(Allow_fixing){
+    //     dot.position.x += Math.sin(time + dot.animVar) / (800 + dot.animVar * 8)
+    //     dot.position.y += Math.sin(time + dot.animVar) / (800 + dot.animVar * 8)
+    // }
+    
     for (let i = 0; i < scatteredTriangles.length; i++) {
+        scatteredTriangles[i].animVar = i
         scatteredTriangles[i].position.y += Math.sin(time + i) / (800 + i * 8)
         scatteredTriangles[i].position.x += Math.sin(time + i) / (800 + i * 8)
         {
@@ -41,41 +48,7 @@ export const triangleAnimation = (time) => {
 }
 
 
-const exitHoveredObject = () =>{
-    document.body.style.cursor = 'default'
-    if(config.onHover.enableChangeColor && mouse.hovered_object!=undefined){
-        mouse.hovered_object.material.color = new THREE.Color(config.onHover.defaultColor)
-    
-    }
-}
 
-const zoomOnObject = (obj) => {
-    console.log("ZOOM on "+ obj)
-    // controls.target = obj.position
-
-    gsap.to(
-        controls.target,{
-            duration: 1,
-            x: obj.children[0].position.x,
-            y: obj.children[0].position.y
-        }
-    )
-
-
-    console.log(camera)
-}
-
-const thisObjectNeedAnHoverAnim = (object) =>{
-    if(object==mouse.hovered_object) return
-    console.log("hovered "+ object.name)
-    document.body.style.cursor = 'pointer'
-    if(config.onHover.enableChangeColor){
-        object.material.color = new THREE.Color(config.onHover.hoverColor)
-    }
-    console.log(object.position)
-    
-    
-}
 
 
 export const scatterTriangles = (array) => {

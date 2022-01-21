@@ -1,8 +1,7 @@
 import * as THREE from 'three'
 import { config } from './a_config';
 import { myScene, tGroup } from './c_scene'
-import { customClone, getVertexPosition, makeDot, makeTriangle } from './l_geometry'
-import { attach_dot } from './p_hoverEffect';
+import { customClone, makeTriangle } from './l_geometry'
 
 
 
@@ -150,7 +149,6 @@ export const checkVisible = (elm, threshold, mode) => {
             trisArrays[ix].material.color = new THREE.Color(config.assets.defaultColor)
             trisArrays[ix].userData.name = 'scatter'
             trisArrays[ix].name = config.assets.links[ix]
-            attach_dot(trisArrays[ix])
         }
         
 
