@@ -86,7 +86,7 @@ export let hovered_objects = null
 
                     /**Do what you want when object isn't mouOver anymore */
                     if(config.onHover.enableChangeColor){
-                    changeMaterialColor(child.material, config.onHover.time, config.onHover.defaultColor)
+                    changeMaterialColor(child.material, config.onHover.time, config.assets.defaultColor)
                     }
                     
                 

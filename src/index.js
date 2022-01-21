@@ -6,9 +6,7 @@ import { render } from './i_draw'
 import {  tweenTriangle, callNextFunction } from './m_tween'
 import * as TWEEN from '@tweenjs/tween.js'
 import { tList, t5, t1, outlines } from './l_objects'
-import './n_group_debug'
 import { events } from './k_events'
-import { test } from './p_test'
 
 
 window.onload = () => {
@@ -276,7 +274,6 @@ window.onload = () => {
         render();
         callNextFunction()
         events()
-        test()
     }, 100);
 
 

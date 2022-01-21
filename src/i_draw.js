@@ -4,35 +4,24 @@ import { pyramidGroup, scene } from './c_scene'
 import { camera } from './e_camera'
 import { controls } from './i_controls'
 import { triangleAnimation, trianglesFloat } from './j_animation'
-
+import { animateThisDot, dotToAnimate } from './p_hoverEffect'
+import Stats from 'stats.js'
 
 let clock = new THREE.Clock();
 
 export const render = () => {
-    // TWEEN.update()
+    stats.begin()
     const time = clock.getElapsedTime()
+    const deltaTime = elapsedTime - previousTime
+    previousTime = elapsedTime
     
     if (trianglesFloat)triangleAnimation(time)
 
-
-    // raycaster.setFromCamera(mouse, camera);
-
-    // // calculate objects intersecting the picking ray
-    // if(raycastDetect != undefined){
-
-    //     intersects = raycaster.intersectObjects(raycastDetect, true)
-
-    //     if (intersects.length > 0) {
-    //         if(intersects[0].object.name!='zeroHover'){
-    //             thisObjectNeedAnHoverAnim(intersects[0].object)
-    //         }else{
-    //             exitHoveredObject()
-    //         }
-            
-
-    //         mouse.hovered_object = intersects[0].object
-    //     }
-    // }
+    // dotToAnimate.forEach((elem)=> animateThisDot(elem, elem.parent))
+    // animateThisDot(dotToAnimate[0], dotToAnimate[0].parent)
+    
+ 
+   
 
     if (pyramidGroup) {
         myScene2.rotateOnAxis(new THREE.Vector3(0, 1, 0), 0.005)
@@ -41,5 +30,7 @@ export const render = () => {
     controls.update()
     camera.updateProjectionMatrix()
     renderer.render(scene, camera)
+    stats.end()
     requestAnimationFrame(render)
+    
 }

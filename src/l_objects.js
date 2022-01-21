@@ -1,6 +1,8 @@
 import * as THREE from 'three'
+import { config } from './a_config';
 import { myScene, tGroup } from './c_scene'
-import { customClone, makeTriangle } from './l_geometry'
+import { customClone, getVertexPosition, makeDot, makeTriangle } from './l_geometry'
+import { attach_dot } from './p_hoverEffect';
 
 
 
@@ -142,43 +144,15 @@ export const checkVisible = (elm, threshold, mode) => {
         tGroup.add(t10)
 
 
-        t1.material.color = new THREE.Color('white')
+        const trisArrays = [t1,t3,t5,t6,t8,t9,t11,t12]
 
-
-        t3.material.color = new THREE.Color('white')
-        t5.material.color = new THREE.Color('white')
-
-        t6.material.color = new THREE.Color('white')
-        t8.material.color = new THREE.Color('white')
-        t9.material.color = new THREE.Color('white')
-
-        t11.material.color = new THREE.Color('white')
-        t12.material.color = new THREE.Color('white')
-
-
-        t1.userData.name = 'scatter'
-
-
-
-        t3.userData.name = 'scatter'
-        t5.userData.name = 'scatter'
-        t6.userData.name = 'scatter'
-        t8.userData.name = 'scatter'
-        t9.userData.name = 'scatter'
-        t11.userData.name = 'scatter'
-        t12.userData.name = 'scatter'
-
-
-
-        t1.name = 'https://profilerz.mokmo.solutions/career/'
-        t3.name = 'https://profilerz.mokmo.solutions/clients/'
-        t5.name = 'https://profilerz.mokmo.solutions/brochures-demo-reels/'
-        t6.name = 'https://profilerz.mokmo.solutions/contact-us/'
-        t8.name = 'https://profilerz.mokmo.solutions/about-us/'
-        t9.name = 'https://profilerz.mokmo.solutions/portfolio/'
-        t11.name = 'https://profilerz.mokmo.solutions/news/'
-        t12.name = 'https://profilerz.mokmo.solutions/movies/'
-
+        for(let ix = 0; ix<trisArrays.length; ix++){
+            trisArrays[ix].material.color = new THREE.Color(config.assets.defaultColor)
+            trisArrays[ix].userData.name = 'scatter'
+            trisArrays[ix].name = config.assets.links[ix]
+            attach_dot(trisArrays[ix])
+        }
+        
 
 
         tGroup.rotation.z = Math.PI / 4
@@ -186,14 +160,8 @@ export const checkVisible = (elm, threshold, mode) => {
         myScene.add(tGroup)
         myScene.position.z = 0.8
         myScene.position.x = -0.3
-        
-       
-        
 
         export const outlines = []
-
-
         export const tList = [t4, t5, t6, null, t3, t11, t12, t8, t9,]
-
         export const showOutlines = () => outlines.forEach((elem)=> elem.visible = true)
             
