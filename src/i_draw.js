@@ -10,6 +10,7 @@ import { config } from './a_config'
 import { t1 } from './l_objects'
 import { Allow_fixing, hovered_objects } from './k_events'
 import { effectComposer, renderBloom } from './dd_postProcess'
+import { lineMaterialShader } from './l_geometry'
 
 export let actual_anim_state;
 
@@ -34,6 +35,7 @@ export const render = () => {
     debug?stats.begin():''
     
     const elapsedTime = clock.getElapsedTime()
+    lineMaterialShader.uniforms.uTime.value = elapsedTime
 
     if (trianglesFloat)triangleAnimation(elapsedTime)
 

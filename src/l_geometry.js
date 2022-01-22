@@ -1,6 +1,49 @@
 import * as THREE from 'three'
 import linesHoverVertexShader from './shaders/linesHover/vertex.glsl' 
 import linesHoverFragmentShader from './shaders/linesHover/fragment.glsl' 
+import { config } from './a_config'
+
+
+export const lineMaterialShader = new THREE.RawShaderMaterial({
+    vertexShader: linesHoverVertexShader,
+    fragmentShader: linesHoverFragmentShader,
+    transparent:true,
+    depthTest: true,
+    depthWrite: true,
+    side: THREE.DoubleSide,
+    premultipliedAlpha: true,
+    uniforms:{
+        uOpacity: { value: 1.0},
+        uSizeRail: {value: 6.0},
+        uRotation: {value: 0.5},
+        uColor: {value: new THREE.Color('blue')},
+        uTime: {value: 0.0}
+    }
+})
+/**FOR DEBUG */
+if(window.location.href.includes(config.debug.commandLine)){
+
+    /**
+     * gui.gui
+     */
+    const camgui = require('./a_gui').gui
+    
+    const shaderGui = camgui.addFolder('Rail')
+    shaderGui.add(lineMaterialShader.uniforms.uOpacity, 'value').name('opacity').min(0).max(1).step(0.001)
+    shaderGui.add(lineMaterialShader.uniforms.uSizeRail, 'value').name('Size Rails').min(-6).max(6).step(0.001)
+    shaderGui.add(lineMaterialShader.uniforms.uRotation, 'value').name('rotation').min(-3).max(3).step(0.001)
+    lineMaterialShader.uniforms.color255 = {value: new THREE.Color('blue')}
+    shaderGui.addColor(lineMaterialShader.uniforms.color255, 'value')
+    .name('color')
+    .onChange(()=>{
+        lineMaterialShader.uniforms.uColor.value.r = lineMaterialShader.uniforms.color255.value.r /255
+        lineMaterialShader.uniforms.uColor.value.g = lineMaterialShader.uniforms.color255.value.g /255
+        lineMaterialShader.uniforms.uColor.value.b = lineMaterialShader.uniforms.color255.value.b /255
+     })
+
+
+}
+
 
 export const getVertexPosition = (obj, index) => {
     const geometry = obj.geometry;
@@ -38,7 +81,7 @@ export const makeTriangle = (args) => {
     ]);
 
     const uvCoord = new Float32Array([
-        -1, 0,
+        0, 0, //-1
          0, 1, 
          1, 0, 
     ]);
@@ -61,19 +104,8 @@ export const makeTriangle = (args) => {
     //     flatShading: true
     // });
 
-    const mat = new THREE.ShaderMaterial({
-        vertexShader: linesHoverVertexShader,
-        fragmentShader: linesHoverFragmentShader,
-        transparent:true,
-        depthWrite: false,
-        side: THREE.DoubleSide,
-        uniforms:{
-            
-    
-        }
-    })
 
-    const triangle = new THREE.Mesh(geometry, mat);
+    const triangle = new THREE.Mesh(geometry, lineMaterialShader);
     
 
     return triangle;

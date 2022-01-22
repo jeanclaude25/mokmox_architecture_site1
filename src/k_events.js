@@ -115,6 +115,7 @@ export let Allow_fixing = false
                 changeMaterialColor(ob.material, config.onHover.time, config.onHover.hoverColor)
             }
             Allow_fixing = true
+            // console.log(ob.material)
         }
         }
 
