@@ -3,14 +3,13 @@ import { renderer } from './d_renderer'
 import { pyramidGroup, scene } from './c_scene'
 import { camera } from './e_camera'
 import { controls } from './i_controls'
-import { scatteredTriangles, triangleAnimation, trianglesFloat } from './j_animation'
-import { animateThisDot, dot, dotToAnimate, fixThisDot } from './p_hoverEffect'
+import { triangleAnimation, trianglesFloat } from './j_animation'
+import { dot, fixThisDot } from './p_hoverEffect'
 import Stats from 'stats.js'
 import { config } from './a_config'
-import { t1 } from './l_objects'
 import { Allow_fixing, hovered_objects } from './k_events'
-import { effectComposer, renderBloom } from './dd_postProcess'
-import { lineMaterialShader } from './l_geometry'
+import { lineMaterialShader } from './g_materials'
+
 
 export let actual_anim_state;
 
@@ -52,8 +51,8 @@ export const render = () => {
 
     controls.update()
     camera.updateProjectionMatrix()
-    // renderer.render(scene, camera)
-    effectComposer.render()
+    renderer.render(scene, camera)
+    // effectComposer.render()
     debug?stats.end():''
     requestAnimationFrame(render)
     

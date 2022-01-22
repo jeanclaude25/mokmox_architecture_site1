@@ -37,7 +37,8 @@ export const config = {
         enableChangeColor: true,
         hoverColor:'red',
         time:0.5,
-        timeForLine:0.4
+        timeForLine:0.4,
+        lineThickness: 0.1
     },
     debug:{
         commandLine:'?debug'

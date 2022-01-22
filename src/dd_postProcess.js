@@ -18,7 +18,7 @@ import {SSAOPass} from 'three/examples/jsm/postprocessing/SSAOPass'
 
 
 import { config } from './a_config'
-import { BLOOM_SCENE, scene, sizes } from './c_scene'
+import { scene, sizes } from './c_scene'
 import { renderer } from './d_renderer'
 import { camera } from './e_camera'
 

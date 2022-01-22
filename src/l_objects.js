@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { config } from './a_config';
 import { myScene, tGroup } from './c_scene'
-import { customClone, makeTriangle } from './l_geometry'
+import { customClone, makeLineRail, makeTriangle } from './l_geometry'
 
 
 
@@ -20,14 +20,17 @@ export const checkVisible = (elm, threshold, mode) => {
 
     
         export const t1 = makeTriangle({ color: new THREE.Color('cyan') })
+        t1.add(makeLineRail())
         export const t2 = makeTriangle({ color: 'pink' })
         export const t3 = makeTriangle({ color: 'lightgreen' })
+        t3.add(makeLineRail())
         export const t4 = makeTriangle({ color: 'orange' })
         tGroup.add(t1);
         export const t9 = customClone(t1)
+        t9.add(makeLineRail())
         export const t10 = customClone(t1)
         export const t11 = customClone(t1)
-
+        t11.add(makeLineRail())
 
         tGroup.add(t2)
         tGroup.add(t3)
@@ -44,6 +47,7 @@ export const checkVisible = (elm, threshold, mode) => {
         t3.position.y = 0.5
 
         export const t5 = customClone(t3)
+        t5.add(makeLineRail())
         t5.rotateX(Math.PI / 2)
         t5.position.set(0.5, 0.5, -0.707)
 
@@ -56,6 +60,7 @@ export const checkVisible = (elm, threshold, mode) => {
         tGroup.add(t5)
 
         export const t6 = customClone(t3)
+        t6.add(makeLineRail())
         tGroup.add(t6)
         // t6.material.color = new THREE.Color('green')
         t6.position.z = -2.12
@@ -70,6 +75,7 @@ export const checkVisible = (elm, threshold, mode) => {
         t7.position.y = 0.5
 
         export const t8 = customClone(t2)
+        t8.add(makeLineRail())
         // t8.material.color = new THREE.Color('blue')
         t8.rotateX(Math.PI)
 
@@ -107,6 +113,7 @@ export const checkVisible = (elm, threshold, mode) => {
 
 
         export const t12 = customClone(t11)
+        t12.add(makeLineRail())
         tGroup.add(t12)
         t12.position.z = -0.707
 

@@ -32,4 +32,6 @@ float PI = 3.145;
                 strenght = 1.0 - strenght;
                 vec3 color = vec3(strenght, strenght, strenght)* uColor;
                 gl_FragColor = vec4(color, opacity);
+                // gl_FragColor = vec4(1.0, 0.0, 0.0, 0.5);
+
             }

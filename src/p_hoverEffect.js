@@ -1,7 +1,7 @@
 import { getVertexPosition, makeDot } from "./l_geometry"
 import gsap from 'gsap/all'
 import * as THREE from 'three'
-import { lineMouseOverGroup, scene } from "./c_scene"
+import { lineMouseOverGroup } from "./c_scene"
 import { config } from "./a_config"
 import { actual_anim_state } from "./i_draw"
 
@@ -15,6 +15,7 @@ const offsetCorrect = {
     y:0,
     z:0
 }
+
 /**FOR DEBUG */
 if(window.location.href.includes(config.debug.commandLine)){
     const camgui = require('./a_gui').gui
