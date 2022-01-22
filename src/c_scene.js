@@ -17,11 +17,6 @@ export const refreshSizes = () => {
 }
 refreshSizes()
 
-/**LAYERS */
-export const BLOOM_SCENE = 1;
-export const bloomLayer = new THREE.Layers();
-bloomLayer.set( BLOOM_SCENE );
-
 // Scene
 export const scene = new THREE.Scene()
 scene.position.x -= 0.4
