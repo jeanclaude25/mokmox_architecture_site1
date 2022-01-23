@@ -4,7 +4,7 @@ import { mobileAndTabletCheck } from "./a_detect_mobile"
 import { container, scene } from "./c_scene"
 
 // Camera
-export const camera = new THREE.PerspectiveCamera(config.camera.fov, container.clientWidth / container.clientHeight, 0.1, 1000)
+export const camera = new THREE.PerspectiveCamera(config.camera.fov, container.clientWidth / container.clientHeight, 10, 100)
 
 camera.position.set(
     mobileAndTabletCheck() ? 65 : (30.959249425953114 - (container.clientWidth / container.clientHeight) * 10) + 25,

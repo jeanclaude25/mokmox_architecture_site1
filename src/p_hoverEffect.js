@@ -44,7 +44,7 @@ if(anim_state != actual_anim_state){
         // dot.position.x = pos[i].x + offsetCorrect.x
         // dot.position.y = pos[i].y + offsetCorrect.y
         // dot.position.z = pos[i].z + offsetCorrect.z
-        console.log("bfd")
+        console.log("Capture vertices position and can add some light effect here")
         gsap.to(
             dot.position,{
                 duration: config.onHover.timeForLine,

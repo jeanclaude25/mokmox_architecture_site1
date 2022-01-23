@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { renderer } from './d_renderer'
-import { pyramidGroup, scene } from './c_scene'
+import { otherGroup, pyramidGroup, scene, tGroup } from './c_scene'
 import { camera } from './e_camera'
 import { controls } from './i_controls'
 import { triangleAnimation, trianglesFloat } from './j_animation'
@@ -52,6 +52,9 @@ export const render = () => {
     controls.update()
     camera.updateProjectionMatrix()
     renderer.render(scene, camera)
+    // renderer.render(tGroup,camera)
+    // renderer.autoClear = false 
+
     // effectComposer.render()
     debug?stats.end():''
     requestAnimationFrame(render)

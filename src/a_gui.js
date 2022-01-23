@@ -8,7 +8,8 @@ import * as dat from 'dat.gui'
 
 export const gui = new dat.GUI({
     closed: true,
-    width: 400
+    width: 400,
+    
 })
 
 export const camgui = gui.addFolder('Camera')

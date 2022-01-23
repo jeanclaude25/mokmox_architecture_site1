@@ -151,6 +151,8 @@ export const checkVisible = (elm, threshold, mode) => {
 
 
         const trisArrays = [t1,t3,t5,t6,t8,t9,t11,t12]
+        t9.children[0].position.z = 0.003
+
 
         for(let ix = 0; ix<trisArrays.length; ix++){
             trisArrays[ix].material.color = new THREE.Color(config.assets.defaultColor)
