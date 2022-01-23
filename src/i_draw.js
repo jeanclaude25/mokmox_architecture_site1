@@ -4,10 +4,8 @@ import { otherGroup, pyramidGroup, scene, tGroup } from './c_scene'
 import { camera } from './e_camera'
 import { controls } from './i_controls'
 import { triangleAnimation, trianglesFloat } from './j_animation'
-import { dot, fixThisDot } from './p_hoverEffect'
 import Stats from 'stats.js'
 import { config } from './a_config'
-import { Allow_fixing, hovered_objects } from './k_events'
 import { lineMaterialShader } from './g_materials'
 
 
@@ -37,12 +35,6 @@ export const render = () => {
     lineMaterialShader.uniforms.uTime.value = elapsedTime
 
     if (trianglesFloat)triangleAnimation(elapsedTime)
-
-    if(Allow_fixing && hovered_objects.name != 'zeroHover'){
-        dot.animVar = hovered_objects.animVar
-        actual_anim_state = Math.round(elapsedTime * 1/config.onHover.timeForLine)%3
-        fixThisDot(hovered_objects, actual_anim_state)
-    }
 
 
     if (pyramidGroup) {

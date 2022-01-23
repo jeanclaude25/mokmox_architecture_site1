@@ -5,7 +5,6 @@ import { Allow_fixing, mouse } from './k_events'
 import { loadTexts } from './l_texts'
 import { enableScroll, scrollingLogic } from './k_events_scroll'
 import { controls } from './i_controls'
-import { dot } from './p_hoverEffect'
 
 export let trianglesFloat = false
 export const scatteredTriangles = []

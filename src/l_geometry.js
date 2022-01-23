@@ -28,6 +28,7 @@ export const makeDot = () => {
         // depthTest:false
     });
     const dot = new THREE.Mesh(sphereGeo, mat)
+    dot.visible = false
     return dot
 }
 
@@ -55,6 +56,7 @@ export const makeLineRail = (dir = 1) => {
     railsTris.scale.x = 1 + config.onHover.lineThickness
     railsTris.scale.y = 1 + config.onHover.lineThickness
     railsTris.scale.z = 1 + config.onHover.lineThickness
+    railsTris.visible = false
     return railsTris
 }
 
@@ -64,13 +66,22 @@ export const makeTriangle = (args,dir) => {
     const geometry = new THREE.BufferGeometry();
     geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
 
-    const mat = new THREE.MeshPhongMaterial({
+    // const mat = new THREE.MeshPhongMaterial({
+    //     side: THREE.DoubleSide,
+    //     color: new THREE.Color('white'),
+    //     // wireframe: false,
+    //     transparent: true,
+    //     opacity: 0,
+    //     depthTest: false,
+    //     flatShading: true
+    // });
+    const mat = new THREE.MeshPhysicalMaterial({
         side: THREE.DoubleSide,
         color: new THREE.Color('white'),
         // wireframe: false,
         transparent: true,
         opacity: 0,
-        // depthTest: false,
+        depthTest: false,
         flatShading: true
     });
 
@@ -82,6 +93,7 @@ export const makeTriangle = (args,dir) => {
 
 export const customClone = (mesh) => {
     const newMaterial = mesh.material.clone()
+    newMaterial.transparent = true
     const newGeometry = mesh.geometry.clone()
     const newMesh = new THREE.Mesh(newGeometry, newMaterial)
     return newMesh

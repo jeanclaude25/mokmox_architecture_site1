@@ -1,17 +1,15 @@
 import * as THREE from 'three'
 import { config } from "./a_config";
 import { mobileAndTabletCheck } from './a_detect_mobile';
-import { canvas, container, refreshSizes, scene, sizes } from "./c_scene";
+import { canvas, container, refreshSizes, scene } from "./c_scene";
 import { renderer } from "./d_renderer";
 import { camera } from "./e_camera";
 import { changeMaterialColor } from './g_materials';
 import { objectFromRaycast, pointerConvert } from './i_raycaster';
 import { loaded_objects } from './m_tween';
 import { responsiveTranslate } from './o_responsive';
-import { fixThisDot } from './p_hoverEffect';
 
 export let hovered_objects = null
-export let Allow_fixing = false
 
     export const mouse = {
         hovered_object:null,
@@ -84,12 +82,18 @@ export let Allow_fixing = false
                 if (child == actualHover)return
                     child.hovered = false
                     hovered_objects = null
+                    if(child.name!='zeroHover'){
 
                     /**Do what you want when object isn't mouOver anymore */
                     if(config.onHover.enableChangeColor){
-                    changeMaterialColor(child.material, config.onHover.time, config.assets.defaultColor)
+                        changeMaterialColor(child.material, config.onHover.time, config.assets.defaultColor)
+                        }
+                        if(config.onHover.enableRails){
+                            child.children[0].visible = false
+                        }
+
                     }
-                    Allow_fixing=false
+                    
                     
                 
             })
@@ -108,12 +112,19 @@ export let Allow_fixing = false
             scene.hoveredIsNull = false
             // if(!ob.selected)changeMaterialColor(ob.material, config.controls.hoverableObjects.time, config.controls.hoverableObjects.color)
             
-            /**Actions to do when object is mouseOver Here */
-            if(config.onHover.enableChangeColor){
-                changeMaterialColor(ob.material, config.onHover.time, config.onHover.hoverColor)
-            }
-            Allow_fixing = true
-            // console.log(ob.material)
+            if(ob.name!='zeroHover'){
+
+                /**Actions to do when object is mouseOver Here */
+                if(config.onHover.enableChangeColor){
+                    changeMaterialColor(ob.material, config.onHover.time, config.onHover.hoverColor)
+                }
+                
+                if(config.onHover.enableRails){
+                    ob.children[0].visible = true
+                }
+
+
+             }
         }
         }
 

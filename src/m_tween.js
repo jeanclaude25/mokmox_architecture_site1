@@ -186,36 +186,37 @@ export const loaded_objects = [] //Used for raycast
                     // callPreviousFunction()
                     scene.traverse((child) => {
                         if (child.userData.name == 'scatter') {
-                            console.log('scattering triangle');
                             scatteredTriangles.push(child)
                             loaded_objects.push(child)
+                            child.material.depthTest = true
 
                             /**FOR DEBUG */
-if(window.location.href.includes(config.debug.commandLine)){
+                                        if(window.location.href.includes(config.debug.commandLine)){
+                                        console.log('scattering triangle');
 
-    /**
-     * gui.gui
-     */
-    const camgui = require('./a_gui').scateredObjects
-    const triangleGui = camgui.addFolder('Triangle '+ child.name)
+                                            /**
+                                            * gui.gui
+                                            */
+                                            const camgui = require('./a_gui').scateredObjects
+                                            const triangleGui = camgui.addFolder('Triangle '+ child.name)
 
-    const posTriangleGui = triangleGui.addFolder('Position')
-    posTriangleGui.add(child.position, 'x').min(-150).max(150).step(0.001)
-    posTriangleGui.add(child.position, 'y').min(-150).max(150).step(0.001)
-    posTriangleGui.add(child.position, 'z').min(-150).max(150).step(0.001)
+                                            const posTriangleGui = triangleGui.addFolder('Position')
+                                            posTriangleGui.add(child.position, 'x').min(-150).max(150).step(0.001)
+                                            posTriangleGui.add(child.position, 'y').min(-150).max(150).step(0.001)
+                                            posTriangleGui.add(child.position, 'z').min(-150).max(150).step(0.001)
 
-    const rotTriangleGui = triangleGui.addFolder('Rotation')
-    rotTriangleGui.add(child.rotation, 'x').min(-Math.PI).max(Math.PI).step(0.001)
-    rotTriangleGui.add(child.rotation, 'y').min(-Math.PI).max(Math.PI).step(0.001)
-    rotTriangleGui.add(child.rotation, 'z').min(-Math.PI).max(Math.PI).step(0.001)
+                                            const rotTriangleGui = triangleGui.addFolder('Rotation')
+                                            rotTriangleGui.add(child.rotation, 'x').min(-Math.PI).max(Math.PI).step(0.001)
+                                            rotTriangleGui.add(child.rotation, 'y').min(-Math.PI).max(Math.PI).step(0.001)
+                                            rotTriangleGui.add(child.rotation, 'z').min(-Math.PI).max(Math.PI).step(0.001)
 
-    const scTriangleGui = triangleGui.addFolder('Scale')
-    scTriangleGui.add(child.scale, 'x').min(-5).max(5).step(0.001)
-    scTriangleGui.add(child.scale, 'y').min(-5).max(5).step(0.001)
-    scTriangleGui.add(child.scale, 'z').min(-5).max(5).step(0.001)
+                                            const scTriangleGui = triangleGui.addFolder('Scale')
+                                            scTriangleGui.add(child.scale, 'x').min(-5).max(5).step(0.001)
+                                            scTriangleGui.add(child.scale, 'y').min(-5).max(5).step(0.001)
+                                            scTriangleGui.add(child.scale, 'z').min(-5).max(5).step(0.001)
 
-    
-    }
+                                            
+                                            }
 
 
 

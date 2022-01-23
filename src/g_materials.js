@@ -27,13 +27,24 @@ export const lineMaterialShader = new THREE.RawShaderMaterial({
     side: THREE.DoubleSide,
     uniforms:{
         uOpacity: { value: 1.0},
-        uSizeRail: {value: 6.0},
+        uSizeRail: {value: 1.9},
         uRotation: {value: 0.5},
         uColor: {value: new THREE.Color('blue')},
         uTime: {value: config.onHover.timeForLine},
-        uMultiplier : {value: 1.0}
+        uMultiplier : {value: 2.0}
     }
 })
+
+export const triangleMat = new THREE.MeshPhongMaterial({
+    side: THREE.DoubleSide,
+    color: new THREE.Color('white'),
+    // wireframe: false,
+    transparent: true,
+    opacity: 0,
+    // depthTest: false,
+    flatShading: true
+});
+
 /**FOR DEBUG */
 if(window.location.href.includes(config.debug.commandLine)){
 

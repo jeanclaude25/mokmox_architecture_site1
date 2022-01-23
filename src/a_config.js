@@ -19,7 +19,7 @@ export const config = {
         resizeTime:1
     },
     assets:{
-        defaultColor:'white',
+        defaultColor:'grey',
         texts:['CAREERS', 'CLIENTS', 'BROCHURES', 'CONTACTS', 'ABOUT+US', 'NEWS', 'GALLERY', 'OUR+WORK'],
         links:[
             'https://profilerz.mokmo.solutions/career/',
@@ -35,7 +35,10 @@ export const config = {
     onHover:{
         enable: true,
         enableChangeColor: true,
-        hoverColor:'red',
+        enableLightEffect: true,
+        lightEffectColor: 'blue',
+        enableRails : true,
+        hoverColor:'white',
         time:0.5,
         timeForLine:0.4,
         lineThickness: 0.1
