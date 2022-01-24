@@ -28,16 +28,14 @@ export const myScene2 = new THREE.Group()
 export const tGroup = new THREE.Group()
 export const textGroup = new THREE.Group()
 
-//For line
-export const lineScene = new THREE.Scene()
-export const lineMouseOverGroup = new THREE.Group()
-lineScene.add(lineMouseOverGroup)
-scene.add(lineScene) //maybe this will be enough
 
 //Add both to the main scene
 myScene2.add(myScene)
 
 myScene.add(otherGroup)
+
+
+
 scene.add(myScene2)
 scene.add(textGroup)
 
@@ -58,7 +56,6 @@ camgui.add(myScene2, 'visible').name('myScene2')
 camgui.add(otherGroup, 'visible').name('otherGroup')
 camgui.add(tGroup, 'visible').name('tGroup')
 camgui.add(textGroup, 'visible').name('textGroup')
-camgui.add(lineMouseOverGroup, 'visible').name('lineMouseOverGroup')
 
 
 }

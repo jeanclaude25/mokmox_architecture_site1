@@ -19,16 +19,7 @@ export const finalTrianglePositionDesktop = {
     y:[-2.5, -0.5, -4.5, -0.5, 1.5, 5.5, -0.7, 3],
     z:[5, -2, 0, 6, 14.5, 14.5, 15, 9]
 }
-// const finalRotationMobile = {
-//     x:[5.346, 4.788, 1.822, -0.537, 3.127, -Math.PI, 2.98],
-//     y:[6.648, 7.006, 2.54, 0.031, 3.142, Math.PI, 1.189],
-//     z:[5.582, 5.501, 2.414, -0.436, 3.104, -Math.PI, Math.PI]
-// }
-// const finalRotationDesktop = {
-//     x:[5.346, 4.788, 1.822, -0.537, 3.127, -Math.PI, 2.98],
-//     y:[6.648, 7.006, 2.54, 0.031, 3.142, Math.PI, 1.189],
-//     z:[5.582, 5.501, 2.414, -0.436, 3.104, -Math.PI, Math.PI]
-// }
+
 
 const finalAngle = [-1.3, 0.1, -0.78, -0.78, -0.29, 0.82, 1.04, 0.9]
 const addScale = [0.2, 0.6, 0.8, 0.2, 0.5, 0.1, 0.3, 0.5]
@@ -71,11 +62,6 @@ export const scatterTriangles = (array) => {
             y: rotationZ.y + Math.PI * 2,
             z: rotationZ.z + Math.PI * 2,
         }
-        // const rot = {
-        //     x: isMobile()? finalRotationMobile.x[i]:finalRotationDesktop.x[i],
-        //     y: isMobile()? finalRotationMobile.y[i]:finalRotationDesktop.y[i],
-        //     z: isMobile()? finalRotationMobile.z[i]:finalRotationDesktop.z[i],
-        // }
         
 
         const scale = array[i].scale

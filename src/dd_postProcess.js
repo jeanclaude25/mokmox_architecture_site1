@@ -3,17 +3,9 @@ import * as THREE from 'three'
 import {EffectComposer} from 'three/examples/jsm/postprocessing/EffectComposer'
 import {RenderPass} from 'three/examples/jsm/postprocessing/RenderPass'
 
-import {AfterimagePass} from 'three/examples/jsm/postprocessing/AfterimagePass'
-import {GlitchPass} from 'three/examples/jsm/postprocessing/GlitchPass'
-import {UnrealBloomPass} from 'three/examples/jsm/postprocessing/UnrealBloomPass'
-
-import {AdaptiveToneMappingPass} from 'three/examples/jsm/postprocessing/AdaptiveToneMappingPass'
-import {DotScreenPass} from 'three/examples/jsm/postprocessing/DotScreenPass'
-import {FilmPass} from 'three/examples/jsm/postprocessing/FilmPass'
-import {HalftonePass} from 'three/examples/jsm/postprocessing/HalftonePass'
-
+import { GlitchPass } from './postProcessing/glitchPass/GlitchPass'
+import { UnrealBloomPass } from './postProcessing/bloomPass/UnrealBloomPass'
 import {SAOPass} from 'three/examples/jsm/postprocessing/SAOPass'
-import {SSAOPass} from 'three/examples/jsm/postprocessing/SSAOPass'
 
 
 
@@ -22,154 +14,45 @@ import { scene, sizes } from './c_scene'
 import { renderer } from './d_renderer'
 import { camera } from './e_camera'
 
-
-
-
-export const effectComposer = new EffectComposer(renderer)
-effectComposer.setPixelRatio(config.scene.pixelRatio)
-effectComposer.setSize(sizes.width, sizes.height)
-
+//First pass
 const renderPass = new RenderPass(scene, camera)
-effectComposer.addPass(renderPass)
-// renderPass.clearColor = new THREE.Color(0,0,0)
-// renderPass.clearAlpha = 0
 
-/**Maybe replace this by a true motion Blur */
-const mb = new AfterimagePass(0.7)
-effectComposer.addPass(mb)
+/**For glitch pass */
+export const glitchCompose = new EffectComposer(renderer)
+glitchCompose.setPixelRatio(config.scene.pixelRatio)
+glitchCompose.setSize(sizes.width, sizes.height)
+glitchCompose.addPass(renderPass)
+export const glitch = new GlitchPass()
+glitch.uniforms.amount.value = 0
+glitchCompose.addPass(glitch)
+const gl_sao = new SAOPass(scene,camera)
+glitchCompose.addPass(gl_sao)
 
+const renderPass2 = new RenderPass(scene, camera)
+export const uBloomCompose = new EffectComposer(renderer)
+uBloomCompose.setPixelRatio(config.scene.pixelRatio)
+uBloomCompose.setSize(sizes.width, sizes.height)
+uBloomCompose.addPass(renderPass2)
+const uBloom = new UnrealBloomPass()
+uBloom.threshold = 0.037
+uBloom.radius = 1.952
+uBloom.strength = 1.559
+// uBloom.bloomTintColors = '#ffffff'
+uBloomCompose.addPass(uBloom)
+const uB_sao = new SAOPass(scene,camera)
+uBloomCompose.addPass(uB_sao)
 
-/**Postprocess pass to add or remove */
-let allPasses = []
+/**FOR DEBUG */
+if(window.location.href.includes(config.debug.commandLine)){
 
-
-const gui = require('./a_gui').gui
-const postProcess_gui = gui.addFolder('PostProcessing')
-
-
-
-const create_postProcess = (name,postP,tweek) => {
-    const ob = {
-                on:false,
-                gui:null
-                }
-    postProcess_gui.add(ob, 'on')
-    .name(name)
-    .onChange( (value) => {
-        if (value){
-            clean_passes()
-            const postprocessPass = {
-                name,
-                pass: postP
-                }
-            allPasses.push(postprocessPass)
-            refresh_passes()
-
-            /**gui */
-            if(tweek){
-                ob.gui = postProcess_gui.addFolder(name)
-                ob.gui.open()
-                tweek.forEach((elem)=>{
-                    ob[elem.name] == undefined?ob[elem.name] = elem.default:''
-                    ob.gui.add(ob, elem.name).min(elem.min).max(elem.max).step(elem.step)
-                    .onChange((value)=>postP[elem.name] = value)
-                    postprocessPass.pass[elem.name] = elem.default
-                    })
-            }
-            
-        }else{
-            clean_passes()
-            const nPasses = allPasses.filter((elem)=> elem.name != name)
-            allPasses = nPasses
-            refresh_passes()
-            /**gui */
-            tweek?postProcess_gui.removeFolder(ob.gui):''
-                
-        }
-    })
-}
-
-const clean_passes = () =>{
-    allPasses.forEach((passe)=>{
-        effectComposer.removePass(passe.pass)
-    })
-}
-
-const refresh_passes = () =>{
-    allPasses.forEach((passe)=>{
-        effectComposer.addPass(passe.pass)
-    })
-}
-
-
-/**Adaptive tone mapping */
-create_postProcess(
-    'AdaptiveToneMapping',
-    new AdaptiveToneMappingPass()
-    )
-
-/**AfterImagePass (MotionBlur) */
-create_postProcess(
-    'MotionBlur',
-    new AfterimagePass()
-    )
-
-/**Bloom */
-create_postProcess(
-    'Bloom',
-    new UnrealBloomPass(),
-    [
-        {
-           name:'threshold',
-           default:0.68,
-           min:0,
-           max:1,
-           step:0.01 
-        },
-        {
-            name:'radius',
-            default:0,
-            min:0,
-            max:2,
-            step:0.01 
-         },
-         {
-            name:'strength',
-            default:0.17,
-            min:0,
-            max:5,
-            step:0.01 
-         }
-    ]
-    )
-
-create_postProcess(
-    'DotScreenPass',
-    new DotScreenPass()
-)
-
-create_postProcess(
-    'FilmPass',
-    new FilmPass()
-)
-
-create_postProcess(
-    'GlitchPass',
-    new GlitchPass()
-)
-
-create_postProcess(
-    'HalftonePass',
-    new HalftonePass()
-)
-
-create_postProcess(
-    'SAOPass',
-    new SAOPass(scene,camera)
+    /**
+     * gui.gui
+     */
+    const camgui = require('./a_gui').gui
     
-)
-
-create_postProcess(
-    'SSAOPass',
-    new SSAOPass(scene, camera)
-)
+    const posCamGui = camgui.addFolder('MouseOverBlur')
+    posCamGui.add(uBloom, 'threshold').min(-0).max(1).step(0.001)
+    posCamGui.add(uBloom, 'radius').min(-0).max(2).step(0.001)
+    posCamGui.add(uBloom, 'strength').min(0).max(5).step(0.001)
+    
+    }

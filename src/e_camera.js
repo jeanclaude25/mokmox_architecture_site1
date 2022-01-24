@@ -14,7 +14,6 @@ camera.position.set(
 
 scene.add(camera)
 
-
 /**FOR DEBUG */
 if(window.location.href.includes(config.debug.commandLine)){
 

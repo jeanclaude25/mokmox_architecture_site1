@@ -1,7 +1,8 @@
 import * as THREE from 'three'
 import { config } from "./a_config";
 import { mobileAndTabletCheck } from './a_detect_mobile';
-import { canvas, container, refreshSizes, scene } from "./c_scene";
+import { canvas, refreshSizes, scene, sizes } from "./c_scene";
+import { glitchCompose, uBloomCompose } from './dd_postProcess';
 import { renderer } from "./d_renderer";
 import { camera } from "./e_camera";
 import { changeMaterialColor } from './g_materials';
@@ -10,7 +11,7 @@ import { loaded_objects } from './m_tween';
 import { responsiveTranslate } from './o_responsive';
 
 export let hovered_objects = null
-
+export let allow_glitch = false
     export const mouse = {
         hovered_object:null,
         clicked_object:null,
@@ -49,12 +50,18 @@ export let hovered_objects = null
             const newCameraHeight = cameraHeight / ratio;
             // camera.fov = THREE.MathUtils.radToDeg(Math.atan(newCameraHeight)) * 2;
 
-            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.aspect = sizes.width/ sizes.height ;
             camera.updateProjectionMatrix();
 
-            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setSize(sizes.width, sizes.height);
             renderer.setPixelRatio(config.scene.pixelRatio)
             
+            glitchCompose.setPixelRatio(config.scene.pixelRatio)
+            glitchCompose.setSize(sizes.width, sizes.height)
+
+            uBloomCompose.setPixelRatio(config.scene.pixelRatio)
+            uBloomCompose.setSize(sizes.width, sizes.height)
+
             responsiveTranslate()
         })
     
@@ -91,6 +98,7 @@ export let hovered_objects = null
                         if(config.onHover.enableRails){
                             child.children[0].visible = false
                         }
+                        allow_glitch = false
 
                     }
                     
@@ -122,7 +130,7 @@ export let hovered_objects = null
                 if(config.onHover.enableRails){
                     ob.children[0].visible = true
                 }
-
+                enableGlitchEffect(true)
 
              }
         }
@@ -132,4 +140,10 @@ export let hovered_objects = null
         }
 
 const hoveredObjects = (ob) => ob.length>0 && config.onHover.enable? setObjectHover(ob[0].object):''
-    
+
+const enableGlitchEffect = (val) =>{
+allow_glitch = true
+setTimeout(()=>{
+    allow_glitch = false
+}, config.onHover.glitchTime * 1000)
+}

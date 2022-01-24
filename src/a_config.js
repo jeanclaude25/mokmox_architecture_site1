@@ -41,7 +41,8 @@ export const config = {
         hoverColor:'white',
         time:0.5,
         timeForLine:0.4,
-        lineThickness: 0.1
+        lineThickness: 0.1,
+        glitchTime: 0.3
     },
     debug:{
         commandLine:'?debug'

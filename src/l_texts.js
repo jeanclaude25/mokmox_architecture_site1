@@ -5,6 +5,7 @@ import { isMobile } from './a_detect_mobile';
 import { camera } from './e_camera';
 import { scatteredTriangles } from './j_animation'
 import gsap from 'gsap/all'
+import { TRIANGLES_LAYER } from './cc_layers';
 
         const loader = new FontLoader()
         let defaultFont;
@@ -114,7 +115,7 @@ export const loadTexts = () => {
             lastPosX = boundingBox.max.x
 
             letterGroup.add(text)
-            
+            text.layers.set(TRIANGLES_LAYER)
             
 
         }

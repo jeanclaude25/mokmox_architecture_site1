@@ -17,7 +17,7 @@ export const canvas = document.querySelector(config.html.canvasID)
 renderer.sortObjects = false;
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(config.scene.pixelRatio) //quality
-
+renderer.autoClear = false
 
 container.insertBefore(renderer.domElement, container.firstChild)
     

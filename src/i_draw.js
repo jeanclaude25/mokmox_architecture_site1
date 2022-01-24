@@ -1,12 +1,15 @@
 import * as THREE from 'three'
 import { renderer } from './d_renderer'
-import { otherGroup, pyramidGroup, scene, tGroup } from './c_scene'
+import { pyramidGroup, scene } from './c_scene'
 import { camera } from './e_camera'
 import { controls } from './i_controls'
 import { triangleAnimation, trianglesFloat } from './j_animation'
 import Stats from 'stats.js'
 import { config } from './a_config'
 import { lineMaterialShader } from './g_materials'
+import { BACKGROUND_LAYER, CENTRAL_STRUCTURE_LAYER, FOREGROUND_LAYER, MOUSEOVER_FX_LAYER, TRIANGLES_LAYER } from './cc_layers'
+import { effectComposer, glitchCompose, uBloomCompose } from './dd_postProcess'
+import { allow_glitch } from './k_events'
 
 
 export let actual_anim_state;
@@ -43,11 +46,30 @@ export const render = () => {
 
     controls.update()
     camera.updateProjectionMatrix()
-    renderer.render(scene, camera)
-    // renderer.render(tGroup,camera)
-    // renderer.autoClear = false 
 
-    // effectComposer.render()
+
+    camera.layers.set(BACKGROUND_LAYER)
+    renderer.render(scene, camera)
+
+    camera.layers.set(CENTRAL_STRUCTURE_LAYER)
+    allow_glitch?
+    glitchCompose.render()
+    :renderer.render(scene, camera)
+
+    // renderer.autoClear=false
+    camera.layers.set(MOUSEOVER_FX_LAYER)
+    renderer.render(scene, camera)
+    // uBloomCompose.render()
+
+    
+    
+    camera.layers.set(TRIANGLES_LAYER)
+    renderer.render(scene, camera)
+
+    camera.layers.set(FOREGROUND_LAYER)
+    renderer.render(scene, camera)
+
+
     debug?stats.end():''
     requestAnimationFrame(render)
     

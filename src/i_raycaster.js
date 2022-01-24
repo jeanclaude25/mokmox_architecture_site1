@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import { TRIANGLES_LAYER } from './cc_layers';
 import { scene } from "./c_scene";
 import { renderer } from './d_renderer';
 import { camera } from './e_camera'
@@ -15,6 +16,7 @@ export const pointerConvert = (pointer,window) => {
 
 
  const raycaster = new THREE.Raycaster()
+ raycaster.layers.set(TRIANGLES_LAYER)
  export const positionFromRaycast = {x:null,y:null,z:null}
 
  export const objectFromRaycast = (pointerFormatted, temp_arrayObjects) => {
@@ -41,5 +43,6 @@ export const pointerConvert = (pointer,window) => {
         plane.name = 'zeroHover'
         plane.position.z = -1
         loaded_objects.push(plane)
+        plane.layers.set(TRIANGLES_LAYER)
         export const raycastDetect = [plane]
         scene.add( plane )

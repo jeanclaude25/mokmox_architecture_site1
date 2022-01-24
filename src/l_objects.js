@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import { config } from './a_config';
+import { TRIANGLES_LAYER } from './cc_layers';
 import { myScene, tGroup } from './c_scene'
 import { customClone, makeLineRail, makeTriangle } from './l_geometry'
 
@@ -13,14 +14,13 @@ export const checkVisible = (elm, threshold, mode) => {
     const viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
     const above = rect.bottom - threshold < 0;
     const below = rect.top - viewHeight + threshold >= 0;
-    // if (above && !trianglesFloat) {}
     return mode === 'above' ? above : (mode === 'below' ? below : !above && !below);
 }
 
 
-    
         export const t1 = makeTriangle({ color: new THREE.Color('cyan') })
         t1.add(makeLineRail())
+        
         export const t2 = makeTriangle({ color: 'pink' })
         export const t3 = makeTriangle({ color: 'lightgreen' })
         t3.add(makeLineRail())
@@ -34,12 +34,10 @@ export const checkVisible = (elm, threshold, mode) => {
 
         tGroup.add(t2)
         tGroup.add(t3)
-        // tGroup.add(t4)
         t1.rotateX(Math.PI)
         t2.rotateX(-Math.PI)
 
         t3.rotateX(2 * -Math.PI / 2)
-        // // t3.rotateX(Math.PI / 2)
         t3.rotateY(-3 * Math.PI / 4)
         t3.rotateZ(Math.PI / 4)
         t3.position.x = 0.5
@@ -54,21 +52,16 @@ export const checkVisible = (elm, threshold, mode) => {
         t5.rotateY(1.5 * Math.PI / 2)
         t5.rotateZ(-Math.PI)
 
-
-        // t5.material.color = new THREE.Color('orange')
-
         tGroup.add(t5)
 
         export const t6 = customClone(t3)
         t6.add(makeLineRail())
         tGroup.add(t6)
-        // t6.material.color = new THREE.Color('green')
         t6.position.z = -2.12
         t6.position.x = 0.5
         t6.position.y = 0.5
 
         export const t7 = customClone(t5)
-        // t7.material.color = new THREE.Color('purple')
         tGroup.add(t7)
         t7.position.z = -2.12
         t7.position.x = 0.5
@@ -76,7 +69,6 @@ export const checkVisible = (elm, threshold, mode) => {
 
         export const t8 = customClone(t2)
         t8.add(makeLineRail())
-        // t8.material.color = new THREE.Color('blue')
         t8.rotateX(Math.PI)
 
         t8.position.y = 1
@@ -84,9 +76,6 @@ export const checkVisible = (elm, threshold, mode) => {
         t8.position.z = -2.83
 
         tGroup.add(t8)
-
-
-        // t9.material.color = new THREE.Color('yellow')
 
         t9.position.y = 1
         t9.position.x = 1
@@ -106,7 +95,6 @@ export const checkVisible = (elm, threshold, mode) => {
         t11.position.x = 1.5;
         t11.position.y = 2.5;
         t11.position.z = -2.12;
-        // t11.material.color = new THREE.Color('orange')
 
         t11.rotateY(1.5 * Math.PI / 2)
         t11.rotateZ(1.5 * Math.PI / 2)
@@ -117,13 +105,10 @@ export const checkVisible = (elm, threshold, mode) => {
         tGroup.add(t12)
         t12.position.z = -0.707
 
-        // t12.material.color = new THREE.Color('red')
-
         t12.position.x = 1.5
         t12.position.y = 2.5
 
         export const t13 = customClone(t12)
-        // t13.material.color = new THREE.Color('pink')
         t13.rotation.set(0, 0, 0)
 
         t13.position.y = 2.5
@@ -155,6 +140,7 @@ export const checkVisible = (elm, threshold, mode) => {
 
 
         for(let ix = 0; ix<trisArrays.length; ix++){
+            trisArrays[ix].layers.set(TRIANGLES_LAYER)
             trisArrays[ix].material.color = new THREE.Color(config.assets.defaultColor)
             trisArrays[ix].userData.name = 'scatter'
             trisArrays[ix].name = config.assets.links[ix]

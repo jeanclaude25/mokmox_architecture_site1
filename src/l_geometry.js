@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { config } from './a_config'
-import { scene } from './c_scene';
-import { lineMaterialShader } from './g_materials';
+import { MOUSEOVER_FX_LAYER, TRIANGLES_LAYER } from './cc_layers';
+import { lineMaterialShader, triangleMat } from './g_materials';
 
 
 
@@ -57,6 +57,7 @@ export const makeLineRail = (dir = 1) => {
     railsTris.scale.y = 1 + config.onHover.lineThickness
     railsTris.scale.z = 1 + config.onHover.lineThickness
     railsTris.visible = false
+    railsTris.layers.set(MOUSEOVER_FX_LAYER)
     return railsTris
 }
 
