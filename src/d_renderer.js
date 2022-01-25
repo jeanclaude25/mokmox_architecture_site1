@@ -14,7 +14,7 @@ export const canvas = document.querySelector(config.html.canvasID)
     powerPreference:'high-performance'
 })
 
-renderer.sortObjects = false;
+renderer.sortObjects = !false;
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(config.scene.pixelRatio) //quality
 renderer.autoClear = false

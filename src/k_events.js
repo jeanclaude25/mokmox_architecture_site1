@@ -1,12 +1,13 @@
 import * as THREE from 'three'
 import { config } from "./a_config";
-import { mobileAndTabletCheck } from './a_detect_mobile';
+import { isMobile, mobileAndTabletCheck } from './a_detect_mobile';
 import { canvas, refreshSizes, scene, sizes } from "./c_scene";
-import { glitchCompose, uBloomCompose } from './dd_postProcess';
+import { glitchCompose } from './dd_postProcess';
 import { renderer } from "./d_renderer";
 import { camera } from "./e_camera";
 import { changeMaterialColor } from './g_materials';
 import { objectFromRaycast, pointerConvert } from './i_raycaster';
+import { disableScroll, ending_tween } from './k_events_scroll';
 import { loaded_objects } from './m_tween';
 import { responsiveTranslate } from './o_responsive';
 
@@ -22,22 +23,33 @@ export let allow_glitch = false
     export const events = () => {
 
         if(!mobileAndTabletCheck()){
+            document.body.addEventListener('click',(e)=>{
+                disableScroll()
+            })
             
             canvas.addEventListener('mousemove',(e) =>{
                     e.stopPropagation()
                     hoveredObjects(objectFromRaycast(pointerConvert(e,canvas))) 
                 })
+            canvas.addEventListener('click', (e) => {
+            e.stopPropagation()
+                if(hovered_objects.name !=='zeroHover' && hovered_objects.name !== 'logo'){
+                    window.location.href = hovered_objects.name
+                }
+            })
 
         }else{
-
-
+            document.body.addEventListener('touchend',(e)=>{
+                disableScroll()
+            })
+            canvas.addEventListener('touchend', (e) => {
+            e.stopPropagation()
+                if(hovered_objects.name !=='zeroHover' && hovered_objects.name !== 'logo'){
+                    window.location.href = hovered_objects.name
+                }
+            })
 
         }
-
-
-
-
-
 
 
         window.addEventListener('resize', () =>
@@ -49,7 +61,8 @@ export let allow_glitch = false
             const ratio = camera.aspect / 1;
             const newCameraHeight = cameraHeight / ratio;
             // camera.fov = THREE.MathUtils.radToDeg(Math.atan(newCameraHeight)) * 2;
-
+            
+            camera.fov = isMobile()?config.camera.fov.mobile:config.camera.fov.pc
             camera.aspect = sizes.width/ sizes.height ;
             camera.updateProjectionMatrix();
 
@@ -59,19 +72,12 @@ export let allow_glitch = false
             glitchCompose.setPixelRatio(config.scene.pixelRatio)
             glitchCompose.setSize(sizes.width, sizes.height)
 
-            uBloomCompose.setPixelRatio(config.scene.pixelRatio)
-            uBloomCompose.setSize(sizes.width, sizes.height)
+            // uBloomCompose.setPixelRatio(config.scene.pixelRatio)
+            // uBloomCompose.setSize(sizes.width, sizes.height)
 
             responsiveTranslate()
         })
     
-        // canvas.addEventListener('click', (e) => {
-        //     if (intersects != undefined && intersects.length > 0 && intersects[0].object.name != 'zeroHover') {
-        //         console.log(intersects[0].object.name);
-        //         zoomOnObject(intersects[0].object)
-        //         // window.location.href = intersects[0].object.name
-        //     }
-        // })
 
         
     }
@@ -89,7 +95,7 @@ export let allow_glitch = false
                 if (child == actualHover)return
                     child.hovered = false
                     hovered_objects = null
-                    if(child.name!='zeroHover'){
+                    if(child.name!=='zeroHover' && child.name!=='logo'){
 
                     /**Do what you want when object isn't mouOver anymore */
                     if(config.onHover.enableChangeColor){
@@ -111,26 +117,26 @@ export let allow_glitch = false
     const setObjectHover = (ob) =>{
 
         if(hovered_objects != ob){
-            ob.name != 'zeroHover'?console.log("HoverReference " + ob.parent.name):''
+            // ob.name != 'zeroHover'?console.log("HoverReference " + ob.parent.name):''
          
         zeroHoveredAllObjects(ob)
         hovered_objects = ob
         if(!ob.hovered ){
             ob.hovered = true
             scene.hoveredIsNull = false
-            // if(!ob.selected)changeMaterialColor(ob.material, config.controls.hoverableObjects.time, config.controls.hoverableObjects.color)
-            
-            if(ob.name!='zeroHover'){
-
+            if(ob.name === 'logo'){
+                enableGlitchEffect(true)
+            }
+            if(ob.name!=='zeroHover' && ob.name!=='logo'){
                 /**Actions to do when object is mouseOver Here */
                 if(config.onHover.enableChangeColor){
                     changeMaterialColor(ob.material, config.onHover.time, config.onHover.hoverColor)
                 }
                 
-                if(config.onHover.enableRails){
+                if(config.onHover.enableRails && ending_tween){
                     ob.children[0].visible = true
                 }
-                enableGlitchEffect(true)
+                
 
              }
         }

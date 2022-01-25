@@ -22,7 +22,8 @@
 		'seed_y': { value: 0.02 }, //-1,1
 		'distortion_x': { value: 0.5 },
 		'distortion_y': { value: 0.6 },
-		'col_s': { value: 0.05 }
+		'col_s': { value: 0.05 },
+		'uTime':{value:0}
 	},
 
 	vertexShader: [
@@ -48,6 +49,7 @@
 		'uniform float distortion_x;',
 		'uniform float distortion_y;',
 		'uniform float col_s;',
+		'uniform float uTime;',
 
 		'varying vec2 vUv;',
 
@@ -57,7 +59,8 @@
 		'}',
 
 		'void main() {',
-		'	if(byp<1) {',
+			'float start = uTime - (2.0 * floor(uTime/2.0));',
+		'	if(start<1.0) {',
 		'		vec2 p = vUv;',
 		'		float xs = floor(gl_FragCoord.x / 0.5);',
 		'		float ys = floor(gl_FragCoord.y / 0.5);',
@@ -86,13 +89,14 @@
 		'		vec4 cr = texture2D(tDiffuse, p + offset);',
 		'		vec4 cga = texture2D(tDiffuse, p);',
 		'		vec4 cb = texture2D(tDiffuse, p - offset);',
-		'		gl_FragColor = vec4(cr.r/2.0, cga.g/2.0, cb.b, 0.0);', //cga.a for alpha
+		'		gl_FragColor = vec4(cr.r, cga.g, cb.b, 0.0);', //cga.a for alpha
 		//add noise
 		'		vec4 snow = 200.*amount*vec4(rand(vec2(xs * seed,ys * seed*50.))*0.2);',
-		'		gl_FragColor = gl_FragColor+ snow;',
+		'		vec3 coloration = vec3(gl_FragColor.r+ snow.r,gl_FragColor.g+ snow.g,gl_FragColor.b+ snow.b);',
+		'		gl_FragColor = vec4(coloration - texture2D (tDisp, p - offset*10.0).rgb , 0.0);',
 		'	}',
 		'	else {',
-		'		//gl_FragColor=texture2D (tDiffuse, vUv);',
+		'		gl_FragColor=texture2D (tDiffuse, vUv);',
 		'	}',
 		'}'
 

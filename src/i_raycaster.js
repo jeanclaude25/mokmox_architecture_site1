@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import { config } from './a_config';
 import { TRIANGLES_LAYER } from './cc_layers';
 import { scene } from "./c_scene";
 import { renderer } from './d_renderer';
@@ -35,8 +36,6 @@ export const pointerConvert = (pointer,window) => {
  }
     
 
-
-
         const geometry = new THREE.PlaneBufferGeometry( 100, 100 )
         const material = new THREE.MeshBasicMaterial( {color: 0xffff00, visible:false} )
         const plane = new THREE.Mesh( geometry, material );
@@ -44,5 +43,15 @@ export const pointerConvert = (pointer,window) => {
         plane.position.z = -1
         loaded_objects.push(plane)
         plane.layers.set(TRIANGLES_LAYER)
-        export const raycastDetect = [plane]
         scene.add( plane )
+
+        const g_logo = new THREE.PlaneBufferGeometry( 1.6, 3.3 )
+
+        const p_logo = new THREE.Mesh( g_logo, material );
+        p_logo.name = 'logo'
+        p_logo.position.set(-1.424,-0.414,-1)
+        p_logo.rotation.set(-0.01,0.867,0)
+
+        loaded_objects.push(p_logo)
+        p_logo.layers.set(TRIANGLES_LAYER)
+        scene.add( p_logo )

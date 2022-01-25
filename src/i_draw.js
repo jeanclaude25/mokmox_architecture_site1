@@ -8,8 +8,9 @@ import Stats from 'stats.js'
 import { config } from './a_config'
 import { lineMaterialShader } from './g_materials'
 import { BACKGROUND_LAYER, CENTRAL_STRUCTURE_LAYER, FOREGROUND_LAYER, MOUSEOVER_FX_LAYER, TRIANGLES_LAYER } from './cc_layers'
-import { effectComposer, glitchCompose, uBloomCompose } from './dd_postProcess'
+import { glitch, glitchCompose} from './dd_postProcess'
 import { allow_glitch } from './k_events'
+import { ending_tween } from './k_events_scroll'
 
 
 export let actual_anim_state;
@@ -43,20 +44,21 @@ export const render = () => {
     if (pyramidGroup) {
         myScene2.rotateOnAxis(new THREE.Vector3(0, 1, 0), 0.005)
     }
+    
+    glitch.uniforms.uTime.value = elapsedTime
 
     controls.update()
     camera.updateProjectionMatrix()
-
 
     camera.layers.set(BACKGROUND_LAYER)
     renderer.render(scene, camera)
 
     camera.layers.set(CENTRAL_STRUCTURE_LAYER)
-    allow_glitch?
+    renderer.render(scene, camera)
+    allow_glitch && ending_tween?
     glitchCompose.render()
     :renderer.render(scene, camera)
 
-    // renderer.autoClear=false
     camera.layers.set(MOUSEOVER_FX_LAYER)
     renderer.render(scene, camera)
     // uBloomCompose.render()

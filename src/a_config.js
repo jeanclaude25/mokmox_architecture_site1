@@ -13,7 +13,11 @@ export const config = {
 
     },
     camera:{
-        fov:5
+        fov:{
+            mobile:6,
+            pc:5
+        }
+        
     },
     responsive:{
         resizeTime:1
@@ -34,7 +38,7 @@ export const config = {
     },
     onHover:{
         enable: true,
-        enableChangeColor: true,
+        enableChangeColor: false,
         enableLightEffect: true,
         lightEffectColor: 'blue',
         enableRails : true,
@@ -42,11 +46,16 @@ export const config = {
         time:0.5,
         timeForLine:0.4,
         lineThickness: 0.1,
-        glitchTime: 0.3
+        glitchTime: 0.3,
+        color:{
+            line:'blue',
+            gradientA:'#939393',
+            gradientB:'#2e363a'
+        }
     },
     debug:{
         commandLine:'?debug'
-    }
+        }
 
 }
 

@@ -184,6 +184,7 @@ export const loaded_objects = [] //Used for raycast
             tween = new TWEEN.Tween(position).to(obj, 333).easing(TWEEN.Easing.Linear.None).onComplete( () => {
                 if (elements.length == 0) {
                     // callPreviousFunction()
+                    
                     scene.traverse((child) => {
                         if (child.userData.name == 'scatter') {
                             scatteredTriangles.push(child)
@@ -237,10 +238,12 @@ export const loaded_objects = [] //Used for raycast
                     // || originalElements.length == 2 || originalElements.length == 1
                 ) ? 0 : 1
             }
-            if (elements.length != 0 && originalElements.length < 4) {
-                elem.material.transparent = false;
-            }
+            // if (elements.length != 0 && originalElements.length < 4) {
+            //     elem.material.transparent = false;
+            // }
+            elem.material.transparent = false;
             new TWEEN.Tween(opacity).to(obj2, 300).easing(TWEEN.Easing.Linear.None).start(mouse.delta)
+            
         }
         
 

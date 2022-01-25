@@ -3,6 +3,7 @@ import { canvas } from "./c_scene"
 import { checkVisible } from "./l_objects"
 import { updateTween, updateTweenMobile } from "./m_tween"
 
+export let ending_tween = false
 
 
         const disable = () => {
@@ -42,7 +43,7 @@ import { updateTween, updateTweenMobile } from "./m_tween"
         const wheelEvent = 'onwheel' in document.createElement('div') ? 'wheel' : 'mousewheel';
 
         // call this to Disable
-        const disableScroll = () => {
+        export const disableScroll = () => {
             window.addEventListener(wheelEvent, preventDefault, wheelOpt); // modern desktop
 
             window.addEventListener('DOMMouseScroll', preventDefault, false); // older FF
@@ -56,6 +57,7 @@ import { updateTween, updateTweenMobile } from "./m_tween"
             window.removeEventListener(wheelEvent, preventDefault, wheelOpt);
             window.removeEventListener('touchmove', preventDefault, wheelOpt);
             window.removeEventListener('keydown', preventDefaultForScrollKeys, false);
+            ending_tween = true;
         }
 
 

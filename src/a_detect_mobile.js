@@ -6,14 +6,3 @@ export const mobileAndTabletCheck = () => {
     return check;
   }
 export const isMobile = () => sizes.width < 872?true:false
-
-  
-
-//   export const orientationProcess = (event) => {
-//     const e = event
-//     const m = config.mobile.maxOrientation
-//     //axes calculation
-//     const beta = Math.min(e.beta, m)!=0?Math.min(e.beta, m)/m:Math.min(e.beta, m)
-//     const gamma = Math.min(e.gamma, m)!=0?Math.min(e.gamma, m)/m:Math.min(e.gamma, m)
-
-//   }

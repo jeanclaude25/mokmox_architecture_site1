@@ -5,8 +5,7 @@ import {RenderPass} from 'three/examples/jsm/postprocessing/RenderPass'
 
 import { GlitchPass } from './postProcessing/glitchPass/GlitchPass'
 import { UnrealBloomPass } from './postProcessing/bloomPass/UnrealBloomPass'
-import {SAOPass} from 'three/examples/jsm/postprocessing/SAOPass'
-
+import { SAOPass } from './postProcessing/saoPass/SAOPass'
 
 
 import { config } from './a_config'
@@ -23,7 +22,6 @@ glitchCompose.setPixelRatio(config.scene.pixelRatio)
 glitchCompose.setSize(sizes.width, sizes.height)
 glitchCompose.addPass(renderPass)
 export const glitch = new GlitchPass()
-glitch.uniforms.amount.value = 0
 glitchCompose.addPass(glitch)
 const gl_sao = new SAOPass(scene,camera)
 glitchCompose.addPass(gl_sao)

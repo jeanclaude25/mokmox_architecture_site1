@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import { config } from './a_config';
 import { TRIANGLES_LAYER } from './cc_layers';
 import { myScene, tGroup } from './c_scene'
+import { triangleMat } from './g_materials';
 import { customClone, makeLineRail, makeTriangle } from './l_geometry'
 
 
@@ -144,6 +145,8 @@ export const checkVisible = (elm, threshold, mode) => {
             trisArrays[ix].material.color = new THREE.Color(config.assets.defaultColor)
             trisArrays[ix].userData.name = 'scatter'
             trisArrays[ix].name = config.assets.links[ix]
+            trisArrays[ix].material = triangleMat.clone()
+
         }
         
 

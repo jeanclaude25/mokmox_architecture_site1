@@ -18,11 +18,11 @@ var GlitchPass = function ( dt_size ) {
     var shader = DigitalGlitch;
     this.uniforms = UniformsUtils.clone( shader.uniforms );
 
-    if ( dt_size == undefined ) dt_size = 64;
+    if ( dt_size == undefined ) dt_size = 8;
 
 
     this.uniforms[ "tDisp" ].value = this.generateHeightmap( dt_size );
-
+    this.uniforms['uTime'].value = 0
 
     this.material = new ShaderMaterial( {
         uniforms: this.uniforms,
@@ -49,12 +49,13 @@ GlitchPass.prototype = Object.assign( Object.create( Pass.prototype ), {
         this.uniforms[ 'byp' ].value = 0;
 
         // if ( this.curF % this.randX == 0 || this.goWild == true ) {
-            this.uniforms[ 'amount' ].value = Math.random() / 900;
-            this.uniforms[ 'angle' ].value = MathUtils.randFloat( - Math.PI, Math.PI );
-            this.uniforms[ 'seed_x' ].value = MathUtils.randFloat( - 1, 1 );
-            this.uniforms[ 'seed_y' ].value = MathUtils.randFloat( - 1, 1 );
-            this.uniforms[ 'distortion_x' ].value = MathUtils.randFloat( 0, 1 );
-            this.uniforms[ 'distortion_y' ].value = MathUtils.randFloat( 0, 1 );
+            this.uniforms[ 'amount' ].value = Math.random() / 9000;
+            this.uniforms[ 'angle' ].value = 0;//MathUtils.randFloat( - Math.PI, Math.PI );
+            this.uniforms[ 'seed_x' ].value = MathUtils.randFloat( - 0.8, 0.8 );
+            this.uniforms[ 'seed_y' ].value = MathUtils.randFloat( - 0.8, 0.8 );
+            this.uniforms[ 'distortion_x' ].value = MathUtils.randFloat( 0, 0.25 );
+            this.uniforms[ 'distortion_y' ].value = MathUtils.randFloat( 0, 0.25 );
+            this.uniforms['uTime'].value = 0;
             this.curF = 0;
             this.generateTrigger();
 
@@ -86,7 +87,7 @@ GlitchPass.prototype = Object.assign( Object.create( Pass.prototype ), {
 
         for ( var i = 0; i < length; i ++ ) {
 
-            var val = MathUtils.randFloat( 0, 1 );
+            var val = MathUtils.randFloat( 0, 1 ); //STRENGH VALUE
             data_arr[ i * 3 + 0 ] = val;
             data_arr[ i * 3 + 1 ] = val;
             data_arr[ i * 3 + 2 ] = val;

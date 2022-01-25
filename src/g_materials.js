@@ -1,6 +1,9 @@
 import * as THREE from 'three'
 import linesHoverVertexShader from './shaders/linesHover/vertex.glsl' 
-import linesHoverFragmentShader from './shaders/linesHover/fragment.glsl' 
+import linesHoverFragmentShader from './shaders/linesHover/fragment.glsl'
+import triangleVertexShader from './shaders/triangle/vertex.glsl'
+import triangleFragmentShader from './shaders/triangle/fragment.glsl'
+
 import gsap from 'gsap/all'
 import { config } from './a_config'
 
@@ -22,27 +25,28 @@ export const changeMaterialColor = (material, time , temp_color) => {
 export const lineMaterialShader = new THREE.RawShaderMaterial({
     vertexShader: linesHoverVertexShader,
     fragmentShader: linesHoverFragmentShader,
-    // transparent:true,
-    // depthTest: false,
     side: THREE.DoubleSide,
     uniforms:{
-        uOpacity: { value: 1.0},
         uSizeRail: {value: 1.9},
         uRotation: {value: 0.5},
-        uColor: {value: new THREE.Color('blue')},
+        uColor: {value: new THREE.Color(config.onHover.color.line)},
         uTime: {value: config.onHover.timeForLine},
         uMultiplier : {value: 2.0}
     }
 })
 
-export const triangleMat = new THREE.MeshPhongMaterial({
+export const triangleMat = new THREE.RawShaderMaterial({
+    vertexShader: linesHoverVertexShader, //same as before for optimisation
+    fragmentShader: triangleFragmentShader,
     side: THREE.DoubleSide,
-    color: new THREE.Color('white'),
-    // wireframe: false,
     transparent: true,
     opacity: 0,
-    // depthTest: false,
-    flatShading: true
+    flatShading: true,
+    uniforms:{
+        uColorA: {value: new THREE.Color(config.onHover.color.gradientA)},
+        uColorB: {value: new THREE.Color(config.onHover.color.gradientB)},
+        uTime: {value: config.onHover.timeForLine}
+    }
 });
 
 /**FOR DEBUG */
@@ -54,7 +58,6 @@ if(window.location.href.includes(config.debug.commandLine)){
     const camgui = require('./a_gui').gui
     
     const shaderGui = camgui.addFolder('Rail')
-    shaderGui.add(lineMaterialShader.uniforms.uOpacity, 'value').name('opacity').min(0).max(1).step(0.001)
     shaderGui.add(lineMaterialShader.uniforms.uSizeRail, 'value').name('Size Rails').min(-6).max(6).step(0.001)
     shaderGui.add(lineMaterialShader.uniforms.uRotation, 'value').name('rotation').min(-3).max(3).step(0.001)
     shaderGui.add(lineMaterialShader.uniforms.uMultiplier, 'value').name('Speed').min(0).max(2).step(0.001)
