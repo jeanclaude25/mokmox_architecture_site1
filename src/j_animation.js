@@ -5,6 +5,7 @@ import { Allow_fixing, mouse } from './k_events'
 import { loadTexts } from './l_texts'
 import { enableScroll, scrollingLogic } from './k_events_scroll'
 import { controls } from './i_controls'
+import { tween_time_value } from './i_draw'
 
 export let trianglesFloat = false
 export const scatteredTriangles = []
@@ -82,7 +83,7 @@ export const scatterTriangles = (array) => {
                 window.removeEventListener('touchmove', scrollingLogic)
 
             }
-        }).start(mouse.logDelta)
+        }).start(tween_time_value)
 
         let finalPosition = {x:null,y:null,z:null}
         if (isMobile()){
@@ -96,9 +97,9 @@ export const scatterTriangles = (array) => {
 
         }
         
-        new TWEEN.Tween(position).to(finalPosition, 2000).easing(TWEEN.Easing.Quadratic.InOut).start(mouse.logDelta)
+        new TWEEN.Tween(position).to(finalPosition, 2000).easing(TWEEN.Easing.Quadratic.InOut).start(tween_time_value)
 
-        new TWEEN.Tween(scale).to(obj3, 2000).easing(TWEEN.Easing.Quadratic.InOut).start(mouse.logDelta)
+        new TWEEN.Tween(scale).to(obj3, 2000).easing(TWEEN.Easing.Quadratic.InOut).start(tween_time_value)
 
     }
 }

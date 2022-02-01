@@ -20,6 +20,19 @@ export const changeMaterialColor = (material, time , temp_color) => {
             }
         )
 }
+export const changeUniformsColor = (material,nameUniform, time , temp_color) => {
+
+    const color = new THREE.Color(temp_color)
+    
+        gsap.to(
+            material.uniforms[nameUniform].value,{
+                duration: time,
+                r: color.r,
+                g: color.g,
+                b: color.b
+            }
+        )
+}
 
 /**MATERIALS */
 export const lineMaterialShader = new THREE.RawShaderMaterial({
@@ -27,7 +40,7 @@ export const lineMaterialShader = new THREE.RawShaderMaterial({
     fragmentShader: linesHoverFragmentShader,
     side: THREE.DoubleSide,
     uniforms:{
-        uSizeRail: {value: 1.9},
+        uSizeRail: {value: 6},
         uRotation: {value: 0.5},
         uColor: {value: new THREE.Color(config.onHover.color.line)},
         uTime: {value: config.onHover.timeForLine},

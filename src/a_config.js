@@ -9,7 +9,7 @@ export const config = {
             enable: true
         },
         alpha: true,
-        pixelRatio: 2
+        pixelRatio: 1
 
     },
     camera:{
@@ -38,11 +38,10 @@ export const config = {
     },
     onHover:{
         enable: true,
-        enableChangeColor: false,
+        enableChangeColor: true,
         enableLightEffect: true,
         lightEffectColor: 'blue',
         enableRails : true,
-        hoverColor:'white',
         time:0.5,
         timeForLine:0.4,
         lineThickness: 0.1,
@@ -51,6 +50,10 @@ export const config = {
             line:'blue',
             gradientA:'#939393',
             gradientB:'#2e363a'
+        },
+        colorHover:{
+            gradientA:'red',
+            gradientB:'green'
         }
     },
     debug:{
@@ -58,5 +61,4 @@ export const config = {
         }
 
 }
-
 

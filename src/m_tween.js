@@ -4,6 +4,7 @@ import { t1, t2, t3, t5, t6, t7, t8, t9, t10, t11, t12, t13, showOutlines } from
 import { scatteredTriangles, scatterTriangles } from './j_animation'
 import { mouse } from './k_events';
 import { config } from './a_config';
+import { tween_time_value } from './i_draw';
 
 export let tween
 export const loaded_objects = [] //Used for raycast
@@ -157,15 +158,16 @@ export const loaded_objects = [] //Used for raycast
         },
 
     ];
-
+        export const autoTween = (val) => {
+            TWEEN.update(val, true)
+        }
         export const updateTween = (e) => {
-
             e.preventDefault()
             if (Math.sign(e.deltaY) > 0) {
                 mouse.delta += e.deltaY /4
             }
 
-            TWEEN.update(mouse.delta, true)
+            TWEEN.update(tween_time_value, true)
         }
 
         export const updateTweenMobile = (e) => {
@@ -175,7 +177,7 @@ export const loaded_objects = [] //Used for raycast
                 mouse.delta += touches / 20 
             }
 
-            TWEEN.update(mouse.delta, true)
+            TWEEN.update(tween_time_value, true)
         }
 
         export const tweenTriangle = (elem, destination) => {
@@ -223,7 +225,7 @@ export const loaded_objects = [] //Used for raycast
 
                         }
                     })
-                    mouse.logDelta = mouse.delta;
+                    mouse.logDelta = tween_time_value;
                     showOutlines()
                     scatterTriangles(scatteredTriangles)
                 } else {
@@ -231,7 +233,7 @@ export const loaded_objects = [] //Used for raycast
 
                 }
 
-            }).start(mouse.delta)
+            }).start(tween_time_value)
             const opacity = elem.material;
             const obj2 = {
                 opacity: elements.length == 0 && (originalElements.length > 4
@@ -242,7 +244,7 @@ export const loaded_objects = [] //Used for raycast
             //     elem.material.transparent = false;
             // }
             elem.material.transparent = false;
-            new TWEEN.Tween(opacity).to(obj2, 300).easing(TWEEN.Easing.Linear.None).start(mouse.delta)
+            new TWEEN.Tween(opacity).to(obj2, 300).easing(TWEEN.Easing.Linear.None).start(tween_time_value)
             
         }
         

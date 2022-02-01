@@ -4,6 +4,7 @@ import { checkVisible } from "./l_objects"
 import { updateTween, updateTweenMobile } from "./m_tween"
 
 export let ending_tween = false
+export let allow_auto_tween = false
 
 
         const disable = () => {
@@ -84,3 +85,13 @@ export let ending_tween = false
         window.addEventListener('DOMMouseScroll', updateTween); // older FF
         window.addEventListener('touchmove', updateTweenMobile); // mobile
         window.addEventListener('keydown', updateTween);
+
+        canvas.addEventListener('click', (e)=> autoPlay(e))
+        canvas.addEventListener('touchend', (e)=> autoPlay(e))
+
+        const autoPlay = (e) => {
+            e.preventDefault()
+            disableScroll()
+            canvas.scrollIntoView(false)
+            allow_auto_tween = true;
+        }

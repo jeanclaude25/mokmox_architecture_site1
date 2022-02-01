@@ -2,12 +2,12 @@ import * as THREE from 'three'
 import { config } from "./a_config";
 import { isMobile, mobileAndTabletCheck } from './a_detect_mobile';
 import { canvas, refreshSizes, scene, sizes } from "./c_scene";
-import { glitchCompose } from './dd_postProcess';
-import { renderer } from "./d_renderer";
+import { passes } from './dd_postProcess';
+import { renderer, resizeRenderer } from "./d_renderer";
 import { camera } from "./e_camera";
-import { changeMaterialColor } from './g_materials';
+import { changeMaterialColor, changeUniformsColor } from './g_materials';
 import { objectFromRaycast, pointerConvert } from './i_raycaster';
-import { disableScroll, ending_tween } from './k_events_scroll';
+import { disableScroll, enableScroll, ending_tween } from './k_events_scroll';
 import { loaded_objects } from './m_tween';
 import { responsiveTranslate } from './o_responsive';
 
@@ -24,7 +24,8 @@ export let allow_glitch = false
 
         if(!mobileAndTabletCheck()){
             document.body.addEventListener('click',(e)=>{
-                disableScroll()
+                enableScroll()
+                
             })
             
             canvas.addEventListener('mousemove',(e) =>{
@@ -40,7 +41,7 @@ export let allow_glitch = false
 
         }else{
             document.body.addEventListener('touchend',(e)=>{
-                disableScroll()
+                enableScroll()
             })
             canvas.addEventListener('touchend', (e) => {
             e.stopPropagation()
@@ -66,15 +67,9 @@ export let allow_glitch = false
             camera.aspect = sizes.width/ sizes.height ;
             camera.updateProjectionMatrix();
 
-            renderer.setSize(sizes.width, sizes.height);
-            renderer.setPixelRatio(config.scene.pixelRatio)
+            resizeRenderer(renderer)
+            passes.forEach((child)=> resizeRenderer(child) )
             
-            glitchCompose.setPixelRatio(config.scene.pixelRatio)
-            glitchCompose.setSize(sizes.width, sizes.height)
-
-            // uBloomCompose.setPixelRatio(config.scene.pixelRatio)
-            // uBloomCompose.setSize(sizes.width, sizes.height)
-
             responsiveTranslate()
         })
     
@@ -99,7 +94,9 @@ export let allow_glitch = false
 
                     /**Do what you want when object isn't mouOver anymore */
                     if(config.onHover.enableChangeColor){
-                        changeMaterialColor(child.material, config.onHover.time, config.assets.defaultColor)
+                        changeUniformsColor(child.material, 'uColorA', config.onHover.time, config.onHover.color.gradientA)
+                        changeUniformsColor(child.material, 'uColorB', config.onHover.time, config.onHover.color.gradientB)
+
                         }
                         if(config.onHover.enableRails){
                             child.children[0].visible = false
@@ -130,8 +127,9 @@ export let allow_glitch = false
             if(ob.name!=='zeroHover' && ob.name!=='logo'){
                 /**Actions to do when object is mouseOver Here */
                 if(config.onHover.enableChangeColor){
-                    changeMaterialColor(ob.material, config.onHover.time, config.onHover.hoverColor)
-                }
+                    changeUniformsColor(ob.material, 'uColorA', config.onHover.time, config.onHover.colorHover.gradientA)
+                    changeUniformsColor(ob.material, 'uColorB', config.onHover.time, config.onHover.colorHover.gradientB)
+                    }
                 
                 if(config.onHover.enableRails && ending_tween){
                     ob.children[0].visible = true

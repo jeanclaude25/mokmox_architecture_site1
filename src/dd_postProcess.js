@@ -7,24 +7,44 @@ import { GlitchPass } from './postProcessing/glitchPass/GlitchPass'
 import { UnrealBloomPass } from './postProcessing/bloomPass/UnrealBloomPass'
 import { SAOPass } from './postProcessing/saoPass/SAOPass'
 
+import glitchCustomVertex from './shaders/glitch/vertex.glsl'
+import glitchCustomFragment from './shaders/glitch/fragment.glsl'
+
 
 import { config } from './a_config'
 import { scene, sizes } from './c_scene'
 import { renderer } from './d_renderer'
 import { camera } from './e_camera'
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass'
 
-//First pass
+export const passes = []
+
 const renderPass = new RenderPass(scene, camera)
 
 /**For glitch pass */
 export const glitchCompose = new EffectComposer(renderer)
+passes.push(glitchCompose)
 glitchCompose.setPixelRatio(config.scene.pixelRatio)
 glitchCompose.setSize(sizes.width, sizes.height)
 glitchCompose.addPass(renderPass)
-export const glitch = new GlitchPass()
-glitchCompose.addPass(glitch)
+// export const glitch = new GlitchPass()
+// glitchCompose.addPass(glitch)
+
+// const gl_sao = new SAOPass(scene,camera)
+// glitchCompose.addPass(gl_sao)
+const glitchShader = {
+    uniforms:{
+        tDiffuse: {value: null},
+        uTime: {value: 0}
+    },
+    vertexShader: glitchCustomVertex,
+    fragmentShader: glitchCustomFragment
+}
+export const glitchCustomPass = new ShaderPass(glitchShader)
+glitchCompose.addPass(glitchCustomPass)
 const gl_sao = new SAOPass(scene,camera)
 glitchCompose.addPass(gl_sao)
+
 
 const renderPass2 = new RenderPass(scene, camera)
 export const uBloomCompose = new EffectComposer(renderer)
