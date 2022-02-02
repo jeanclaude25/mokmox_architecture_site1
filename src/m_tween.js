@@ -200,25 +200,11 @@ export const loaded_objects = [] //Used for raycast
                                             /**
                                             * gui.gui
                                             */
-                                            const camgui = require('./a_gui').scateredObjects
-                                            const triangleGui = camgui.addFolder('Triangle '+ child.name)
-
-                                            const posTriangleGui = triangleGui.addFolder('Position')
-                                            posTriangleGui.add(child.position, 'x').min(-150).max(150).step(0.001)
-                                            posTriangleGui.add(child.position, 'y').min(-150).max(150).step(0.001)
-                                            posTriangleGui.add(child.position, 'z').min(-150).max(150).step(0.001)
-
-                                            const rotTriangleGui = triangleGui.addFolder('Rotation')
-                                            rotTriangleGui.add(child.rotation, 'x').min(-Math.PI).max(Math.PI).step(0.001)
-                                            rotTriangleGui.add(child.rotation, 'y').min(-Math.PI).max(Math.PI).step(0.001)
-                                            rotTriangleGui.add(child.rotation, 'z').min(-Math.PI).max(Math.PI).step(0.001)
-
-                                            const scTriangleGui = triangleGui.addFolder('Scale')
-                                            scTriangleGui.add(child.scale, 'x').min(-5).max(5).step(0.001)
-                                            scTriangleGui.add(child.scale, 'y').min(-5).max(5).step(0.001)
-                                            scTriangleGui.add(child.scale, 'z').min(-5).max(5).step(0.001)
-
-                                            
+                                            const gui = require('./a_gui')
+                                            const triangleGui = gui.scateredObjects.addFolder('Triangle '+ child.name)
+                                            gui.createPositionGuiDebug(triangleGui, child, -150, 150)
+                                            gui.createRotationGuiDebug(triangleGui, child)
+                                            gui.createScaleGuiDebug(triangleGui, child, -5, 5)
                                             }
 
 
@@ -237,12 +223,8 @@ export const loaded_objects = [] //Used for raycast
             const opacity = elem.material;
             const obj2 = {
                 opacity: elements.length == 0 && (originalElements.length > 4
-                    // || originalElements.length == 2 || originalElements.length == 1
                 ) ? 0 : 1
             }
-            // if (elements.length != 0 && originalElements.length < 4) {
-            //     elem.material.transparent = false;
-            // }
             elem.material.transparent = false;
             new TWEEN.Tween(opacity).to(obj2, 300).easing(TWEEN.Easing.Linear.None).start(tween_time_value)
             

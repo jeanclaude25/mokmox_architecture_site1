@@ -127,19 +127,12 @@ export const loadTexts = () => {
             /**
              * gui.gui
              */
-            const camgui = require('./a_gui').textGui
-            const posCamGui = camgui.addFolder(words)
+            const gui = require('./a_gui')
+            const posCamGui = gui.textGui.addFolder(words)
 
-            const pospCamGui = posCamGui.addFolder("position")
-            pospCamGui.add(letterGroup.position, 'x').min(-5).max(5).step(0.001)
-            pospCamGui.add(letterGroup.position, 'y').min(-5).max(5).step(0.001)
-            pospCamGui.add(letterGroup.position, 'z').min(-5).max(5).step(0.001)
-        
-            const posrCamGui = posCamGui.addFolder("rotation")
-            posrCamGui.add(letterGroup.rotation, 'x').min(-Math.PI).max(Math.PI).step(0.001)
-            posrCamGui.add(letterGroup.rotation, 'y').min(-Math.PI).max(Math.PI).step(0.001)
-            posrCamGui.add(letterGroup.rotation, 'z').min(-Math.PI).max(Math.PI).step(0.001)
-        
+            gui.createPositionGuiDebug(posCamGui, letterGroup,-5, 5)
+            gui.createRotationGuiDebug(posCamGui, letterGroup)
+            
             }
 
 

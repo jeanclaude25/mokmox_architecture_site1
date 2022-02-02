@@ -9,7 +9,7 @@ export const config = {
             enable: true
         },
         alpha: true,
-        pixelRatio: 1
+        pixelRatio: 2
 
     },
     camera:{
@@ -61,4 +61,3 @@ export const config = {
         }
 
 }
-

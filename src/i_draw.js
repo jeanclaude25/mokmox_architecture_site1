@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { renderer } from './d_renderer'
-import { canvas, pyramidGroup, scene } from './c_scene'
+import { pyramidGroup, scene } from './c_scene'
 import { camera } from './e_camera'
 import { controls } from './i_controls'
 import { triangleAnimation, trianglesFloat } from './j_animation'
@@ -11,9 +11,8 @@ import { BACKGROUND_LAYER, CENTRAL_STRUCTURE_LAYER, FOREGROUND_LAYER, MOUSEOVER_
 import { glitchCustomPass , glitchCompose} from './dd_postProcess'
 
 import { allow_glitch } from './k_events'
-import { allow_auto_tween, disableScroll, ending_tween } from './k_events_scroll'
+import { allow_auto_tween} from './k_events_scroll'
 import { autoTween, updateTween } from './m_tween'
-import { checkVisible } from './l_objects'
 
 
 export let actual_anim_state;

@@ -8,7 +8,6 @@
         attribute vec3 position;
 
         varying vec2 vUv;
-        varying float vOpacity;
 
         void main()
         {
@@ -23,5 +22,4 @@
             gl_Position = projectedPosition;
 
             vUv = uv;
-            vOpacity = opacity;
         }

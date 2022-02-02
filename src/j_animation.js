@@ -1,10 +1,8 @@
 import * as THREE from 'three'
 import { isMobile } from './a_detect_mobile'
 import * as TWEEN from '@tweenjs/tween.js'
-import { Allow_fixing, mouse } from './k_events'
 import { loadTexts } from './l_texts'
 import { enableScroll, scrollingLogic } from './k_events_scroll'
-import { controls } from './i_controls'
 import { tween_time_value } from './i_draw'
 
 export let trianglesFloat = false

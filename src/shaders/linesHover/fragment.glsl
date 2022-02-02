@@ -3,7 +3,7 @@ precision mediump float;
 
 //Receive value from js
 uniform float uSizeRail;
-
+uniform float uOpacity;
 uniform float uTime;
 uniform float uRotation;
 uniform vec3 uColor;
@@ -11,7 +11,6 @@ uniform float uMultiplier;
 
 //Receive value from vertex
 varying vec2 vUv;
-varying float vOpacity;
 
 float PI = 3.145;
 
@@ -29,9 +28,9 @@ float PI = 3.145;
                 angle *= 10.0;
                 angle = mod(angle, 5.5);
                 float strenght = angle;
-                float opacity = (1.0 - strenght) * vOpacity;
                 strenght = 1.0 - strenght;
                 vec3 color = vec3(strenght, strenght, strenght)* uColor;
+                float opacity = strenght * uOpacity;
                 gl_FragColor = vec4(color, opacity);
                 // gl_FragColor = vec4(1.0, 0.0, 0.0, 0.5);
 

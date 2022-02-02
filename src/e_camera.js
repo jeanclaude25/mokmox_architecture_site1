@@ -20,12 +20,8 @@ if(window.location.href.includes(config.debug.commandLine)){
 /**
  * gui.gui
  */
-const camgui = require('./a_gui').camgui
-camgui.add(camera, 'fov').min(1).max(180).step(1)
-
-const posCamGui = camgui.addFolder('position')
-posCamGui.add(camera.position, 'x').min(-150).max(150).step(0.001)
-posCamGui.add(camera.position, 'y').min(-150).max(150).step(0.001)
-posCamGui.add(camera.position, 'z').min(-150).max(150).step(0.001)
+const gui = require('./a_gui')
+gui.camgui.add(camera, 'fov').min(1).max(180).step(1)
+gui.createPositionGuiDebug(gui.camgui, camera, -150, 150)
 
 }

@@ -23,7 +23,7 @@ export const changeMaterialColor = (material, time , temp_color) => {
 export const changeUniformsColor = (material,nameUniform, time , temp_color) => {
 
     const color = new THREE.Color(temp_color)
-    
+
         gsap.to(
             material.uniforms[nameUniform].value,{
                 duration: time,
@@ -39,9 +39,11 @@ export const lineMaterialShader = new THREE.RawShaderMaterial({
     vertexShader: linesHoverVertexShader,
     fragmentShader: linesHoverFragmentShader,
     side: THREE.DoubleSide,
+    transparent:true,
     uniforms:{
         uSizeRail: {value: 6},
         uRotation: {value: 0.5},
+        uOpacity: {value:1},
         uColor: {value: new THREE.Color(config.onHover.color.line)},
         uTime: {value: config.onHover.timeForLine},
         uMultiplier : {value: 2.0}
@@ -71,7 +73,7 @@ if(window.location.href.includes(config.debug.commandLine)){
     const camgui = require('./a_gui').gui
     
     const shaderGui = camgui.addFolder('Rail')
-    shaderGui.add(lineMaterialShader.uniforms.uSizeRail, 'value').name('Size Rails').min(-6).max(6).step(0.001)
+    shaderGui.add(lineMaterialShader.uniforms.uSizeRail, 'value').name('Size Rails').min(-10).max(10).step(0.001)
     shaderGui.add(lineMaterialShader.uniforms.uRotation, 'value').name('rotation').min(-3).max(3).step(0.001)
     shaderGui.add(lineMaterialShader.uniforms.uMultiplier, 'value').name('Speed').min(0).max(2).step(0.001)
     

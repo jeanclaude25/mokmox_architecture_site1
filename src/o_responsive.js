@@ -1,6 +1,6 @@
 import { isMobile } from "./a_detect_mobile";
 import { finalTrianglePositionDesktop, finalTrianglePositionMobile, scatteredTriangles } from "./j_animation";
-import { deleteTexts, loadTexts, updateTextsPosition } from "./l_texts";
+import { updateTextsPosition } from "./l_texts";
 import gsap from 'gsap/all'
 import { config } from "./a_config";
 

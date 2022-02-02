@@ -5,9 +5,9 @@ import { canvas, refreshSizes, scene, sizes } from "./c_scene";
 import { passes } from './dd_postProcess';
 import { renderer, resizeRenderer } from "./d_renderer";
 import { camera } from "./e_camera";
-import { changeMaterialColor, changeUniformsColor } from './g_materials';
+import { changeUniformsColor } from './g_materials';
 import { objectFromRaycast, pointerConvert } from './i_raycaster';
-import { disableScroll, enableScroll, ending_tween } from './k_events_scroll';
+import { enableScroll, ending_tween } from './k_events_scroll';
 import { loaded_objects } from './m_tween';
 import { responsiveTranslate } from './o_responsive';
 

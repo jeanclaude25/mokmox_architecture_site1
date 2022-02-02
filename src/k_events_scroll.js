@@ -1,7 +1,6 @@
 import { trianglesFloat } from "./j_animation"
 import { canvas } from "./c_scene"
 import { checkVisible } from "./l_objects"
-import { updateTween, updateTweenMobile } from "./m_tween"
 
 export let ending_tween = false
 export let allow_auto_tween = false
@@ -76,15 +75,11 @@ export let allow_auto_tween = false
         window.addEventListener('scroll', scrollingLogic)
         window.addEventListener('touchmove', scrollingLogic)
 
-        // document.body.addEventListener('wheel', updateTween)
-        // document.body.addEventListener('DOMMouseScroll', updateTween); // older FF
-        // document.body.addEventListener('touchmove', updateTweenMobile); // mobile
-        // document.body.addEventListener('keydown', updateTween);
-
-        window.addEventListener('wheel', updateTween)
-        window.addEventListener('DOMMouseScroll', updateTween); // older FF
-        window.addEventListener('touchmove', updateTweenMobile); // mobile
-        window.addEventListener('keydown', updateTween);
+        
+        // window.addEventListener('wheel', updateTween)
+        // window.addEventListener('DOMMouseScroll', updateTween); // older FF
+        // window.addEventListener('touchmove', updateTweenMobile); // mobile
+        // window.addEventListener('keydown', updateTween);
 
         canvas.addEventListener('click', (e)=> autoPlay(e))
         canvas.addEventListener('touchend', (e)=> autoPlay(e))

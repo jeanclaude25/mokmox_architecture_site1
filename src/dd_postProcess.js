@@ -7,8 +7,7 @@ import { GlitchPass } from './postProcessing/glitchPass/GlitchPass'
 import { UnrealBloomPass } from './postProcessing/bloomPass/UnrealBloomPass'
 import { SAOPass } from './postProcessing/saoPass/SAOPass'
 
-import glitchCustomVertex from './shaders/glitch/vertex.glsl'
-import glitchCustomFragment from './shaders/glitch/fragment.glsl'
+import { DigitalGlitch } from './shaders/glitch/DigitalGlitch'
 
 
 import { config } from './a_config'
@@ -16,6 +15,7 @@ import { scene, sizes } from './c_scene'
 import { renderer } from './d_renderer'
 import { camera } from './e_camera'
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass'
+
 
 export const passes = []
 
@@ -32,15 +32,8 @@ glitchCompose.addPass(renderPass)
 
 // const gl_sao = new SAOPass(scene,camera)
 // glitchCompose.addPass(gl_sao)
-const glitchShader = {
-    uniforms:{
-        tDiffuse: {value: null},
-        uTime: {value: 0}
-    },
-    vertexShader: glitchCustomVertex,
-    fragmentShader: glitchCustomFragment
-}
-export const glitchCustomPass = new ShaderPass(glitchShader)
+
+export const glitchCustomPass = new ShaderPass(DigitalGlitch)
 glitchCompose.addPass(glitchCustomPass)
 const gl_sao = new SAOPass(scene,camera)
 glitchCompose.addPass(gl_sao)
@@ -72,5 +65,19 @@ if(window.location.href.includes(config.debug.commandLine)){
     posCamGui.add(uBloom, 'threshold').min(-0).max(1).step(0.001)
     posCamGui.add(uBloom, 'radius').min(-0).max(2).step(0.001)
     posCamGui.add(uBloom, 'strength').min(0).max(5).step(0.001)
+
+    // const glitchGui = camgui.addFolder('RectGlitchDev')
+    // const posGlitchGui = glitchGui.addFolder('Position')
+    // posGlitchGui.add(glitchCustomPass.uniforms.uPosRect.value, 'x').min(-1).max(1).step(0.001)
+    // posGlitchGui.add(glitchCustomPass.uniforms.uPosRect.value, 'y').min(-1).max(1).step(0.001)
+
+    // const scGlitchGui = glitchGui.addFolder('Scale')
+    // scGlitchGui.add(glitchCustomPass.uniforms.uScRect.value, 'x').min(0).max(1).step(0.001)
+    // scGlitchGui.add(glitchCustomPass.uniforms.uScRect.value, 'y').min(0).max(1).step(0.001)
+
+    // const deGlitchGui = glitchGui.addFolder('Dephasage')
+    // deGlitchGui.add(glitchCustomPass.uniforms.uDephRect.value, 'x').min(-1).max(1).step(0.001)
+    // deGlitchGui.add(glitchCustomPass.uniforms.uDephRect.value, 'y').min(-1).max(1).step(0.001)
+
     
     }
