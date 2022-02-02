@@ -27,17 +27,18 @@ passes.push(glitchCompose)
 glitchCompose.setPixelRatio(config.scene.pixelRatio)
 glitchCompose.setSize(sizes.width, sizes.height)
 glitchCompose.addPass(renderPass)
-// export const glitch = new GlitchPass()
-// glitchCompose.addPass(glitch)
 
-// const gl_sao = new SAOPass(scene,camera)
-// glitchCompose.addPass(gl_sao)
+// export const glitchCustomPass = new ShaderPass(DigitalGlitch)
+export const glitchCustomPass = new GlitchPass(20)
 
-export const glitchCustomPass = new ShaderPass(DigitalGlitch)
 glitchCompose.addPass(glitchCustomPass)
 const gl_sao = new SAOPass(scene,camera)
 glitchCompose.addPass(gl_sao)
 
+// tDisp texture
+// const textureLoader = new THREE.TextureLoader()
+// const cellNoise = textureLoader.load('./cell.jpg')
+// glitchCustomPass.uniforms.tDisp.value = cellNoise
 
 const renderPass2 = new RenderPass(scene, camera)
 export const uBloomCompose = new EffectComposer(renderer)
@@ -66,18 +67,15 @@ if(window.location.href.includes(config.debug.commandLine)){
     posCamGui.add(uBloom, 'radius').min(-0).max(2).step(0.001)
     posCamGui.add(uBloom, 'strength').min(0).max(5).step(0.001)
 
-    // const glitchGui = camgui.addFolder('RectGlitchDev')
-    // const posGlitchGui = glitchGui.addFolder('Position')
-    // posGlitchGui.add(glitchCustomPass.uniforms.uPosRect.value, 'x').min(-1).max(1).step(0.001)
-    // posGlitchGui.add(glitchCustomPass.uniforms.uPosRect.value, 'y').min(-1).max(1).step(0.001)
-
-    // const scGlitchGui = glitchGui.addFolder('Scale')
-    // scGlitchGui.add(glitchCustomPass.uniforms.uScRect.value, 'x').min(0).max(1).step(0.001)
-    // scGlitchGui.add(glitchCustomPass.uniforms.uScRect.value, 'y').min(0).max(1).step(0.001)
-
-    // const deGlitchGui = glitchGui.addFolder('Dephasage')
-    // deGlitchGui.add(glitchCustomPass.uniforms.uDephRect.value, 'x').min(-1).max(1).step(0.001)
-    // deGlitchGui.add(glitchCustomPass.uniforms.uDephRect.value, 'y').min(-1).max(1).step(0.001)
-
+    const glitchGui = camgui.addFolder('GlitchOptions')
+    glitchGui.add(glitchCustomPass.uniforms.amount, 'value').min(0).max(1).step(0.0001).name('amount')
+    glitchGui.add(glitchCustomPass.uniforms.angle, 'value').min(-Math.PI).max(Math.PI).step(0.001).name('angle')
+    glitchGui.add(glitchCustomPass.uniforms.seed, 'value').min(0).max(10).step(0.001).name('seed')
+    glitchGui.add(glitchCustomPass.uniforms.seed_x, 'value').min(-1).max(1).step(0.001).name('seed_x')
+    glitchGui.add(glitchCustomPass.uniforms.seed_y, 'value').min(-1).max(1).step(0.001).name('seed_y')
+    glitchGui.add(glitchCustomPass.uniforms.distortion_x, 'value').min(0).max(1).step(0.001).name('distortion_x')
+    glitchGui.add(glitchCustomPass.uniforms.distortion_y, 'value').min(0).max(1).step(0.001).name('distortion_y')
+    glitchGui.add(glitchCustomPass.uniforms.col_s, 'value').min(0).max(1).step(0.001).name('col_s')
+    glitchGui.add(glitchCustomPass.uniforms.uMultiplier, 'value').min(0).max(1000).step(0.001).name('multiplier')
     
     }

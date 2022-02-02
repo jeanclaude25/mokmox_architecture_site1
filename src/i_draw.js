@@ -8,10 +8,10 @@ import Stats from 'stats.js'
 import { config } from './a_config'
 import { lineMaterialShader } from './g_materials'
 import { BACKGROUND_LAYER, CENTRAL_STRUCTURE_LAYER, FOREGROUND_LAYER, MOUSEOVER_FX_LAYER, TRIANGLES_LAYER } from './cc_layers'
-import { glitchCustomPass , glitchCompose} from './dd_postProcess'
+import { glitchCustomPass , glitchCompose, uBloomCompose} from './dd_postProcess'
 
 import { allow_glitch } from './k_events'
-import { allow_auto_tween} from './k_events_scroll'
+import { allow_auto_tween, ending_tween} from './k_events_scroll'
 import { autoTween, updateTween } from './m_tween'
 
 
@@ -47,8 +47,7 @@ export const render = () => {
         myScene2.rotateOnAxis(new THREE.Vector3(0, 1, 0), 0.005)
     }
     
-    // glitch.uniforms.uTime.value = elapsedTime
-    glitchCustomPass.uniforms.uTime.value = elapsedTime
+    // glitchCustomPass.uniforms.uTime.value = elapsedTime 
 
     controls.update()
     camera.updateProjectionMatrix()
@@ -57,16 +56,19 @@ export const render = () => {
     renderer.render(scene, camera)
 
     camera.layers.set(CENTRAL_STRUCTURE_LAYER)
-    // renderer.render(scene, camera)
 
-    // allow_glitch && ending_tween?
-    // glitchCompose.render()
-    // :renderer.render(scene, camera)
-    glitchCompose.render()
+    if(allow_glitch && ending_tween){
+        glitchCompose.render()
+    }else{
+        glitchCustomPass.uniforms.seed_x.value = Math.random(0,1)
+        glitchCustomPass.uniforms.col_s.value = Math.random(0,1)/4 +0.1
+        renderer.render(scene, camera)
+    }
 
     camera.layers.set(MOUSEOVER_FX_LAYER)
     renderer.render(scene, camera)
-    // uBloomCompose.render()
+    
+    // uBloomCompose.render() //Unfortunatly it breake alpha
 
     camera.layers.set(TRIANGLES_LAYER)
     renderer.render(scene, camera)
@@ -74,14 +76,12 @@ export const render = () => {
     camera.layers.set(FOREGROUND_LAYER)
     renderer.render(scene, camera)
 
-
     debug?stats.end():''
     requestAnimationFrame(render)
 
     
     if(allow_auto_tween && !trianglesFloat){
     autoTween( tween_time_value )
-    console.log( tween_time_value )
     tween_time_value = Math.round(elapsedTime * 1000)
                 
     }

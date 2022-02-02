@@ -15,15 +15,16 @@
 		'tDiffuse': { value: null }, //diffuse texture
 		'tDisp': { value: null }, //displacement texture for digital glitch squares
 		'byp': { value: 0 }, //apply the glitch ?
-		'amount': { value: 0.008 },
-		'angle': { value: 0.02 },
-		'seed': { value: 0.02 },
-		'seed_x': { value: 0.02 }, //-1,1
-		'seed_y': { value: 0.02 }, //-1,1
-		'distortion_x': { value: 0.5 },
-		'distortion_y': { value: 0.6 },
-		'col_s': { value: 0.05 },
-		'uTime':{value:0}
+		'amount': { value: 0 },
+		'angle': { value: 0.7 },
+		'seed': { value: 0.85 },
+		'seed_x': { value: -0.25 }, //-1,1
+		'seed_y': { value: 0.25 }, //-1,1
+		'distortion_x': { value: 0.46 },
+		'distortion_y': { value: 0.39 },
+		'col_s': { value: 0.01 },
+		'uTime':{value:0},
+		'uMultiplier':{value:29}
 	},
 
 	vertexShader: [
@@ -50,6 +51,7 @@
 		'uniform float distortion_y;',
 		'uniform float col_s;',
 		'uniform float uTime;',
+		'uniform float uMultiplier;',
 
 		'varying vec2 vUv;',
 
@@ -59,7 +61,8 @@
 		'}',
 
 		'void main() {',
-			'float start = uTime - (2.0 * floor(uTime/2.0));',
+			'float time = uTime * uMultiplier;',
+			'float start = time - (2.0 * floor(time/2.0));',
 		'	if(start<1.0) {',
 		'		vec2 p = vUv;',
 		'		float xs = floor(gl_FragCoord.x / 0.5);',

@@ -52,8 +52,8 @@ export const config = {
             gradientB:'#2e363a'
         },
         colorHover:{
-            gradientA:'red',
-            gradientB:'green'
+            gradientA:'#2e363a',
+            gradientB:'#939393'
         }
     },
     debug:{

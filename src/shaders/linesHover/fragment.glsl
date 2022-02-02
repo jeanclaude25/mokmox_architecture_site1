@@ -12,7 +12,7 @@ uniform float uMultiplier;
 //Receive value from vertex
 varying vec2 vUv;
 
-float PI = 3.145;
+float PI = 3.1415;
 
             void main()
             {
@@ -32,6 +32,5 @@ float PI = 3.145;
                 vec3 color = vec3(strenght, strenght, strenght)* uColor;
                 float opacity = strenght * uOpacity;
                 gl_FragColor = vec4(color, opacity);
-                // gl_FragColor = vec4(1.0, 0.0, 0.0, 0.5);
 
             }
