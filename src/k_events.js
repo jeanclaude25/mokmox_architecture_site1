@@ -29,7 +29,7 @@ export let allow_glitch = false
             })
             
             canvas.addEventListener('mousemove',(e) =>{
-                    e.stopPropagation()
+                    // e.stopPropagation()
                     hoveredObjects(objectFromRaycast(pointerConvert(e,canvas))) 
                 })
             canvas.addEventListener('click', (e) => {

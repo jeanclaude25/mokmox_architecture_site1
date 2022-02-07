@@ -3,8 +3,6 @@ import { config } from './a_config'
 import { container, sizes } from './c_scene'
 
 
-export const canvas = document.querySelector(config.html.canvasID)
-
 /**
  * Renderer
  */

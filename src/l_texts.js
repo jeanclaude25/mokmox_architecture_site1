@@ -6,10 +6,13 @@ import { camera } from './e_camera';
 import { scatteredTriangles } from './j_animation'
 import gsap from 'gsap/all'
 import { TRIANGLES_LAYER } from './cc_layers';
+import fontJson from './droid-sans.typeface.json'
+
 
         const loader = new FontLoader()
         let defaultFont;
-        loader.load('./droid-sans.typeface.json', (font) => defaultFont = font )
+        defaultFont = loader.parse(fontJson)
+        // loader.load(fontJson, (font) => defaultFont = font )
         
 
         const textsConfig = {

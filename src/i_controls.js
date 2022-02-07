@@ -20,7 +20,6 @@ controls.target.set(
 
         if(window.location.href.includes(config.debug.commandLine))
         { 
-        const gui = require('./a_gui')
         /**
          * gui.gui
          */

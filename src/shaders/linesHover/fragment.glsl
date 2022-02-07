@@ -3,6 +3,7 @@ precision mediump float;
 
 //Receive value from js
 uniform float uSizeRail;
+uniform float uModulo;
 uniform float uOpacity;
 uniform float uTime;
 uniform float uRotation;
@@ -26,7 +27,7 @@ float PI = 3.1415;
                 angle /= PI * uSizeRail;
                 angle += 0.5;
                 angle *= 10.0;
-                angle = mod(angle, 5.5);
+                angle = mod(angle, uModulo);
                 float strenght = angle;
                 strenght = 1.0 - strenght;
                 vec3 color = vec3(strenght, strenght, strenght)* uColor;

@@ -41,7 +41,8 @@ export const lineMaterialShader = new THREE.RawShaderMaterial({
     side: THREE.DoubleSide,
     transparent:true,
     uniforms:{
-        uSizeRail: {value: 6},
+        uSizeRail: {value: 20},
+        uModulo: {value: 0.486},
         uRotation: {value: 0.5},
         uOpacity: {value:1},
         uColor: {value: new THREE.Color(config.onHover.color.line)},
@@ -73,7 +74,8 @@ if(window.location.href.includes(config.debug.commandLine)){
     const camgui = require('./a_gui').gui
     
     const shaderGui = camgui.addFolder('Rail')
-    shaderGui.add(lineMaterialShader.uniforms.uSizeRail, 'value').name('Size Rails').min(-10).max(10).step(0.001)
+    shaderGui.add(lineMaterialShader.uniforms.uModulo, 'value').name('Modulo Rails').min(-10).max(10).step(0.001)
+    shaderGui.add(lineMaterialShader.uniforms.uSizeRail, 'value').name('Size Rails').min(-40).max(40).step(0.001)
     shaderGui.add(lineMaterialShader.uniforms.uRotation, 'value').name('rotation').min(-3).max(3).step(0.001)
     shaderGui.add(lineMaterialShader.uniforms.uMultiplier, 'value').name('Speed').min(0).max(2).step(0.001)
     

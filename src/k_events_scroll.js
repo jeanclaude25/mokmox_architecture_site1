@@ -11,7 +11,7 @@ export let allow_auto_tween = false
             const TopScroll = window.pageYOffset || document.documentElement.scrollTop;
             const LeftScroll = window.pageXOffset || document.documentElement.scrollLeft;
 
-            // if scroll happens, set it to the previous value
+            // // if scroll happens, set it to the previous value
             window.scrollTo(LeftScroll, TopScroll);
         }
 
@@ -45,7 +45,6 @@ export let allow_auto_tween = false
         // call this to Disable
         export const disableScroll = () => {
             window.addEventListener(wheelEvent, preventDefault, wheelOpt); // modern desktop
-
             window.addEventListener('DOMMouseScroll', preventDefault, false); // older FF
             window.addEventListener('touchmove', preventDefault, wheelOpt); // mobile
             window.addEventListener('keydown', preventDefaultForScrollKeys, false);
@@ -69,20 +68,14 @@ export let allow_auto_tween = false
             if (checkVisible(canvas, window.innerHeight, 'above') && !trianglesFloat) {
                 disableScroll()
                 canvas.scrollIntoView(false)
+                autoPlay(e)
             }
         }
 
+        
         window.addEventListener('scroll', scrollingLogic)
         window.addEventListener('touchmove', scrollingLogic)
-
         
-        // window.addEventListener('wheel', updateTween)
-        // window.addEventListener('DOMMouseScroll', updateTween); // older FF
-        // window.addEventListener('touchmove', updateTweenMobile); // mobile
-        // window.addEventListener('keydown', updateTween);
-
-        canvas.addEventListener('click', (e)=> autoPlay(e))
-        canvas.addEventListener('touchend', (e)=> autoPlay(e))
 
         const autoPlay = (e) => {
             e.preventDefault()

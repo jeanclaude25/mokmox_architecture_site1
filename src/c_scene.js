@@ -2,8 +2,9 @@ import * as THREE from 'three'
 import { config } from './a_config'
 
 // Canvas
-export const canvas = document.querySelector(config.html.canvas||'#container')
-export const container = document.getElementById('container')
+// export const canvas = document.querySelector(config.html.canvas||'#container')
+export const canvas = document.querySelector("#container")
+export const container = document.getElementById("container")
 
 //Html canvas size
 export const sizes = {

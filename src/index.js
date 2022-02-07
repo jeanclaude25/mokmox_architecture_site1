@@ -1,18 +1,24 @@
-import './style.scss'
+// import './style.scss'
+import './style.css'
 import * as THREE from 'three'
-import { myScene, otherGroup, pyramidGroup, tGroup } from './c_scene'
-import { pointLight } from './h_lights' //keep it to load lights
-import { render } from './i_draw'
-import {  tweenTriangle, callNextFunction } from './m_tween'
 import * as TWEEN from '@tweenjs/tween.js'
-import { tList, t1, outlines } from './l_objects'
-import { events } from './k_events'
 
 
 window.onload = () => {
 
     setTimeout( () => {
-
+        const myScene = require('./c_scene').myScene
+        const otherGroup = require('./c_scene').otherGroup
+        const pyramidGroup = require('./c_scene').pyramidGroup
+        const tGroup = require('./c_scene').tGroup
+        const pointLight = require('./h_lights').pointLight  //keep it to load lights
+        const render = require('./i_draw').render
+        const tweenTriangle = require('./m_tween').tweenTriangle
+        const callNextFunction = require('./m_tween').callNextFunction
+        const tList = require('./l_objects').tList
+        const t1 = require('./l_objects').t1
+        const outlines = require('./l_objects').outlines
+        const events = require('./k_events').events
 
         for (let j = 0; j < tList.length; j++) {
             if (tList[j] != null) {
@@ -274,7 +280,7 @@ window.onload = () => {
         render();
         callNextFunction()
         events()
-    }, 100);
+    }, 1500);
 
 
 
