@@ -77,7 +77,16 @@ export const loadTexts = () => {
         scatteredTriangles[y].geometry.computeBoundingBox()
             
         const adjustX = ((letterGroup.children.length * config.assets.textSize)/2)/87
-        letterGroup.position.x -= adjustX
-        letterGroup.position.y += 0.05
+        
+        if(scatteredTriangles[y].textRevert){
+            letterGroup.rotation.z = -Math.PI
+            letterGroup.position.x += adjustX
+            letterGroup.position.y += 0.15
+        }else{
+            letterGroup.position.x -= adjustX
+            letterGroup.position.y += 0.05
+        }
+        
+        
     }
 }

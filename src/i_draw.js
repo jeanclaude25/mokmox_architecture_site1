@@ -62,7 +62,7 @@ export const render = () => {
         glitchCompose.render()
     }else{
         glitchCustomPass.uniforms.seed_x.value = Math.random(0,1)
-        glitchCustomPass.uniforms.col_s.value = Math.random(0,1)/4 +0.1
+        glitchCustomPass.uniforms.col_s.value = Math.random(0,1)/5 + 0.05
         renderer.render(scene, camera)
     }
 

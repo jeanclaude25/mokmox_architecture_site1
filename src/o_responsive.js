@@ -1,4 +1,4 @@
-import { finalTrianglePosition, scatteredTriangles, updateBoxesPosition } from "./j_animation";
+import { finalTrianglePosition, offsetPosition, scatteredTriangles, updateBoxesPosition } from "./j_animation";
 import gsap from 'gsap/all'
 import { config } from "./a_config";
 
@@ -12,9 +12,9 @@ export const responsiveTranslate = () => {
             gsap.to(
                 scatteredTriangles[i].position,{
                     duration: config.responsive.resizeTime,
-                    x: finalTrianglePosition.x[i],
-                    y: finalTrianglePosition.y[i],
-                    z: finalTrianglePosition.z[i]
+                    x: finalTrianglePosition.x[i] + offsetPosition.x[i],
+                    y: finalTrianglePosition.y[i] + offsetPosition.y[i],
+                    z: finalTrianglePosition.z[i] + offsetPosition.z[i]
                 }
             )
         }

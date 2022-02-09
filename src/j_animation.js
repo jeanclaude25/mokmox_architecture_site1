@@ -11,6 +11,12 @@ export let trianglesFloat = false
 export const scatteredTriangles = []
 
 export const finalTrianglePosition = { x:[],y:[],z:[] }
+export const offsetPosition = {
+    x:[0, 0.2, 0.1, -0.2, 0, 0, -0.2, 0],
+    y:[0.6, 0.5, 1.5, -0.2, 0, 0, -0.75, -1],
+    z:[0, 0, 0, 0, 0, 0, -0.5, -0.1]
+}
+const finalAngle = [-0.3, 0.8, -Math.PI, 0.05, 0.5, -2.6, 0.8, 0.6]
 
 //1 create boxes
 
@@ -64,13 +70,13 @@ export const updateBoxesPosition = () => {
 
 
 
-const finalAngle = [-1.3, 0.1, -0.78, -0.78, -0.29, 0.82, 1.04, 0.9]
-const addScale = [0.2, 0.6, 0.8, 0.2, 0.5, 0.1, 0.3, 0.5]
+
 
 
 export const triangleAnimation = (time) => {
     
     for (let i = 0; i < scatteredTriangles.length; i++) {
+        if(!scatteredTriangles[i].hovered){
         scatteredTriangles[i].animVar = i
         scatteredTriangles[i].position.y += Math.sin(time + i) / (800 + i * 8)
         scatteredTriangles[i].position.x += Math.sin(time + i) / (800 + i * 8)
@@ -80,6 +86,7 @@ export const triangleAnimation = (time) => {
             scatteredTriangles[i].scale.z += Math.sin(time + i) / (2200 + i * 8)
 
         }
+    }
     }
 }
 
@@ -94,8 +101,8 @@ export const scatterTriangles = (array) => {
         const position = array[i].position
         const rotation = array[i].rotation
         const oldRotation = array[i].rotation
+        const scale = array[i].scale
 
-        array[i].rotateOnWorldAxis(new THREE.Vector3(1, 0, 0.8).normalize(), finalAngle[i])
         const rotationZ = new THREE.Vector3()
         rotationZ.copy(array[i].rotation)
         array[i].rotation.set(oldRotation.x, oldRotation.y, oldRotation.z)
@@ -104,14 +111,6 @@ export const scatterTriangles = (array) => {
             x: rotationZ.x + Math.PI * 2,
             y: rotationZ.y + Math.PI * 2,
             z: rotationZ.z + Math.PI * 2,
-        }
-
-        const scale = array[i].scale
-
-        const obj3 = {
-            x: array[i].scale.x + addScale[i],
-            y: array[i].scale.y + addScale[i],
-            z: array[i].scale.z + addScale[i],
         }
 
         new TWEEN.Tween(rotation).to(obj2, 2000).easing(TWEEN.Easing.Quartic.InOut).onComplete( () => {
@@ -124,15 +123,22 @@ export const scatterTriangles = (array) => {
         }).start(tween_time_value)
 
         let finalPosition = new THREE.Vector3()
-        finalPosition.x = finalTrianglePosition.x[i]
-        finalPosition.y = finalTrianglePosition.y[i]
-        finalPosition.z = finalTrianglePosition.z[i]
+        finalPosition.x = finalTrianglePosition.x[i] + offsetPosition.x[i]
+        finalPosition.y = finalTrianglePosition.y[i] + offsetPosition.y[i]
+        finalPosition.z = finalTrianglePosition.z[i] + offsetPosition.z[i]
         
+        const rotationValue = finalAngle[i]//0.26 for straight
+        if(Math.abs(rotationValue)>1.7){
+            //revert
+            array[i].textRevert = true
+        }else{
+            //ne pas revert
+            array[i].textRevert = false
+        }
         //Triangles TWEENS
         new TWEEN.Tween(position).to(finalPosition, 2000).easing(TWEEN.Easing.Quadratic.InOut).start(tween_time_value)
-        new TWEEN.Tween(rotation).to(new THREE.Vector3(0, Math.PI/4 ,0), 2000).easing(TWEEN.Easing.Quadratic.InOut).start(tween_time_value)
+        new TWEEN.Tween(rotation).to(new THREE.Vector3(-Math.PI/7.5, Math.PI/4 , rotationValue), 2000).easing(TWEEN.Easing.Quadratic.InOut).start(tween_time_value)
         
-        // new TWEEN.Tween(scale).to(obj3, 2000).easing(TWEEN.Easing.Quadratic.InOut).start(tween_time_value)
         new TWEEN.Tween(scale).to(new THREE.Vector3(0.6,1,1), 2000).easing(TWEEN.Easing.Quadratic.InOut).start(tween_time_value)
         
         //Zero for GROUP TWEENS
