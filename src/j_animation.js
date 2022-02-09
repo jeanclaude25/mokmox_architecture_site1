@@ -36,7 +36,7 @@ const pcOrderList = [
     'box_8',
     'box_1',
     'box_9',
-    'box_10'
+    'box_5'
 ]
 export const carreerDiv = 'box_1'
 
@@ -51,9 +51,8 @@ export const getBoxCenter = (div) => {
 
 
 export const updateBoxesPosition = () => {
-    const list = isMobile?mobileOrderList:pcOrderList
+    const list = isMobile()?mobileOrderList:pcOrderList
     const instance_list = { x:[], y:[], z:[]}
-
     list.forEach((child)=>{
         //uniformise
     const calibrate = pointerConvert(getBoxCenter(document.getElementById(child)))
@@ -72,11 +71,7 @@ export const updateBoxesPosition = () => {
 
 
 
-
-
-// const finalAngle = [-1.3, 0.1, -0.78, -0.78, -0.29, 0.82, 1.04, 0.9]
-const finalAngle = [0,0,0,0,0,0,0,0]
-
+const finalAngle = [-1.3, 0.1, -0.78, -0.78, -0.29, 0.82, 1.04, 0.9]
 const addScale = [0.2, 0.6, 0.8, 0.2, 0.5, 0.1, 0.3, 0.5]
 
 
@@ -96,8 +91,6 @@ export const triangleAnimation = (time) => {
 }
 
 
-
-
 export const scatterTriangles = (array) => {
     
     console.log(array);
@@ -114,16 +107,11 @@ export const scatterTriangles = (array) => {
         rotationZ.copy(array[i].rotation)
         array[i].rotation.set(oldRotation.x, oldRotation.y, oldRotation.z)
         
-        // const obj2 = {
-        //     x: rotationZ.x + Math.PI * 2,
-        //     y: rotationZ.y + Math.PI * 2,
-        //     z: rotationZ.z + Math.PI * 2,
-        // }
         const obj2 = {
-                x: 0,
-                y: 0,
-                z: 0
-            }
+            x: rotationZ.x + Math.PI * 2,
+            y: rotationZ.y + Math.PI * 2,
+            z: rotationZ.z + Math.PI * 2,
+        }
 
         const scale = array[i].scale
 
@@ -136,7 +124,7 @@ export const scatterTriangles = (array) => {
         new TWEEN.Tween(rotation).to(obj2, 2000).easing(TWEEN.Easing.Quartic.InOut).onComplete( () => {
             trianglesFloat = true
             if (i == array.length - 1) {
-                loadTexts()
+                // loadTexts()
                 enableScroll()
                 remove_scrollLogic()
             }

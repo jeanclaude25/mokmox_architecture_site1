@@ -28,7 +28,7 @@ export const checkVisible = (elm, threshold, mode) => {
         export const t4 = makeTriangle({ color: 'orange' })
         tGroup.add(t1);
         export const t9 = customClone(t1)
-        t9.add(makeLineRail())
+        t9.add(makeLineRail(-0.003))
         export const t10 = customClone(t1)
         export const t11 = customClone(t1)
         t11.add(makeLineRail())
@@ -117,24 +117,23 @@ export const checkVisible = (elm, threshold, mode) => {
         t13.position.z = -.707 - 1.414
         tGroup.add(t13)
 
-        console.log("not so usefull")
-        export const objPos = {
-            x: 0.78,
-            y: -1.130794416681027,
-            z: -1.7778735136998105
-        }
-        export const objRot = {
-            x: t2.rotation.x,
-            y: t2.rotation.y,
-            z: t2.rotation.z,
-        }
+        // console.log("not so usefull")
+        // export const objPos = {
+        //     x: 0.78,
+        //     y: -1.130794416681027,
+        //     z: -1.7778735136998105
+        // }
+        // export const objRot = {
+        //     x: t2.rotation.x,
+        //     y: t2.rotation.y,
+        //     z: t2.rotation.z,
+        // }
 
         
 
 
         tGroup.add(t9)
         tGroup.add(t10)
-
 
         const trisArrays = [t1,t3,t5,t6,t8,t9,t11,t12]
         t9.children[0].position.z = 0.003

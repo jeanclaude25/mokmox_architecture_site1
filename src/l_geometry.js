@@ -48,8 +48,8 @@ const createGeometry = (vertices) => {
     geometry.setAttribute('uv', new THREE.BufferAttribute(uvCoord, 2));
     return geometry
 }
-export const makeLineRail = (dir = 1) => {
-    const vertices = createTrisVertices(0,-config.onHover.lineThickness/3,-0.001, dir)
+export const makeLineRail = (val =-0.001, dir = 1) => {
+    const vertices = createTrisVertices(0,-config.onHover.lineThickness/3,val, dir)
     const geometry = createGeometry(vertices)
     const railsTris = new THREE.Mesh(geometry, lineMaterialShader);
     railsTris.name = 'railsTris'
