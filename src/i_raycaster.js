@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { config } from './a_config';
 import { TRIANGLES_LAYER } from './cc_layers';
-import { scene } from "./c_scene";
+import { scene, sizes } from "./c_scene";
 import { renderer } from './d_renderer';
 import { camera } from './e_camera'
 import { loaded_objects } from './m_tween';
@@ -34,6 +34,17 @@ export const pointerConvert = (pointer,window) => {
    }
 
    return intersects
+ }
+
+ export const getScreenPositionFromObject = (object) => {
+   const width = sizes.width, height = sizes.height;
+   const widthHalf = width / 2, heightHalf = height / 2;
+   
+   const pos = object.position.clone();
+   pos.project(camera);
+   pos.x = ( pos.x * widthHalf ) + widthHalf;
+   pos.y = - ( pos.y * heightHalf ) + heightHalf;
+   return pos
  }
     
 

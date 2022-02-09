@@ -13,6 +13,7 @@ import { glitchCustomPass , glitchCompose, uBloomCompose} from './dd_postProcess
 import { allow_glitch } from './k_events'
 import { allow_auto_tween, ending_tween} from './k_events_scroll'
 import { autoTween, updateTween } from './m_tween'
+import { updateCssTextPositionToTriangles } from './l_texts_css'
 
 
 export let actual_anim_state;
@@ -48,6 +49,8 @@ export const render = () => {
     }
     
     // glitchCustomPass.uniforms.uTime.value = elapsedTime 
+
+    trianglesFloat? updateCssTextPositionToTriangles():''
 
     controls.update()
     camera.updateProjectionMatrix()

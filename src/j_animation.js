@@ -6,7 +6,7 @@ import { enableScroll, remove_scrollLogic } from './k_events_scroll'
 import { tween_time_value } from './i_draw'
 import { objectFromRaycast, onlyBackground, pointerConvert } from './i_raycaster'
 import { triangleGroup } from './c_scene'
-import { updateCssTextPosition } from './l_texts_css'
+import { updateCssTextPositionToTriangles } from './l_texts_css'
 
 export let trianglesFloat = false
 export const scatteredTriangles = []
@@ -89,7 +89,7 @@ export const scatterTriangles = (array) => {
     
     console.log(array);
     updateBoxesPosition()
-    updateCssTextPosition()
+    updateCssTextPositionToTriangles()
     
     for (let i = 0; i < array.length; i++) {
         

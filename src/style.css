@@ -30,7 +30,13 @@ canvas {
       position: absolute;
       z-index: 2500;
       color: azure;
-      text-align: center;
+      height: auto;
+      width: auto;
+      font-size: 18px;
+      white-space: nowrap; /* Thanks to Herb Caudill comment */
+      /* left: -30px; */
+      top: 16px;
+      cursor: default;
     }
     /**FLEXBOX*/
     .bbox {
