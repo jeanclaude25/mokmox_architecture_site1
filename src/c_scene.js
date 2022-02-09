@@ -28,6 +28,8 @@ export const otherGroup = new THREE.Group()
 export const myScene2 = new THREE.Group()
 export const tGroup = new THREE.Group()
 export const textGroup = new THREE.Group()
+export const triangleGroup = new THREE.Group()
+
 
 
 //Add both to the main scene
@@ -39,6 +41,7 @@ myScene.add(otherGroup)
 
 scene.add(myScene2)
 scene.add(textGroup)
+scene.add(triangleGroup)
 
 export let pyramidGroup;
 

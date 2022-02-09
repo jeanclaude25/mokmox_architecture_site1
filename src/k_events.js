@@ -56,7 +56,6 @@ export let allow_glitch = false
         window.addEventListener('resize', () =>
         {
             refreshSizes()
-
             const hFOV = 2 * Math.atan(Math.tan(camera.fov * Math.PI / 180 / 2) * camera.aspect) * 180 / Math.PI; // degrees
             const cameraHeight = Math.tan(THREE.MathUtils.degToRad(hFOV / 2));
             const ratio = camera.aspect / 1;

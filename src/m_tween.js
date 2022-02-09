@@ -1,5 +1,5 @@
 import * as TWEEN from '@tweenjs/tween.js'
-import { scene } from './c_scene';
+import { scene, triangleGroup } from './c_scene';
 import { t1, t2, t3, t5, t6, t7, t8, t9, t10, t11, t12, t13, showOutlines } from './l_objects';
 import { scatteredTriangles, scatterTriangles } from './j_animation'
 import { mouse } from './k_events';
@@ -213,6 +213,12 @@ export const loaded_objects = [] //Used for raycast
                     })
                     mouse.logDelta = tween_time_value;
                     showOutlines()
+
+                    triangleGroup.position.copy(scatteredTriangles[0].parent.parent.position)
+                    triangleGroup.rotation.copy(scatteredTriangles[0].parent.rotation)
+                    triangleGroup.scale.copy(scatteredTriangles[0].parent.scale)
+                    
+                    scatteredTriangles.forEach((child)=> triangleGroup.add(child) )
                     scatterTriangles(scatteredTriangles)
                 } else {
                     callNextFunction();

@@ -40,7 +40,7 @@ export const render = () => {
     const elapsedTime = clock.getElapsedTime()
     lineMaterialShader.uniforms.uTime.value = elapsedTime
 
-    if (trianglesFloat)triangleAnimation(elapsedTime)
+    if (trianglesFloat && config.assets.enableTriangleAnim)triangleAnimation(elapsedTime)
 
 
     if (pyramidGroup) {

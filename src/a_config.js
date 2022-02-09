@@ -23,6 +23,7 @@ export const config = {
         resizeTime:1
     },
     assets:{
+        enableTriangleAnim: false,
         defaultColor:'grey',
         texts:['CAREERS', 'CLIENTS', 'BROCHURES', 'CONTACTS', 'ABOUT+US', 'NEWS', 'GALLERY', 'OUR+WORK'],
         links:[

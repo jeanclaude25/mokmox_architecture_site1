@@ -72,9 +72,15 @@ export let allow_auto_tween = false
             }
         }
 
-        
-        window.addEventListener('scroll', scrollingLogic)
-        window.addEventListener('touchmove', scrollingLogic)
+        const add_scrollLogic = () => {
+            window.addEventListener('scroll', scrollingLogic)
+            window.addEventListener('touchmove', scrollingLogic)
+        }
+        add_scrollLogic()
+        export const remove_scrollLogic = () => {
+            window.removeEventListener('scroll', scrollingLogic)
+            window.removeEventListener('touchmove', scrollingLogic)
+        }
         
 
         const autoPlay = (e) => {

@@ -6,6 +6,7 @@ import { renderer } from './d_renderer';
 import { camera } from './e_camera'
 import { loaded_objects } from './m_tween';
 
+export const onlyBackground = []
 //Take scroll.width to be more accurate or use something like locomotive
 export const pointerConvert = (pointer,window) => {
     const rect = renderer.domElement.getBoundingClientRect();
@@ -42,6 +43,7 @@ export const pointerConvert = (pointer,window) => {
         plane.name = 'zeroHover'
         plane.position.z = -1
         loaded_objects.push(plane)
+        onlyBackground.push(plane)
         plane.layers.set(TRIANGLES_LAYER)
         scene.add( plane )
 

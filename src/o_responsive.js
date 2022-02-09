@@ -6,7 +6,7 @@ import { config } from "./a_config";
 
 export const responsiveTranslate = () => {
     if(scatteredTriangles.length>0){
-        console.log("repositionne everything")
+        // console.log("repositionne everything")
 
         for(let i = 0; i<scatteredTriangles.length; i++){
 
