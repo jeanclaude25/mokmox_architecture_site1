@@ -25,6 +25,7 @@ export const config = {
     assets:{
         enableTriangleAnim: !false,
         defaultColor:'grey',
+        textSize: 10 ,
         texts:['CAREERS', 'CLIENTS', 'BROCHURES', 'CONTACTS', 'ABOUT+US', 'NEWS', 'GALLERY', 'OUR+WORK'],
         links:[
             'https://profilerz.mokmo.solutions/career/',

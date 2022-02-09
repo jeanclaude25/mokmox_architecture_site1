@@ -8,12 +8,11 @@ import Stats from 'stats.js'
 import { config } from './a_config'
 import { lineMaterialShader } from './g_materials'
 import { BACKGROUND_LAYER, CENTRAL_STRUCTURE_LAYER, FOREGROUND_LAYER, MOUSEOVER_FX_LAYER, TRIANGLES_LAYER } from './cc_layers'
-import { glitchCustomPass , glitchCompose, uBloomCompose} from './dd_postProcess'
+import { glitchCustomPass , glitchCompose} from './dd_postProcess'
 
 import { allow_glitch } from './k_events'
 import { allow_auto_tween, ending_tween} from './k_events_scroll'
-import { autoTween, updateTween } from './m_tween'
-import { updateCssTextPositionToTriangles } from './l_texts_css'
+import { autoTween } from './m_tween'
 
 
 export let actual_anim_state;
@@ -50,7 +49,6 @@ export const render = () => {
     
     // glitchCustomPass.uniforms.uTime.value = elapsedTime 
 
-    trianglesFloat? updateCssTextPositionToTriangles():''
 
     controls.update()
     camera.updateProjectionMatrix()
