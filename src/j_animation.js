@@ -6,6 +6,7 @@ import { enableScroll, remove_scrollLogic } from './k_events_scroll'
 import { tween_time_value } from './i_draw'
 import { objectFromRaycast, onlyBackground, pointerConvert } from './i_raycaster'
 import { triangleGroup } from './c_scene'
+import { updateCssTextPosition } from './l_texts_css'
 
 export let trianglesFloat = false
 export const scatteredTriangles = []
@@ -14,44 +15,37 @@ export const finalTrianglePosition = { x:[],y:[],z:[] }
 
 //1 create boxes
 
-//2 Assign boxes
-
+//2 Assign boxes div
 const mobileOrderList = [
-    'box_1',
-    'box_2',
-    'box_3',
-    'box_4',
-
-    'box_8',
-    'box_9',
-    'box_10',
-    'box_11'
+    'box_1', 'box_2', 'box_3', 'box_4',
+    'box_8', 'box_9', 'box_10', 'box_11'
 ]
 const pcOrderList = [
-    'box_10',
-    'box_7',
-    'box_11',
-    'box_4',
-
-    'box_8',
-    'box_1',
-    'box_9',
-    'box_5'
+    'box_10', 'box_7', 'box_11', 'box_4',
+    'box_8', 'box_1', 'box_9', 'box_5'
 ]
-export const carreerDiv = 'box_1'
+const getBoxesList = () => isMobile()?mobileOrderList:pcOrderList
 
 //3 get boxes'centers
-export const getBoxCenter = (div) => {
+const getBoxCenter = (div) => {
     const point = {
         x: (div.clientWidth /2) + div.offsetLeft,
         y: (div.clientHeight /2) + div.offsetTop
     }
     return point
 }
-
+export const getBoxCenterList = () =>{
+    const bList = getBoxesList()
+    const centerList = []
+    bList.forEach((child)=>{
+        const point = getBoxCenter(document.getElementById(child))
+        centerList.push(point)
+    })
+    return centerList
+}
 
 export const updateBoxesPosition = () => {
-    const list = isMobile()?mobileOrderList:pcOrderList
+    const list = getBoxesList()
     const instance_list = { x:[], y:[], z:[]}
     list.forEach((child)=>{
         //uniformise
@@ -95,6 +89,7 @@ export const scatterTriangles = (array) => {
     
     console.log(array);
     updateBoxesPosition()
+    updateCssTextPosition()
     
     for (let i = 0; i < array.length; i++) {
         

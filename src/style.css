@@ -25,7 +25,13 @@ canvas {
 
     }
 
-
+    /* TEXT TRIANGLE */
+    .textTriangle{
+      position: absolute;
+      z-index: 2500;
+      color: azure;
+      text-align: center;
+    }
     /**FLEXBOX*/
     .bbox {
         display: flex;
