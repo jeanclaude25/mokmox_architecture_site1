@@ -60,6 +60,5 @@ camgui.add(myScene2, 'visible').name('myScene2')
 camgui.add(otherGroup, 'visible').name('otherGroup')
 camgui.add(tGroup, 'visible').name('tGroup')
 camgui.add(textGroup, 'visible').name('textGroup')
-
-
+camgui.add(triangleGroup, 'visible').name('triangleGroup')
 }

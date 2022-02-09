@@ -222,7 +222,6 @@ export const loaded_objects = [] //Used for raycast
                     scatterTriangles(scatteredTriangles)
                 } else {
                     callNextFunction();
-
                 }
 
             }).start(tween_time_value)
