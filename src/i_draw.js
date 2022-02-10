@@ -58,7 +58,7 @@ export const render = () => {
 
     camera.layers.set(CENTRAL_STRUCTURE_LAYER)
 
-    if(allow_glitch && ending_tween){
+    if(allow_glitch && ending_tween && trianglesFloat){
         glitchCompose.render()
     }else{
         glitchCustomPass.uniforms.seed_x.value = Math.random(0,1)

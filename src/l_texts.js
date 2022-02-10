@@ -27,7 +27,7 @@ export const loadTexts = () => {
                 font: defaultFont,
                 size: config.assets.textSize,
                 height: 0.1,
-                curveSegments: 12,
+                curveSegments: 8,
                 bevelEnabled: false,
                 bevelThickness: 10,
                 bevelSize: 8,
@@ -67,6 +67,7 @@ export const loadTexts = () => {
 
             gui.createPositionGuiDebug(posCamGui, letterGroup,-5, 5)
             gui.createRotationGuiDebug(posCamGui, letterGroup)
+            gui.createScaleGuiDebug(posCamGui, letterGroup)
             
             }
 
@@ -86,6 +87,7 @@ export const loadTexts = () => {
             letterGroup.position.x -= adjustX
             letterGroup.position.y += 0.05
         }
+        // letterGroup.scale.x = 1.4
         
         
     }
