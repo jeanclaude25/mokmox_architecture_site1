@@ -25,19 +25,7 @@ canvas {
 
     }
 
-    /* TEXT TRIANGLE */
-    .textTriangle{
-      position: absolute;
-      z-index: 2500;
-      color: azure;
-      height: auto;
-      width: auto;
-      font-size: 18px;
-      white-space: nowrap; /* Thanks to Herb Caudill comment */
-      /* left: -30px; */
-      top: 16px;
-      cursor: default;
-    }
+    
     /**FLEXBOX*/
     .bbox {
         display: flex;
@@ -46,6 +34,7 @@ canvas {
         justify-content: center;
         width: 100%;
         height: 100%;
+        
       }
     .box {
         display: flex;
@@ -54,7 +43,8 @@ canvas {
       }
       .box > *{
         width: 20vw;
-        height: 20vh;
+        height: 18vh;
+        min-width: 100px;
         /* border: solid;
         border: thick double #32a1ce; */
       }

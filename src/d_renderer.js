@@ -12,7 +12,7 @@ import { container, sizes } from './c_scene'
     powerPreference:'high-performance'
 })
 
-renderer.sortObjects = !false;
+renderer.sortObjects = true;
 
 export const resizeRenderer = (passe) => {
     passe.setSize(sizes.width, sizes.height)

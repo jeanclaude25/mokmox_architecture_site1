@@ -23,7 +23,7 @@ export const changeMaterialColor = (material, time , temp_color) => {
 export const changeUniformsColor = (material,nameUniform, time , temp_color) => {
 
     const color = new THREE.Color(temp_color)
-
+    if(material.uniforms){
         gsap.to(
             material.uniforms[nameUniform].value,{
                 duration: time,
@@ -32,6 +32,7 @@ export const changeUniformsColor = (material,nameUniform, time , temp_color) => 
                 b: color.b
             }
         )
+    }
 }
 
 /**MATERIALS */
@@ -57,13 +58,22 @@ export const triangleMat = new THREE.RawShaderMaterial({
     side: THREE.DoubleSide,
     transparent: true,
     opacity: 0,
-    flatShading: true,
+    // lights:true,
     uniforms:{
         uColorA: {value: new THREE.Color(config.onHover.color.gradientA)},
         uColorB: {value: new THREE.Color(config.onHover.color.gradientB)},
         uTime: {value: config.onHover.timeForLine}
     }
 });
+// export const triangleMat = new THREE.MeshPhysicalMaterial({
+//     side: THREE.DoubleSide,
+//     color: new THREE.Color('white'),
+//     // wireframe: false,
+//     // transparent: true,
+//     // opacity: 1,
+//     depthTest: false,
+//     depthWrite: false
+// });
 
 /**FOR DEBUG */
 if(window.location.href.includes(config.debug.commandLine)){

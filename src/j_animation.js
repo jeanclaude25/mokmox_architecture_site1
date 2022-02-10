@@ -33,6 +33,7 @@ const getBoxesList = () => isMobile()?mobileOrderList:pcOrderList
 
 //3 get boxes'centers
 const getBoxCenter = (div) => {
+    console.log(div.clientWidth)
     const point = {
         x: (div.clientWidth /2) + div.offsetLeft,
         y: (div.clientHeight /2) + div.offsetTop
@@ -143,7 +144,7 @@ export const scatterTriangles = (array) => {
         
         //Zero for GROUP TWEENS
         const trisPosOrigin = triangleGroup.position
-        new TWEEN.Tween(trisPosOrigin).to(new THREE.Vector3(0.8,0,0.4), 2000).easing(TWEEN.Easing.Quadratic.InOut).start(tween_time_value)
+        new TWEEN.Tween(trisPosOrigin).to(new THREE.Vector3(5,3.97,4.5), 2000).easing(TWEEN.Easing.Quadratic.InOut).start(tween_time_value)
         const trisRotOrigin = triangleGroup.rotation
         new TWEEN.Tween(trisRotOrigin).to(new THREE.Vector3(0,0,0), 2000).easing(TWEEN.Easing.Quadratic.InOut).start(tween_time_value)
         const trisScOrigin = triangleGroup.scale
