@@ -4,7 +4,7 @@ import * as TWEEN from '@tweenjs/tween.js'
 import { loadTexts } from './l_texts'
 import { enableScroll, remove_scrollLogic } from './k_events_scroll'
 import { tween_time_value } from './i_draw'
-import { objectFromRaycast, onlyBackground, pointerConvert } from './i_raycaster'
+import { adjustZeroHover, objectFromRaycast, onlyBackground, pointerConvert } from './i_raycaster'
 import { triangleGroup } from './c_scene'
 
 export let trianglesFloat = false
@@ -148,5 +148,6 @@ export const scatterTriangles = (array) => {
         new TWEEN.Tween(trisRotOrigin).to(new THREE.Vector3(0,0,0), 2000).easing(TWEEN.Easing.Quadratic.InOut).start(tween_time_value)
         const trisScOrigin = triangleGroup.scale
         new TWEEN.Tween(trisScOrigin).to(new THREE.Vector3(1,1,1), 2000).easing(TWEEN.Easing.Quadratic.InOut).start(tween_time_value)
+        adjustZeroHover(-3)
     }
 }

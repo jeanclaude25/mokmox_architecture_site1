@@ -52,11 +52,12 @@ export const pointerConvert = (pointer,window) => {
         const material = new THREE.MeshBasicMaterial( {color: 0xffff00, visible:false} )
         const plane = new THREE.Mesh( geometry, material );
         plane.name = 'zeroHover'
-        plane.position.z = -1
         loaded_objects.push(plane)
         onlyBackground.push(plane)
         plane.layers.set(TRIANGLES_LAYER)
         scene.add( plane )
+
+        export const adjustZeroHover = (val) => plane.position.z = val
 
         const g_logo = new THREE.PlaneBufferGeometry( 1.6, 3.3 )
 
@@ -68,3 +69,17 @@ export const pointerConvert = (pointer,window) => {
         loaded_objects.push(p_logo)
         p_logo.layers.set(TRIANGLES_LAYER)
         scene.add( p_logo )
+
+        /**FOR DEBUG */
+if(window.location.href.includes(config.debug.commandLine)){
+
+  /**
+   * gui.gui
+   */
+  const gui = require('./a_gui')
+  const zeroHover = gui.gui.addFolder('zeroHover')
+  gui.createPositionGuiDebug(zeroHover, plane, -15, 15)
+  gui.createRotationGuiDebug(zeroHover, plane)
+  zeroHover.add(plane.material, 'visible')
+  
+  }

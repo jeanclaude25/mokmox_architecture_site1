@@ -55,6 +55,6 @@ canvas {
       .box > *{
         width: 20vw;
         height: 20vh;
-        border: solid;
-        border: thick double #32a1ce;
+        /* border: solid;
+        border: thick double #32a1ce; */
       }
