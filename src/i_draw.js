@@ -8,9 +8,9 @@ import Stats from 'stats.js'
 import { config } from './a_config'
 import { lineMaterialShader } from './g_materials'
 import { BACKGROUND_LAYER, CENTRAL_STRUCTURE_LAYER, FOREGROUND_LAYER, MOUSEOVER_FX_LAYER, TRIANGLES_LAYER } from './cc_layers'
-import { glitchCustomPass , glitchCompose} from './dd_postProcess'
+import { glitchCustomPass , glitchCompose, uBloomCompose} from './dd_postProcess'
 
-import { allow_glitch } from './k_events'
+import { allow_glitch, hovered_objects } from './k_events'
 import { allow_auto_tween, ending_tween} from './k_events_scroll'
 import { autoTween } from './m_tween'
 
@@ -53,6 +53,42 @@ export const render = () => {
     controls.update()
     camera.updateProjectionMatrix()
 
+    if(allow_glitch){
+        renderGlitch()
+    }else{
+        if(hovered_objects){
+            if(hovered_objects.name !== 'zeroHover'){
+                // renderBloom()
+                renderAll()
+            }else{
+                renderAll()
+            }
+        }
+        
+        }
+
+    debug?stats.end():''
+    requestAnimationFrame(render)
+
+    
+    if(allow_auto_tween && !trianglesFloat){
+    autoTween( tween_time_value )
+    tween_time_value = Math.round(elapsedTime * 1000)
+                
+    }
+}
+const renderBloom = () => {
+    camera.layers.set(MOUSEOVER_FX_LAYER)
+    renderer.render(scene, camera)
+    uBloomCompose.render()
+    camera.layers.enableAll()
+    renderer.render(scene, camera)
+}
+const renderAll = () => {
+    camera.layers.enableAll()
+    renderer.render(scene, camera)
+}
+const renderGlitch = () => {
     camera.layers.set(BACKGROUND_LAYER)
     renderer.render(scene, camera)
 
@@ -68,22 +104,10 @@ export const render = () => {
 
     camera.layers.set(MOUSEOVER_FX_LAYER)
     renderer.render(scene, camera)
-    
-    // uBloomCompose.render() //Unfortunatly it breake alpha
 
     camera.layers.set(TRIANGLES_LAYER)
     renderer.render(scene, camera)
 
     camera.layers.set(FOREGROUND_LAYER)
     renderer.render(scene, camera)
-
-    debug?stats.end():''
-    requestAnimationFrame(render)
-
-    
-    if(allow_auto_tween && !trianglesFloat){
-    autoTween( tween_time_value )
-    tween_time_value = Math.round(elapsedTime * 1000)
-                
-    }
 }

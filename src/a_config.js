@@ -46,7 +46,7 @@ export const config = {
         enableRails : true,
         time:0.5,
         timeForLine:0.4,
-        lineThickness: 0.1,
+        lineThickness: 0.05,
         glitchTime: 0.3,
         color:{
             line:'blue',

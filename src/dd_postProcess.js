@@ -42,13 +42,14 @@ glitchCompose.addPass(gl_sao)
 
 const renderPass2 = new RenderPass(scene, camera)
 export const uBloomCompose = new EffectComposer(renderer)
+passes.push(uBloomCompose)
 uBloomCompose.setPixelRatio(config.scene.pixelRatio)
 uBloomCompose.setSize(sizes.width, sizes.height)
 uBloomCompose.addPass(renderPass2)
 const uBloom = new UnrealBloomPass()
-uBloom.threshold = 0.037
-uBloom.radius = 1.952
-uBloom.strength = 1.559
+uBloom.threshold = 0.088
+uBloom.radius = 0.058
+uBloom.strength = 2.118
 // uBloom.bloomTintColors = '#ffffff'
 uBloomCompose.addPass(uBloom)
 const uB_sao = new SAOPass(scene,camera)
