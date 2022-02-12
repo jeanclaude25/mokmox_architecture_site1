@@ -35,7 +35,13 @@ export const loadTexts = () => {
                 bevelSegments: 5
             });
             const text = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({color: 0xffffff}))
-            text.scale.set(0.01, 0.01, 0.01)
+            //TEXT SIZING IS HERE
+            text.scale.set(0.0166, 0.007, 0.01) 
+            text.scale.x *= 0.9 
+            text.scale.y *= 0.9
+            text.scale.z *= 0.9
+
+
 
             if (words.split("")[i] == '+') {text.visible = false}
 
@@ -77,17 +83,17 @@ export const loadTexts = () => {
 
         scatteredTriangles[y].geometry.computeBoundingBox()
             
-        const adjustX = ((letterGroup.children.length * config.assets.textSize)/2)/87
+        /**TEXT PLACEMENT ADJUST IS HERE */
+        const adjustX = ((letterGroup.children.length * (config.assets.textSize + 2))/2) / 70
         
         if(scatteredTriangles[y].textRevert){
             letterGroup.rotation.z = -Math.PI
             letterGroup.position.x += adjustX
-            letterGroup.position.y += 0.15
+            letterGroup.position.y += 0.2
         }else{
             letterGroup.position.x -= adjustX
-            letterGroup.position.y += 0.05
+            letterGroup.position.y += 0.1
         }
-        // letterGroup.scale.x = 1.4
         
         
     }

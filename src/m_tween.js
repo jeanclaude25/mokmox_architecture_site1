@@ -202,7 +202,7 @@ export const loaded_objects = [] //Used for raycast
                                             */
                                             const gui = require('./a_gui')
                                             const triangleGui = gui.scateredObjects.addFolder('Triangle '+ child.name)
-                                            gui.createPositionGuiDebug(triangleGui, child, -150, 150)
+                                            gui.createPositionGuiDebug(triangleGui, child, -15, 15)
                                             gui.createRotationGuiDebug(triangleGui, child)
                                             gui.createScaleGuiDebug(triangleGui, child, -5, 5)
                                             }

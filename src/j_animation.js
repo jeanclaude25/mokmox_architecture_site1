@@ -4,36 +4,53 @@ import * as TWEEN from '@tweenjs/tween.js'
 import { loadTexts } from './l_texts'
 import { enableScroll, remove_scrollLogic } from './k_events_scroll'
 import { tween_time_value } from './i_draw'
-import { adjustZeroHover, objectFromRaycast, onlyBackground, pointerConvert } from './i_raycaster'
+import { objectFromRaycast, onlyBackground, pointerConvert } from './i_raycaster'
 import { triangleGroup } from './c_scene'
 
 export let trianglesFloat = false
 export const scatteredTriangles = []
 
 export const finalTrianglePosition = { x:[],y:[],z:[] }
-export const offsetPosition = {
-    x:[0, 0.2, 0.1, -0.2, 0, 0, -0.2, 0],
-    y:[0.6, 0.5, 1.5, -0.2, 0, 0, -0.75, -1],
-    z:[0, 0, 0, 0, 0, 0, -0.5, -0.1]
+
+export const offsetPositionMobile = {
+    x:[-0.4, 0, 0.2, 0.2, 0, 0, 0.2, 0.2],
+    y:[0.3, 0.5, 1.5, 0.5, 0.5, 0.5, 0.5, 0],
+    z:[0, 0, 0, 0, 0, 0, 0, 0]
 }
+export const offsetPositionComputer = {
+    x:[0, 0.2, 0.3, 0.2, -0.3, 0, 0, -0.2],
+    y:[0, 0.7, 0, 0.5, 0.2, 0, 0, 0.5],
+    z:[0, 0, 0, 0, 0, 0, 0, 0]
+}
+const gScale = 0.7
 const finalAngle = [-0.3, 0.8, -Math.PI, 0.05, 0.5, -2.6, 0.8, 0.6]
 
 //1 create boxes
 
+//'CAREERS', 'CLIENTS', 'BROCHURES', 'CONTACTS'
+// 'ABOUT+US', 'NEWS', 'GALLERY', 'OUR+WORK'
+
 //2 Assign boxes div
 const mobileOrderList = [
-    'box_1', 'box_2', 'box_3', 'box_4',
-    'box_8', 'box_9', 'box_10', 'box_11'
+    'box_02', 'box_03', 'box_04', 'box_05',
+    'box_42', 'box_43', 'box_44', 'box_45'
 ]
 const pcOrderList = [
-    'box_10', 'box_7', 'box_11', 'box_4',
-    'box_8', 'box_1', 'box_9', 'box_5'
+    'box_44', 'box_24', 'box_25', 'box_15',
+    'box_31', 'box_01', 'box_43', 'box_22'
 ]
 const getBoxesList = () => isMobile()?mobileOrderList:pcOrderList
 
+//Get box size
+const getBoxSizes = (div) => {
+    const sizes = {
+        x: div.clientWidth,
+        y: div.clientHeight
+    }
+    return sizes
+}
 //3 get boxes'centers
 const getBoxCenter = (div) => {
-    console.log(div.clientWidth)
     const point = {
         x: (div.clientWidth /2) + div.offsetLeft,
         y: (div.clientHeight /2) + div.offsetTop
@@ -50,13 +67,13 @@ export const getBoxCenterList = () =>{
     return centerList
 }
 
-export const updateBoxesPosition = () => {
+const updateBoxesPosition = () => {
     const list = getBoxesList()
     const instance_list = { x:[], y:[], z:[]}
     list.forEach((child)=>{
         //uniformise
-    const calibrate = pointerConvert(getBoxCenter(document.getElementById(child)))
-        //convert to 3d unit
+    const calibrate = pointerConvert(getBoxCenter(document.getElementById(child)))  
+    //convert to 3d unit
     const obUnit = objectFromRaycast(calibrate ,onlyBackground)
         
     instance_list.x.push(obUnit[0].point.x)
@@ -64,15 +81,31 @@ export const updateBoxesPosition = () => {
     instance_list.z.push(obUnit[0].point.z)
 
     })
+
         finalTrianglePosition.x = instance_list.x
         finalTrianglePosition.y = instance_list.y
         finalTrianglePosition.z = instance_list.z
 }
 
+export const finalTrianglePositionCalc = (i) => {
+    updateBoxesPosition()
+    let position = new THREE.Vector3()
+    if(isMobile()){
+        console.log("mobile")
+    position.x = finalTrianglePosition.x[i] + offsetPositionMobile.x[i]
+    position.y = finalTrianglePosition.y[i] + offsetPositionMobile.y[i]
+    position.z = finalTrianglePosition.z[i] + offsetPositionMobile.z[i]
+    }else{
+        console.log("pc")
 
-
-
-
+    position.x = finalTrianglePosition.x[i] + offsetPositionComputer.x[i]
+    position.y = finalTrianglePosition.y[i] + offsetPositionComputer.y[i]
+    position.z = finalTrianglePosition.z[i] + offsetPositionComputer.z[i]
+     
+    }
+    
+    return position
+}
 
 export const triangleAnimation = (time) => {
     
@@ -84,7 +117,7 @@ export const triangleAnimation = (time) => {
         {
             scatteredTriangles[i].scale.x += Math.sin(time + i) / (2200 + i * 8)
             scatteredTriangles[i].scale.y += Math.sin(time + i) / (2200 + i * 8)
-            scatteredTriangles[i].scale.z += Math.sin(time + i) / (2200 + i * 8)
+            // scatteredTriangles[i].scale.z += Math.sin(time + i) / (2200 + i * 8)
 
         }
     }
@@ -95,7 +128,6 @@ export const triangleAnimation = (time) => {
 export const scatterTriangles = (array) => {
     
     console.log(array);
-    updateBoxesPosition()
     
     for (let i = 0; i < array.length; i++) {
         
@@ -123,10 +155,7 @@ export const scatterTriangles = (array) => {
             }
         }).start(tween_time_value)
 
-        let finalPosition = new THREE.Vector3()
-        finalPosition.x = finalTrianglePosition.x[i] + offsetPosition.x[i]
-        finalPosition.y = finalTrianglePosition.y[i] + offsetPosition.y[i]
-        finalPosition.z = finalTrianglePosition.z[i] + offsetPosition.z[i]
+        const finalPosition = finalTrianglePositionCalc(i)
         
         const rotationValue = finalAngle[i]//0.26 for straight
         if(Math.abs(rotationValue)>1.7){
@@ -137,10 +166,12 @@ export const scatterTriangles = (array) => {
             array[i].textRevert = false
         }
         //Triangles TWEENS
+        const tour = 2* Math.PI
+        const sens = Math.random()>0.5?1:-1
         new TWEEN.Tween(position).to(finalPosition, 2000).easing(TWEEN.Easing.Quadratic.InOut).start(tween_time_value)
-        new TWEEN.Tween(rotation).to(new THREE.Vector3(-Math.PI/7.5, Math.PI/4 , rotationValue), 2000).easing(TWEEN.Easing.Quadratic.InOut).start(tween_time_value)
+        new TWEEN.Tween(rotation).to(new THREE.Vector3(-Math.PI/7.5 , Math.PI/4 , rotationValue + (tour * sens)), 2000).easing(TWEEN.Easing.Quadratic.InOut).start(tween_time_value)
         
-        new TWEEN.Tween(scale).to(new THREE.Vector3(0.6,1,1), 2000).easing(TWEEN.Easing.Quadratic.InOut).start(tween_time_value)
+        new TWEEN.Tween(scale).to(new THREE.Vector3(0.6*gScale,1*gScale,1*gScale), 2000).easing(TWEEN.Easing.Quadratic.InOut).start(tween_time_value)
         
         //Zero for GROUP TWEENS
         const trisPosOrigin = triangleGroup.position
@@ -149,6 +180,6 @@ export const scatterTriangles = (array) => {
         new TWEEN.Tween(trisRotOrigin).to(new THREE.Vector3(0,0,0), 2000).easing(TWEEN.Easing.Quadratic.InOut).start(tween_time_value)
         const trisScOrigin = triangleGroup.scale
         new TWEEN.Tween(trisScOrigin).to(new THREE.Vector3(1,1,1), 2000).easing(TWEEN.Easing.Quadratic.InOut).start(tween_time_value)
-        adjustZeroHover(-3)
+        
     }
 }

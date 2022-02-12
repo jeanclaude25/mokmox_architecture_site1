@@ -21,7 +21,7 @@ canvas {
     }
     .close-button.close-Bottom{
       opacity: 0.5;
-    z-index: 2000;
+      z-index: 2000;
 
     }
 
@@ -40,11 +40,17 @@ canvas {
         display: flex;
         align-items: center;
         justify-content: center;
+        
       }
       .box > *{
-        width: 20vw;
-        height: 18vh;
+        width: 12vw;
+        height: 12vh;
         min-width: 100px;
+        max-width: 400px;
         /* border: solid;
-        border: thick double #32a1ce; */
+        border: 1px solid #32a1ce; */
+        color:#222222; 
+      }
+      .box_logo{
+        min-width: 250px;
       }

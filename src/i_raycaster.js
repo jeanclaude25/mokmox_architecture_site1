@@ -61,9 +61,12 @@ export const pointerConvert = (pointer,window) => {
 
         const g_logo = new THREE.PlaneBufferGeometry( 1.6, 3.3 )
 
-        const p_logo = new THREE.Mesh( g_logo, material );
+        const materialL = new THREE.MeshBasicMaterial( {color: 0xff0000, visible:false} )
+        const p_logo = new THREE.Mesh( g_logo, materialL );
         p_logo.name = 'logo'
-        p_logo.position.set(-1.424,-0.414,-1)
+        // p_logo.position.set(-1.424,-0.414,-1)
+        p_logo.position.set(1.443,2.249,2.249)
+
         p_logo.rotation.set(-0.01,0.867,0)
 
         loaded_objects.push(p_logo)
@@ -77,9 +80,15 @@ if(window.location.href.includes(config.debug.commandLine)){
    * gui.gui
    */
   const gui = require('./a_gui')
-  const zeroHover = gui.gui.addFolder('zeroHover')
+  const zeroHoverSensor = gui.gui.addFolder('Sensor')
+  const zeroHover = zeroHoverSensor.addFolder('zeroHover')
   gui.createPositionGuiDebug(zeroHover, plane, -15, 15)
   gui.createRotationGuiDebug(zeroHover, plane)
   zeroHover.add(plane.material, 'visible')
+
+  const logoHover = zeroHoverSensor.addFolder('logoHover')
+  gui.createPositionGuiDebug(logoHover, p_logo, -15, 15)
+  gui.createRotationGuiDebug(logoHover, p_logo)
+  logoHover.add(p_logo.material, 'visible')
   
   }

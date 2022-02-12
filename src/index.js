@@ -14,8 +14,6 @@ window.onload = () => {
         render();
         callNextFunction()
         events()
-        // const updt_tris = require('./j_animation').updateBoxesPosition
-        // updt_tris()
     }, 1000);
 
 }

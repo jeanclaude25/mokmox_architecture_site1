@@ -14,7 +14,7 @@ export const config = {
     },
     camera:{
         fov:{
-            mobile:6,
+            mobile:5,
             pc:5
         }
         

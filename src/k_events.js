@@ -1,10 +1,9 @@
-import * as THREE from 'three'
 import { config } from "./a_config";
-import { isMobile, mobileAndTabletCheck } from './a_detect_mobile';
+import { mobileAndTabletCheck } from './a_detect_mobile';
 import { canvas, refreshSizes, scene, sizes } from "./c_scene";
 import { passes } from './dd_postProcess';
 import { renderer, resizeRenderer } from "./d_renderer";
-import { camera } from "./e_camera";
+import { cameraUpdate } from "./e_camera";
 import { changeUniformsColor } from './g_materials';
 import { objectFromRaycast, pointerConvert } from './i_raycaster';
 import { enableScroll, ending_tween } from './k_events_scroll';
@@ -56,28 +55,15 @@ export let allow_glitch = false
         window.addEventListener('resize', () =>
         {
             refreshSizes()
-            const hFOV = 2 * Math.atan(Math.tan(camera.fov * Math.PI / 180 / 2) * camera.aspect) * 180 / Math.PI; // degrees
-            const cameraHeight = Math.tan(THREE.MathUtils.degToRad(hFOV / 2));
-            const ratio = camera.aspect / 1;
-            const newCameraHeight = cameraHeight / ratio;
-            // camera.fov = THREE.MathUtils.radToDeg(Math.atan(newCameraHeight)) * 2;
-            
-            camera.fov = isMobile()?config.camera.fov.mobile:config.camera.fov.pc
-            camera.aspect = sizes.width/ sizes.height ;
-            camera.updateProjectionMatrix();
-
+            cameraUpdate()
             resizeRenderer(renderer)
             passes.forEach((child)=> resizeRenderer(child) )
-            
             responsiveTranslate()
         })
     
 
         
     }
-
-
-
 
 
     const zeroHoveredAllObjects = (actualHover) =>{
@@ -103,9 +89,6 @@ export let allow_glitch = false
                         allow_glitch = false
 
                     }
-                    
-                    
-                
             })
         }
     }
