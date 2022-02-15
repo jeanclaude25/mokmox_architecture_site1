@@ -18,12 +18,12 @@ export const offsetPositionMobile = {
     z:[0, 0, 0, 0, 0, 0, 0, 0]
 }
 export const offsetPositionComputer = {
-    x:[0, 0.2, 0.3, 0.2, -0.3, 0, 0, -0.2],
-    y:[0, 0.7, 0, 0.5, 0.2, 0, 0, 0.5],
-    z:[0, 0, 0, 0, 0, 0, 0, 0]
+    x:[0.1, 0.6, 0.5, 0.4, -0.3, -0.23, -0.77, -0.2],
+    y:[0.5, 0.7, 0, 0.7, 0, 0.3, -0.1, 0.4],
+    z:[0, 0, 0, 0, 0.3, 0, 0, 0.4]
 }
-const gScale = 0.7
-const finalAngle = [-0.3, 0.8, -Math.PI, 0.05, 0.5, -2.6, 0.8, 0.6]
+const gScale = [0.65, 0.7, 0.75, 0.65, 0.7, 0.7, 0.65, 0.7]
+const finalAngle = [-0.615, 0.94, -3.114, 0.05, 0.5, -2.6, 0.769, 0.71]
 
 //1 create boxes
 
@@ -109,19 +109,19 @@ export const finalTrianglePositionCalc = (i) => {
 
 export const triangleAnimation = (time) => {
     
-    for (let i = 0; i < scatteredTriangles.length; i++) {
-        if(!scatteredTriangles[i].hovered){
-        scatteredTriangles[i].animVar = i
-        scatteredTriangles[i].position.y += Math.sin(time + i) / (800 + i * 8)
-        scatteredTriangles[i].position.x += Math.sin(time + i) / (800 + i * 8)
-        {
-            scatteredTriangles[i].scale.x += Math.sin(time + i) / (2200 + i * 8)
-            scatteredTriangles[i].scale.y += Math.sin(time + i) / (2200 + i * 8)
-            // scatteredTriangles[i].scale.z += Math.sin(time + i) / (2200 + i * 8)
+    // for (let i = 0; i < scatteredTriangles.length; i++) {
+    //     if(!scatteredTriangles[i].hovered){
+    //     scatteredTriangles[i].animVar = i
+    //     scatteredTriangles[i].position.y += Math.sin(time + i) / (800 + i * 8)
+    //     scatteredTriangles[i].position.x += Math.sin(time + i) / (800 + i * 8)
+    //     {
+    //         scatteredTriangles[i].scale.x += Math.sin(time + i) / (2200 + i * 8)
+    //         scatteredTriangles[i].scale.y += Math.sin(time + i) / (2200 + i * 8)
+    //         // scatteredTriangles[i].scale.z += Math.sin(time + i) / (2200 + i * 8)
 
-        }
-    }
-    }
+    //     }
+    // }
+    // }
 }
 
 
@@ -171,7 +171,7 @@ export const scatterTriangles = (array) => {
         new TWEEN.Tween(position).to(finalPosition, 2000).easing(TWEEN.Easing.Quadratic.InOut).start(tween_time_value)
         new TWEEN.Tween(rotation).to(new THREE.Vector3(-Math.PI/7.5 , Math.PI/4 , rotationValue + (tour * sens)), 2000).easing(TWEEN.Easing.Quadratic.InOut).start(tween_time_value)
         
-        new TWEEN.Tween(scale).to(new THREE.Vector3(0.6*gScale,1*gScale,1*gScale), 2000).easing(TWEEN.Easing.Quadratic.InOut).start(tween_time_value)
+        new TWEEN.Tween(scale).to(new THREE.Vector3(0.6*gScale[i],1*gScale[i],1*gScale[i]), 2000).easing(TWEEN.Easing.Quadratic.InOut).start(tween_time_value)
         
         //Zero for GROUP TWEENS
         const trisPosOrigin = triangleGroup.position

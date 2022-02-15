@@ -21,6 +21,7 @@ export const loadTexts = () => {
         const letterGroup = new THREE.Group()
         const words = config.assets.texts[y]
         let lastPosX = 0;
+        let real_size = 0;
 
         for (let i = 0; i < words.length; i++) {
             const geometry = new THREE.TextGeometry(words.split("")[i], {
@@ -56,6 +57,7 @@ export const loadTexts = () => {
             boundingBox.applyMatrix4(mesh.matrixWorld);
 
             lastPosX = boundingBox.max.x
+            real_size += boundingBox.max.x - boundingBox.min.x
 
             letterGroup.add(text)
             text.layers.set(TRIANGLES_LAYER)
@@ -84,8 +86,8 @@ export const loadTexts = () => {
         scatteredTriangles[y].geometry.computeBoundingBox()
             
         /**TEXT PLACEMENT ADJUST IS HERE */
-        const adjustX = ((letterGroup.children.length * (config.assets.textSize + 2))/2) / 70
-        
+        const adjustX = (real_size *1.7) /2
+        // const adjustX = ((letterGroup.children.length * (config.assets.textSize *1.2))/1.8) / 72
         if(scatteredTriangles[y].textRevert){
             letterGroup.rotation.z = -Math.PI
             letterGroup.position.x += adjustX
