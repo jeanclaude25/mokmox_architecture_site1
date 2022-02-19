@@ -11,10 +11,13 @@ import { DigitalGlitch } from './shaders/glitch/DigitalGlitch'
 
 
 import { config } from './a_config'
-import { scene, sizes } from './c_scene'
+import { scene } from './c_scene'
 import { renderer } from './d_renderer'
 import { camera } from './e_camera'
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass'
+
+import backgroundVertexShader from './shaders/background/vertex.glsl' 
+import backgroundFragmentShader from './shaders/background/fragment.glsl'
 
 
 export const passes = []
@@ -24,36 +27,48 @@ const renderPass = new RenderPass(scene, camera)
 /**For glitch pass */
 export const glitchCompose = new EffectComposer(renderer)
 passes.push(glitchCompose)
-glitchCompose.setPixelRatio(config.scene.pixelRatio)
-glitchCompose.setSize(sizes.width, sizes.height)
 glitchCompose.addPass(renderPass)
 
-// export const glitchCustomPass = new ShaderPass(DigitalGlitch)
+
 export const glitchCustomPass = new GlitchPass(20)
 
 glitchCompose.addPass(glitchCustomPass)
 const gl_sao = new SAOPass(scene,camera)
 glitchCompose.addPass(gl_sao)
 
-// tDisp texture
-// const textureLoader = new THREE.TextureLoader()
-// const cellNoise = textureLoader.load('./cell.jpg')
-// glitchCustomPass.uniforms.tDisp.value = cellNoise
-
 const renderPass2 = new RenderPass(scene, camera)
 export const uBloomCompose = new EffectComposer(renderer)
 passes.push(uBloomCompose)
-uBloomCompose.setPixelRatio(config.scene.pixelRatio)
-uBloomCompose.setSize(sizes.width, sizes.height)
 uBloomCompose.addPass(renderPass2)
 const uBloom = new UnrealBloomPass()
 uBloom.threshold = 0.088
 uBloom.radius = 0.058
 uBloom.strength = 2.118
-// uBloom.bloomTintColors = '#ffffff'
 uBloomCompose.addPass(uBloom)
 const uB_sao = new SAOPass(scene,camera)
 uBloomCompose.addPass(uB_sao)
+
+//Third renderpass for noise
+const NoiseShader = {
+    uniforms: {
+        tDiffuse:{ value: null},
+        u_time:{value: null},
+        uResolution:{value:new THREE.Vector2(60,60)},
+        uFrequency:{value: 1}
+
+    },
+    vertexShader: backgroundVertexShader,
+    fragmentShader: backgroundFragmentShader
+}
+const renderPass3 = new RenderPass(scene, camera)
+export const noiseCompose = new EffectComposer(renderer)
+passes.push(noiseCompose)
+noiseCompose.addPass(renderPass2)
+export const uCustom = new ShaderPass(NoiseShader)
+uCustom.material.transparent = true
+noiseCompose.addPass(uCustom)
+const uB_sao2 = new SAOPass(scene,camera)
+noiseCompose.addPass(uB_sao2)
 
 /**FOR DEBUG */
 if(window.location.href.includes(config.debug.commandLine)){

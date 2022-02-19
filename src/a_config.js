@@ -6,7 +6,7 @@ export const config = {
     },
     scene:{
         antialias:{
-            enable: true
+            enable: false
         },
         alpha: true,
         pixelRatio: 2

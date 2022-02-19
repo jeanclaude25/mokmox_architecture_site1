@@ -1,3 +1,4 @@
+import { create_background } from './p_background';
 import './style.css'
 
 
@@ -14,6 +15,7 @@ window.onload = () => {
         render();
         callNextFunction()
         events()
+        // create_background()
     }, 1000);
 
 }

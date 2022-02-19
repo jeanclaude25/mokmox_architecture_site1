@@ -109,19 +109,19 @@ export const finalTrianglePositionCalc = (i) => {
 
 export const triangleAnimation = (time) => {
     
-    // for (let i = 0; i < scatteredTriangles.length; i++) {
-    //     if(!scatteredTriangles[i].hovered){
-    //     scatteredTriangles[i].animVar = i
-    //     scatteredTriangles[i].position.y += Math.sin(time + i) / (800 + i * 8)
-    //     scatteredTriangles[i].position.x += Math.sin(time + i) / (800 + i * 8)
-    //     {
-    //         scatteredTriangles[i].scale.x += Math.sin(time + i) / (2200 + i * 8)
-    //         scatteredTriangles[i].scale.y += Math.sin(time + i) / (2200 + i * 8)
-    //         // scatteredTriangles[i].scale.z += Math.sin(time + i) / (2200 + i * 8)
+    for (let i = 0; i < scatteredTriangles.length; i++) {
+        if(!scatteredTriangles[i].hovered){
+        scatteredTriangles[i].animVar = i
+        scatteredTriangles[i].position.y += Math.sin(time + i) / (800 + i * 8)
+        scatteredTriangles[i].position.x += Math.sin(time + i) / (800 + i * 8)
+        {
+            scatteredTriangles[i].scale.x += Math.sin(time + i) / (2200 + i * 8)
+            scatteredTriangles[i].scale.y += Math.sin(time + i) / (2200 + i * 8)
+            // scatteredTriangles[i].scale.z += Math.sin(time + i) / (2200 + i * 8)
 
-    //     }
-    // }
-    // }
+        }
+    }
+    }
 }
 
 

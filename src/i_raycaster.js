@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { config } from './a_config';
-import { TRIANGLES_LAYER } from './cc_layers';
+import { BACKGROUND_LAYER, TRIANGLES_LAYER } from './cc_layers';
 import { scene, sizes } from "./c_scene";
 import { renderer } from './d_renderer';
 import { camera } from './e_camera'
@@ -49,12 +49,13 @@ export const pointerConvert = (pointer,window) => {
     
 
         const geometry = new THREE.PlaneBufferGeometry( 100, 100 )
-        const material = new THREE.MeshBasicMaterial( {color: 0xffff00, visible:false} )
+        const material = new THREE.MeshBasicMaterial( {color: 0xdadada, visible:false} )
         const plane = new THREE.Mesh( geometry, material );
         plane.name = 'zeroHover'
         loaded_objects.push(plane)
         onlyBackground.push(plane)
         plane.layers.set(TRIANGLES_LAYER)
+        // plane.position.set(0,0,-6)
         scene.add( plane )
 
         export const adjustZeroHover = (val) => plane.position.z = val

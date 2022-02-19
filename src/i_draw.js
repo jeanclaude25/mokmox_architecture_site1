@@ -8,7 +8,7 @@ import Stats from 'stats.js'
 import { config } from './a_config'
 import { lineMaterialShader } from './g_materials'
 import { BACKGROUND_LAYER, CENTRAL_STRUCTURE_LAYER, FOREGROUND_LAYER, MOUSEOVER_FX_LAYER, TRIANGLES_LAYER } from './cc_layers'
-import { glitchCustomPass , glitchCompose, uBloomCompose} from './dd_postProcess'
+import { glitchCustomPass , glitchCompose, uBloomCompose, noiseCompose, uCustom} from './dd_postProcess'
 
 import { allow_glitch, hovered_objects } from './k_events'
 import { allow_auto_tween, ending_tween} from './k_events_scroll'
@@ -49,6 +49,7 @@ export const render = () => {
     
     // glitchCustomPass.uniforms.uTime.value = elapsedTime 
 
+    uCustom.uniforms.u_time.value = elapsedTime
 
     controls.update()
     camera.updateProjectionMatrix()
@@ -78,19 +79,25 @@ export const render = () => {
     }
 }
 const renderBloom = () => {
+    noiseCompose.render()
+
     camera.layers.set(MOUSEOVER_FX_LAYER)
+
     renderer.render(scene, camera)
-    uBloomCompose.render()
+    uBloomCompose.render(scene, camera)
+
     camera.layers.enableAll()
     renderer.render(scene, camera)
+
 }
 const renderAll = () => {
+    noiseCompose.render()
     camera.layers.enableAll()
     renderer.render(scene, camera)
+    
 }
 const renderGlitch = () => {
-    camera.layers.set(BACKGROUND_LAYER)
-    renderer.render(scene, camera)
+    noiseCompose.render()
 
     camera.layers.set(CENTRAL_STRUCTURE_LAYER)
 
@@ -103,6 +110,9 @@ const renderGlitch = () => {
     }
 
     camera.layers.set(MOUSEOVER_FX_LAYER)
+    renderer.render(scene, camera)
+    
+    camera.layers.set(BACKGROUND_LAYER)
     renderer.render(scene, camera)
 
     camera.layers.set(TRIANGLES_LAYER)
