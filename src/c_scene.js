@@ -6,6 +6,9 @@ import { config } from './a_config'
 export const canvas = document.querySelector("#container")
 export const container = document.getElementById("container")
 
+
+
+
 //Html canvas size
 export const sizes = {
             width: null ,
@@ -20,6 +23,7 @@ refreshSizes()
 
 // Scene
 export const scene = new THREE.Scene()
+// scene.background = new THREE.Color('grey')
 scene.position.x -= 0.4
 
 //create Groups

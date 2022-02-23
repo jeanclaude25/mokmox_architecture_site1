@@ -11,21 +11,22 @@ export const create_background = () => {
 
 
         const geometry = new THREE.PlaneBufferGeometry( 25, 25 )
-        const material = new THREE.RawShaderMaterial({
-            vertexShader: linesHoverVertexShader,
-            fragmentShader: linesHoverFragmentShader,
-            side: THREE.DoubleSide,
-            transparent:true,
-            uniforms:{
-                uSizeRail: {value: 20},
-                uModulo: {value: 0.486},
-                uRotation: {value: 0.5},
-                uOpacity: {value:1},
-                uColor: {value: new THREE.Color(config.onHover.color.line)},
-                uTime: {value: config.onHover.timeForLine},
-                uMultiplier : {value: 2.0}
-            }
-        })
+        // const material = new THREE.RawShaderMaterial({
+        //     vertexShader: linesHoverVertexShader,
+        //     fragmentShader: linesHoverFragmentShader,
+        //     side: THREE.DoubleSide,
+        //     transparent:true,
+        //     uniforms:{
+        //         uSizeRail: {value: 20},
+        //         uModulo: {value: 0.486},
+        //         uRotation: {value: 0.5},
+        //         uOpacity: {value:1},
+        //         uColor: {value: new THREE.Color(config.onHover.color.line)},
+        //         uTime: {value: config.onHover.timeForLine},
+        //         uMultiplier : {value: 2.0}
+        //     }
+        // })
+        const material = new THREE.MeshStandardMaterial({color: new THREE.Color('red')})
         const background = new THREE.Mesh( geometry, material );
         background.name = 'background'
         // loaded_objects.push(plane)
@@ -34,7 +35,7 @@ export const create_background = () => {
         background.layers.set(BACKGROUND_LAYER)
         scene.add( background )
 
-                /**FOR DEBUG */
+//                 /**FOR DEBUG */
 if(window.location.href.includes(config.debug.commandLine)){
 
     /**

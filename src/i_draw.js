@@ -47,20 +47,21 @@ export const render = () => {
         myScene2.rotateOnAxis(new THREE.Vector3(0, 1, 0), 0.005)
     }
     
-    // glitchCustomPass.uniforms.uTime.value = elapsedTime 
+
 
     uCustom.uniforms.u_time.value = elapsedTime
 
     controls.update()
     camera.updateProjectionMatrix()
 
+
     if(allow_glitch){
         renderGlitch()
     }else{
         if(hovered_objects){
             if(hovered_objects.name !== 'zeroHover'){
-                // renderBloom()
-                renderAll()
+                renderBloom()
+                // renderAll()
             }else{
                 renderAll()
             }
@@ -79,7 +80,7 @@ export const render = () => {
     }
 }
 const renderBloom = () => {
-    noiseCompose.render()
+    // noiseCompose.render()
 
     camera.layers.set(MOUSEOVER_FX_LAYER)
 
@@ -91,13 +92,15 @@ const renderBloom = () => {
 
 }
 const renderAll = () => {
-    noiseCompose.render()
+    // noiseCompose.render()
+
     camera.layers.enableAll()
     renderer.render(scene, camera)
     
 }
 const renderGlitch = () => {
-    noiseCompose.render()
+    // noiseCompose.render()
+
 
     camera.layers.set(CENTRAL_STRUCTURE_LAYER)
 

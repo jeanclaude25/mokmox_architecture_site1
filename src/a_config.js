@@ -6,10 +6,10 @@ export const config = {
     },
     scene:{
         antialias:{
-            enable: false
+            enable: !false
         },
         alpha: true,
-        pixelRatio: 2
+        pixelRatio: 1
 
     },
     camera:{

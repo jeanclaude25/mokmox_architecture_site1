@@ -1,8 +1,7 @@
 import * as THREE from 'three'
 import { config } from './a_config'
 import { container, sizes } from './c_scene'
-
-
+import { create_html } from './a_html'
 /**
  * Renderer
  */
@@ -22,4 +21,9 @@ resizeRenderer(renderer)
 
 renderer.autoClear = false
 
-container.insertBefore(renderer.domElement, container.firstChild)
+const element = create_html(container) //To have flexbox to work with
+
+element.insertBefore(renderer.domElement, element.firstChild)
+renderer.domElement.className = 'canvasWebGl'
+console.log(renderer.domElement)
+

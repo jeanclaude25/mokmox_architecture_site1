@@ -7,7 +7,8 @@ import { GlitchPass } from './postProcessing/glitchPass/GlitchPass'
 import { UnrealBloomPass } from './postProcessing/bloomPass/UnrealBloomPass'
 import { SAOPass } from './postProcessing/saoPass/SAOPass'
 
-import { DigitalGlitch } from './shaders/glitch/DigitalGlitch'
+import {FilmPass} from 'three/examples/jsm/postprocessing/FilmPass'
+
 
 
 import { config } from './a_config'
@@ -24,10 +25,12 @@ export const passes = []
 
 const renderPass = new RenderPass(scene, camera)
 
+
 /**For glitch pass */
 export const glitchCompose = new EffectComposer(renderer)
 passes.push(glitchCompose)
 glitchCompose.addPass(renderPass)
+
 
 
 export const glitchCustomPass = new GlitchPass(20)
@@ -60,15 +63,16 @@ const NoiseShader = {
     vertexShader: backgroundVertexShader,
     fragmentShader: backgroundFragmentShader
 }
-const renderPass3 = new RenderPass(scene, camera)
+// const renderPass3 = new RenderPass(scene, camera)
 export const noiseCompose = new EffectComposer(renderer)
-passes.push(noiseCompose)
-noiseCompose.addPass(renderPass2)
+// passes.push(noiseCompose)
+// noiseCompose.addPass(renderPass2)
 export const uCustom = new ShaderPass(NoiseShader)
-uCustom.material.transparent = true
-noiseCompose.addPass(uCustom)
-const uB_sao2 = new SAOPass(scene,camera)
-noiseCompose.addPass(uB_sao2)
+// uCustom.material.transparent = true
+// noiseCompose.addPass(uCustom)
+// const uB_sao2 = new SAOPass(scene,camera)
+// noiseCompose.addPass(uB_sao2)
+
 
 /**FOR DEBUG */
 if(window.location.href.includes(config.debug.commandLine)){

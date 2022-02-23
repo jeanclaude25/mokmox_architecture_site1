@@ -32,12 +32,12 @@ const finalAngle = [-0.615, 0.94, -3.114, 0.05, 0.5, -2.6, 0.769, 0.71]
 
 //2 Assign boxes div
 const mobileOrderList = [
-    'box_02', 'box_03', 'box_04', 'box_05',
-    'box_42', 'box_43', 'box_44', 'box_45'
+    'box_12', 'box_13', 'box_14', 'box_15',
+    'box_52', 'box_53', 'box_54', 'box_55'
 ]
 const pcOrderList = [
-    'box_44', 'box_24', 'box_25', 'box_15',
-    'box_31', 'box_01', 'box_43', 'box_22'
+    'box_54', 'box_34', 'box_35', 'box_25',
+    'box_41', 'box_11', 'box_53', 'box_32'
 ]
 const getBoxesList = () => isMobile()?mobileOrderList:pcOrderList
 
