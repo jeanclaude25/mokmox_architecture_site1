@@ -55,6 +55,7 @@ export const render = () => {
     camera.updateProjectionMatrix()
 
 
+    noiseCompose.render()
     if(allow_glitch){
         renderGlitch()
     }else{
@@ -80,8 +81,6 @@ export const render = () => {
     }
 }
 const renderBloom = () => {
-    // noiseCompose.render()
-
     camera.layers.set(MOUSEOVER_FX_LAYER)
 
     renderer.render(scene, camera)
@@ -92,16 +91,11 @@ const renderBloom = () => {
 
 }
 const renderAll = () => {
-    // noiseCompose.render()
-
     camera.layers.enableAll()
     renderer.render(scene, camera)
-    
 }
+
 const renderGlitch = () => {
-    // noiseCompose.render()
-
-
     camera.layers.set(CENTRAL_STRUCTURE_LAYER)
 
     if(allow_glitch && ending_tween && trianglesFloat){

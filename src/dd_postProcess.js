@@ -63,15 +63,15 @@ const NoiseShader = {
     vertexShader: backgroundVertexShader,
     fragmentShader: backgroundFragmentShader
 }
-// const renderPass3 = new RenderPass(scene, camera)
+const renderPass3 = new RenderPass(scene, camera)
 export const noiseCompose = new EffectComposer(renderer)
-// passes.push(noiseCompose)
-// noiseCompose.addPass(renderPass2)
+passes.push(noiseCompose)
+noiseCompose.addPass(renderPass3)
 export const uCustom = new ShaderPass(NoiseShader)
-// uCustom.material.transparent = true
-// noiseCompose.addPass(uCustom)
-// const uB_sao2 = new SAOPass(scene,camera)
-// noiseCompose.addPass(uB_sao2)
+uCustom.material.transparent = true
+noiseCompose.addPass(uCustom)
+const uB_sao2 = new SAOPass(scene,camera)
+noiseCompose.addPass(uB_sao2)
 
 
 /**FOR DEBUG */
