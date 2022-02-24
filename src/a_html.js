@@ -4,13 +4,13 @@ const columnNumber = [8,8,7,7,7,8,8]
 
 export const create_html = (container) => {
     // console.log(container)
-    // //Create a cont
-    // const s_cont = document.createElement('div')
-    // s_cont.style.display = 'absolute'
-    // s_cont.style.width = '100%'
-    // s_cont.style.height = '100%'
-    // s_cont.className = 's_container'
-    // container.append(s_cont)
+    //Create a cont
+    const s_cont = document.createElement('div')
+    s_cont.style.display = 'block'
+    s_cont.style.width = '100vw'
+    s_cont.style.height = '100vh'
+    s_cont.className = 's_container'
+    container.insertBefore(s_cont, container.firstChild)
 
     const bbox = document.createElement('div')
     bbox.style.display = 'flex'
@@ -21,7 +21,7 @@ export const create_html = (container) => {
     bbox.style.height = '100%'
 
     bbox.className = "bbox"
-    container.append(bbox)
+    s_cont.append(bbox)
 
     for(let i=0; i<7; i++){
         const line = document.createElement('div')
@@ -33,7 +33,7 @@ export const create_html = (container) => {
 
         create_column(line,i)
     }
-    // return s_cont
+    return s_cont
 }
 
 const create_column = (group,num) => {
