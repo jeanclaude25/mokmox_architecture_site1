@@ -23,7 +23,7 @@ renderer.autoClear = false
 
 const element = create_html(container) //To have flexbox to work with
 
-element.insertBefore(renderer.domElement, element.firstChild)
-renderer.domElement.className = 'canvasWebGl'
-console.log(renderer.domElement)
+// element.insertBefore(renderer.domElement, element.firstChild)
+container.insertBefore(renderer.domElement, container.firstChild)
 
+renderer.domElement.className = 'canvasWebGl'
