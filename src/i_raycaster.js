@@ -32,7 +32,6 @@ export const pointerConvert = (pointer,window) => {
        positionFromRaycast.y = intersects[0].point.y
       }
    }
-
    return intersects
  }
 

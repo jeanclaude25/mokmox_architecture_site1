@@ -6,7 +6,7 @@ export const config = {
     },
     scene:{
         antialias:{
-            enable: !false
+            enable: true
         },
         alpha: true,
         pixelRatio: 1
@@ -23,7 +23,7 @@ export const config = {
         resizeTime:1
     },
     assets:{
-        enableTriangleAnim: !false,
+        enableTriangleAnim: true,
         defaultColor:'grey',
         textSize: 10 ,
         texts:['CAREERS', 'CLIENTS', 'BROCHURES', 'CONTACTS', 'ABOUT+US', 'NEWS', 'GALLERY', 'OUR+WORK'],

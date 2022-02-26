@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { renderer } from './d_renderer'
-import { pyramidGroup, scene } from './c_scene'
+import { pyramidGroup, scene, sizes } from './c_scene'
 import { camera } from './e_camera'
 import { controls } from './i_controls'
 import { triangleAnimation, trianglesFloat } from './j_animation'
@@ -8,7 +8,7 @@ import Stats from 'stats.js'
 import { config } from './a_config'
 import { lineMaterialShader } from './g_materials'
 import { BACKGROUND_LAYER, CENTRAL_STRUCTURE_LAYER, FOREGROUND_LAYER, MOUSEOVER_FX_LAYER, TRIANGLES_LAYER } from './cc_layers'
-import { glitchCustomPass , glitchCompose, uBloomCompose, noiseCompose, uCustom} from './dd_postProcess'
+import { glitchCustomPass , glitchCompose, uBloomCompose, noiseCompose, uCustom, glitchVal} from './dd_postProcess'
 
 import { allow_glitch, hovered_objects } from './k_events'
 import { allow_auto_tween, ending_tween} from './k_events_scroll'
@@ -49,20 +49,22 @@ export const render = () => {
     
 
 
-    uCustom.uniforms.u_time.value = elapsedTime
+    uCustom.uniforms.uTime.value = elapsedTime
+    // glitchCustomPass.uniforms.uTimeNoise.value = elapsedTime
 
     controls.update()
     camera.updateProjectionMatrix()
 
 
     noiseCompose.render()
+
     if(allow_glitch){
         renderGlitch()
     }else{
         if(hovered_objects){
             if(hovered_objects.name !== 'zeroHover'){
-                renderBloom()
-                // renderAll()
+                // renderBloom()
+                renderAll()
             }else{
                 renderAll()
             }
@@ -88,33 +90,31 @@ const renderBloom = () => {
 
     camera.layers.enableAll()
     renderer.render(scene, camera)
-
 }
+
 const renderAll = () => {
     camera.layers.enableAll()
     renderer.render(scene, camera)
 }
 
 const renderGlitch = () => {
+
     camera.layers.set(CENTRAL_STRUCTURE_LAYER)
+    
+    
+    glitchCustomPass.uniforms.seed_x.value = allow_glitch? glitchVal.seedX:0
+    glitchCustomPass.uniforms.col_s.value = allow_glitch? glitchVal.col_S:0
+    
 
     if(allow_glitch && ending_tween && trianglesFloat){
         glitchCompose.render()
     }else{
-        glitchCustomPass.uniforms.seed_x.value = Math.random(0,1)
-        glitchCustomPass.uniforms.col_s.value = Math.random(0,1)/5 + 0.05
         renderer.render(scene, camera)
     }
 
     camera.layers.set(MOUSEOVER_FX_LAYER)
     renderer.render(scene, camera)
     
-    camera.layers.set(BACKGROUND_LAYER)
-    renderer.render(scene, camera)
-
     camera.layers.set(TRIANGLES_LAYER)
-    renderer.render(scene, camera)
-
-    camera.layers.set(FOREGROUND_LAYER)
     renderer.render(scene, camera)
 }

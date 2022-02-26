@@ -6,7 +6,8 @@ export const create_html = (container) => {
     // console.log(container)
     //Create a cont
     const s_cont = document.createElement('div')
-    s_cont.style.display = 'block'
+    // s_cont.style.display = 'block'
+    // s_cont.style.position = 'relative'
     s_cont.style.width = '100vw'
     s_cont.style.height = '100vh'
     s_cont.className = 's_container'
@@ -17,8 +18,8 @@ export const create_html = (container) => {
     bbox.style.flexDirection = 'column'
     bbox.style.alignItems = 'center'
     bbox.style.justifyContent = 'center'
-    bbox.style.width = '100%'
-    bbox.style.height = '100%'
+    bbox.style.width = '100vw'
+    bbox.style.height = '100vh'
 
     bbox.className = "bbox"
     s_cont.append(bbox)

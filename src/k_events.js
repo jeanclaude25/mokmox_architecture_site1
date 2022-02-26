@@ -6,6 +6,7 @@ import { renderer, resizeRenderer } from "./d_renderer";
 import { cameraUpdate } from "./e_camera";
 import { changeUniformsColor } from './g_materials';
 import { objectFromRaycast, pointerConvert } from './i_raycaster';
+import { trianglesFloat } from "./j_animation";
 import { enableScroll, ending_tween } from './k_events_scroll';
 import { loaded_objects } from './m_tween';
 import { responsiveTranslate } from './o_responsive';
@@ -103,7 +104,7 @@ export let allow_glitch = false
         if(!ob.hovered ){
             ob.hovered = true
             scene.hoveredIsNull = false
-            if(ob.name === 'logo'){
+            if(ob.name === 'logo' && ending_tween && trianglesFloat){
                 enableGlitchEffect(true)
             }
             if(ob.name!=='zeroHover' && ob.name!=='logo'){
@@ -130,6 +131,6 @@ const hoveredObjects = (ob) => ob.length>0 && config.onHover.enable? setObjectHo
 const enableGlitchEffect = (val) =>{
 allow_glitch = true
 setTimeout(()=>{
-    allow_glitch = false
+    // allow_glitch = false
 }, config.onHover.glitchTime * 1000)
 }

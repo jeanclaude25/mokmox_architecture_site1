@@ -5,7 +5,8 @@ import { loadTexts } from './l_texts'
 import { enableScroll, remove_scrollLogic } from './k_events_scroll'
 import { tween_time_value } from './i_draw'
 import { objectFromRaycast, onlyBackground, pointerConvert } from './i_raycaster'
-import { triangleGroup } from './c_scene'
+import { container, triangleGroup } from './c_scene'
+import { renderer } from './d_renderer'
 
 export let trianglesFloat = false
 export const scatteredTriangles = []
@@ -51,9 +52,12 @@ const getBoxSizes = (div) => {
 }
 //3 get boxes'centers
 const getBoxCenter = (div) => {
+    const rect = renderer.domElement.getBoundingClientRect();
     const point = {
-        x: (div.clientWidth /2) + div.offsetLeft,
-        y: (div.clientHeight /2) + div.offsetTop
+        x: (div.clientWidth /2) + div.offsetLeft + rect.left,
+        // y: (div.clientHeight /2) + div.offsetTop + rect.top 
+
+        y: (div.clientHeight /2) + div.offsetTop + rect.top - container.clientHeight
     }
     return point
 }
@@ -70,20 +74,18 @@ export const getBoxCenterList = () =>{
 const updateBoxesPosition = () => {
     const list = getBoxesList()
     const instance_list = { x:[], y:[], z:[]}
-    list.forEach((child)=>{
+    list.forEach((child, index)=>{
         //uniformise
     const calibrate = pointerConvert(getBoxCenter(document.getElementById(child)))  
-    //convert to 3d unit
     const obUnit = objectFromRaycast(calibrate ,onlyBackground)
-        
+
     instance_list.x.push(obUnit[0].point.x)
     instance_list.y.push(obUnit[0].point.y)
     instance_list.z.push(obUnit[0].point.z)
-
     })
 
         finalTrianglePosition.x = instance_list.x
-        finalTrianglePosition.y = instance_list.y
+        finalTrianglePosition.y = instance_list.y 
         finalTrianglePosition.z = instance_list.z
 }
 
